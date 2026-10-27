@@ -1,0 +1,280 @@
+<!doctype html>
+<html lang="th">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>ตอบรับคำเชิญ · Our Day</title>
+<meta name="description" content="ร่วมเป็นส่วนหนึ่งในวันสำคัญของเรา ตอบรับคำเชิญได้ที่นี่">
+<!-- แก้สามบรรทัดนี้ให้เป็นชื่อและรูปจริง เพื่อให้ลิงก์ที่แชร์ใน LINE แสดงตัวอย่างสวยงาม (og:image ต้องเป็น URL เต็ม) -->
+<meta property="og:title" content="ตอบรับคำเชิญงานแต่งงานของเรา">
+<meta property="og:description" content="27 ตุลาคม 2570 · ตอบรับเพื่อให้เราเตรียมที่นั่งให้คุณ">
+<meta property="og:image" content="">
+<meta name="theme-color" content="#F7F3EC">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Anuphan:wght@300;400;500;600&family=Trirong:ital,wght@0,300;0,400;0,500;1,300;1,400&display=swap">
+<style>
+/* Layout: one narrow letterpress column; full-bleed photo cover, then sections separated by hairline ornaments. Deliberately single (light) theme like a printed card. */
+:root{
+  color-scheme:light;
+  --paper:#F7F3EC; --card:#FFFDF8; --ink:#2C2823; --ink-2:#6A6157; --ink-3:#9B9184; --line:#E3D9C8;
+  --sage:#6C8466; --sage-deep:#4C6347; --sage-soft:#E3EADD; --rose:#B27F7A; --gold:#B4935A; --bad:#A94B43; --on-accent:#FFFFFF;
+  --f-display:"Trirong","Noto Serif Thai",Georgia,serif; --f-body:"Anuphan","Noto Sans Thai","Leelawadee UI",system-ui,sans-serif;
+}
+*{box-sizing:border-box}
+html,body{margin:0}
+body{background:var(--paper);color:var(--ink);font-family:var(--f-body);font-size:16px;line-height:1.7;-webkit-font-smoothing:antialiased;padding-bottom:env(safe-area-inset-bottom,0px)}
+img{max-width:100%;display:block}
+[hidden]{display:none!important}
+h1,h2,h3{font-family:var(--f-display);font-weight:400;line-height:1.25;margin:0;text-wrap:balance}
+p{margin:0}
+a{color:var(--sage-deep)}
+:focus-visible{outline:2px solid var(--sage);outline-offset:3px;border-radius:6px}
+.wrap{max-width:640px;margin:0 auto;padding-left:max(20px,env(safe-area-inset-left,0px));padding-right:max(20px,env(safe-area-inset-right,0px))}
+.demo{background:#F1E6CF;color:var(--ink);text-align:center;font-size:.85rem;padding:8px max(16px,env(safe-area-inset-right,0px)) 8px max(16px,env(safe-area-inset-left,0px));padding-top:calc(8px + env(safe-area-inset-top,0px))}
+
+/* cover */
+.cover{position:relative;min-height:min(92vh,760px);display:grid;place-items:end center;text-align:center;color:var(--ink);overflow:hidden;background:var(--paper)}
+.cover.has-photo{color:#FFFDF8}
+.cover .bg{position:absolute;inset:0;background-size:cover;background-position:center}
+.cover.has-photo::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(30,26,20,.05) 30%,rgba(30,26,20,.62) 100%)}
+.cover .inner{position:relative;z-index:1;padding:48px 20px calc(56px + env(safe-area-inset-bottom,0px));display:flex;flex-direction:column;align-items:center;gap:14px;width:100%}
+.mono{width:132px;height:88px;margin-bottom:8px}
+.cover.has-photo .mono{display:none}
+.kicker{font-size:.95rem;color:inherit;opacity:.85}
+.names{font-size:clamp(2.6rem,8vw,4.4rem);font-weight:300;line-height:1.1}
+.names i{display:block;font-size:.5em;color:var(--gold);margin:.15em 0}
+.cover.has-photo .names i{color:#F0DDB4}
+.date-th{font-family:var(--f-display);font-size:1.15rem}
+.date-num{font-family:var(--f-display);letter-spacing:.3em;font-size:.95rem;opacity:.85}
+.count{font-size:.9rem;opacity:.9}
+.cta{display:inline-flex;align-items:center;gap:8px;margin-top:10px;padding:12px 28px;border-radius:999px;background:var(--sage);color:var(--on-accent);text-decoration:none;font-weight:500;min-height:48px}
+.cta:hover{background:var(--sage-deep)}
+
+/* sections */
+section{padding:56px 0}
+.orn{display:flex;align-items:center;justify-content:center;gap:12px;color:var(--gold);margin-bottom:22px}
+.orn::before,.orn::after{content:"";height:1px;width:56px;background:var(--line)}
+.orn svg{width:22px;height:22px}
+.sec-title{text-align:center;font-size:1.8rem;margin-bottom:18px}
+.lead{text-align:center;color:var(--ink-2);font-size:1.02rem;max-width:34em;margin:0 auto}
+
+.gallery{columns:2;column-gap:10px;max-width:900px;margin:0 auto;padding:0 max(12px,env(safe-area-inset-left,0px)) 0 max(12px,env(safe-area-inset-right,0px))}
+.gallery button{display:block;width:100%;margin:0 0 10px;padding:0;border:none;background:none;cursor:zoom-in;border-radius:14px;overflow:hidden;break-inside:avoid}
+.gallery img{width:100%;height:auto;transition:transform .4s ease}
+.gallery button:hover img{transform:scale(1.03)}
+@media (min-width:760px){.gallery{columns:3}}
+
+.details{display:grid;gap:14px}
+.d-row{display:grid;grid-template-columns:44px 1fr;gap:14px;align-items:start;background:var(--card);border:1px solid var(--line);border-radius:18px;padding:18px}
+.d-row svg{width:26px;height:26px;color:var(--sage);margin-top:3px}
+.d-row h3{font-size:1.15rem}
+.d-row p{color:var(--ink-2)}
+.d-row .time{font-family:var(--f-display);font-size:1.25rem;color:var(--ink);font-variant-numeric:tabular-nums}
+
+/* form */
+.formcard{background:var(--card);border:1px solid var(--line);border-radius:24px;padding:28px 22px;box-shadow:0 10px 40px rgba(70,55,30,.06)}
+form{display:flex;flex-direction:column;gap:18px}
+.field{display:flex;flex-direction:column;gap:6px;min-width:0}
+.field>label,.legend{font-size:.92rem;font-weight:500;color:var(--ink)}
+.req{color:var(--rose)}
+.hint{font-size:.8rem;color:var(--ink-3)}
+.err{font-size:.82rem;color:var(--bad)}
+input[type=text],input[type=email],input[type=tel],select,textarea{width:100%;font:inherit;color:var(--ink);background:var(--paper);border:1px solid var(--line);border-radius:12px;padding:12px 14px;min-height:48px}
+textarea{resize:vertical;min-height:96px}
+[aria-invalid="true"]{border-color:var(--bad)!important}
+.row2{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+@media (max-width:520px){.row2{grid-template-columns:1fr}}
+fieldset{border:none;margin:0;padding:0;min-width:0}
+.choices{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:8px}
+@media (max-width:520px){.choices{grid-template-columns:1fr}}
+.choice{position:relative}
+.choice input{position:absolute;opacity:0;inset:0;width:100%;height:100%;margin:0;cursor:pointer}
+.choice span{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;text-align:center;min-height:76px;padding:12px;border:1px solid var(--line);border-radius:16px;background:var(--paper);transition:border-color .15s,background .15s}
+.choice span b{font-family:var(--f-display);font-weight:400;font-size:1.1rem}
+.choice span small{font-size:.78rem;color:var(--ink-3)}
+.choice input:checked+span{border-color:var(--sage);background:var(--sage-soft);box-shadow:inset 0 0 0 1px var(--sage)}
+.choice input:focus-visible+span{outline:2px solid var(--sage);outline-offset:2px}
+.choices.side{grid-template-columns:repeat(3,1fr)}
+.choices.side span{min-height:52px}
+.consent{display:flex;gap:10px;align-items:flex-start;font-size:.86rem;color:var(--ink-2)}
+.consent input{width:20px;height:20px;margin-top:3px;accent-color:var(--sage);flex:none}
+.submit{font:inherit;font-weight:500;border:none;border-radius:999px;background:var(--sage);color:var(--on-accent);padding:14px 28px;min-height:52px;cursor:pointer;font-size:1.02rem}
+.submit:hover{background:var(--sage-deep)}
+.submit[disabled]{opacity:.6;cursor:progress}
+.hp{position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden}
+.alert{background:#F6E2DF;color:var(--bad);border-radius:12px;padding:12px 14px;font-size:.9rem}
+.closed{background:#F1E6CF;border-radius:12px;padding:12px 14px;font-size:.9rem;text-align:center}
+
+.thanks{text-align:center;display:flex;flex-direction:column;align-items:center;gap:14px}
+.thanks h2{font-size:1.9rem}
+.cal-btns{display:flex;gap:10px;flex-wrap:wrap;justify-content:center}
+.btn2{display:inline-flex;align-items:center;gap:8px;border:1px solid var(--line);background:var(--paper);color:var(--ink);border-radius:999px;padding:10px 18px;text-decoration:none;font:inherit;font-size:.92rem;cursor:pointer;min-height:44px}
+.btn2:hover{border-color:var(--sage)}
+.linkbtn{background:none;border:none;color:var(--sage-deep);text-decoration:underline;font:inherit;cursor:pointer;padding:4px}
+
+footer{text-align:center;color:var(--ink-3);font-size:.85rem;padding:24px 0 48px}
+footer .names-s{font-family:var(--f-display);font-size:1.3rem;color:var(--ink-2)}
+
+dialog{border:none;padding:0;background:transparent;max-width:min(96vw,1100px);max-height:92vh}
+dialog::backdrop{background:rgba(20,17,13,.88)}
+dialog img{max-height:86vh;width:auto;margin:0 auto;border-radius:10px}
+.lb-bar{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-top:10px;color:#F7F3EC}
+.lb-bar button{background:rgba(255,255,255,.12);color:#F7F3EC;border:none;border-radius:999px;padding:8px 16px;font:inherit;cursor:pointer;min-height:40px}
+.fade{animation:rise .7s ease both}
+@keyframes rise{from{opacity:.4;transform:translateY(10px)}to{opacity:1;transform:none}}
+@media (prefers-reduced-motion: reduce){*{animation:none!important;transition:none!important}}
+</style>
+<script src="config.js"></script>
+</head>
+<body>
+<div class="demo" id="demo" hidden>ตัวอย่างหน้าเชิญ · ยังไม่ได้เชื่อมกับ Google Sheet คำตอบจะยังไม่ถูกส่ง</div>
+
+<header class="cover" id="cover">
+  <div class="bg" id="coverBg" aria-hidden="true"></div>
+  <div class="inner fade">
+    <svg class="mono" viewBox="0 0 132 88" aria-hidden="true" fill="none" stroke="#B4935A" stroke-width="1.2"><circle cx="50" cy="48" r="34"/><circle cx="82" cy="48" r="34" stroke="#6C8466"/><path d="M60 10 66 4l6 6" stroke-linecap="round"/></svg>
+    <p class="kicker">ขอเชิญร่วมงานมงคลสมรส</p>
+    <h1 class="names" id="names"></h1>
+    <p class="date-th" id="dateTh"></p>
+    <p class="date-num" id="dateNum"></p>
+    <p class="count" id="count"></p>
+    <a class="cta" href="#rsvp">ตอบรับคำเชิญ</a>
+  </div>
+</header>
+
+<main>
+  <section class="wrap" aria-labelledby="welcomeT">
+    <div class="orn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3" aria-hidden="true"><circle cx="9" cy="13" r="5.5"/><circle cx="15" cy="13" r="5.5"/></svg></div>
+    <h2 class="sec-title" id="welcomeT">ถึงแขกคนสำคัญของเรา</h2>
+    <p class="lead" id="welcome"></p>
+  </section>
+
+  <section id="gallerySec" hidden aria-labelledby="galT">
+    <div class="wrap"><div class="orn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3" aria-hidden="true"><rect x="3.5" y="4.5" width="17" height="15" rx="2"/><circle cx="9" cy="10" r="1.8"/><path d="m4 18 5-5 4 4 3-3 4 4"/></svg></div><h2 class="sec-title" id="galT">เรื่องราวของเรา</h2></div>
+    <div class="gallery" id="gallery"></div>
+  </section>
+
+  <section class="wrap" aria-labelledby="detT">
+    <div class="orn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3" aria-hidden="true"><rect x="3.5" y="5" width="17" height="15" rx="2"/><path d="M3.5 10h17M8 3v4M16 3v4"/></svg></div>
+    <h2 class="sec-title" id="detT">รายละเอียดงาน</h2>
+    <div class="details" id="details"></div>
+  </section>
+
+  <section class="wrap" id="rsvp" aria-labelledby="rsvpT">
+    <div class="orn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3" aria-hidden="true"><path d="M4 6h16v12H4z"/><path d="m4 7 8 6 8-6"/></svg></div>
+    <h2 class="sec-title" id="rsvpT">ตอบรับคำเชิญ</h2>
+    <p class="lead" id="rsvpBy" style="margin-bottom:22px"></p>
+    <div class="formcard">
+      <form id="form" novalidate>
+        <div class="closed" id="closedNote" hidden></div>
+        <div class="field"><label for="name">ชื่อ-นามสกุล <span class="req" aria-hidden="true">*</span></label><input id="name" name="name" type="text" autocomplete="name" maxlength="120" required aria-describedby="name_err"><p class="err" id="name_err" hidden></p></div>
+        <fieldset aria-describedby="rsvp_err"><legend class="legend">จะมาร่วมงานไหม <span class="req" aria-hidden="true">*</span></legend>
+          <div class="choices">
+            <label class="choice"><input type="radio" name="rsvp" value="yes"><span><b>ไปร่วมงาน</b><small>ยินดีมาก</small></span></label>
+            <label class="choice"><input type="radio" name="rsvp" value="maybe"><span><b>ยังไม่แน่ใจ</b><small>จะแจ้งอีกครั้ง</small></span></label>
+            <label class="choice"><input type="radio" name="rsvp" value="no"><span><b>ไม่สะดวก</b><small>ขอส่งใจไปร่วมยินดี</small></span></label>
+          </div><p class="err" id="rsvp_err" hidden></p></fieldset>
+        <div id="attendBlock" hidden style="display:flex;flex-direction:column;gap:18px">
+          <div class="row2">
+            <div class="field"><label for="plus">มากับผู้ติดตามกี่คน</label><select id="plus" name="plus"></select></div>
+            <div class="field"><label for="diet">ข้อจำกัดด้านอาหาร</label><input id="diet" name="diet" type="text" maxlength="200" placeholder="เช่น มังสวิรัติ แพ้กุ้ง"></div>
+          </div>
+          <div class="field"><label for="email">อีเมล</label><input id="email" name="email" type="email" autocomplete="email" inputmode="email" maxlength="120" aria-describedby="email_hint email_err"><p class="hint" id="email_hint">ใส่อีเมลเพื่อรับคำเชิญในปฏิทิน Google พร้อมวัน เวลา และสถานที่</p><p class="err" id="email_err" hidden></p></div>
+        </div>
+        <div class="field"><label for="phone">เบอร์โทร</label><input id="phone" name="phone" type="tel" autocomplete="tel" inputmode="tel" maxlength="20" placeholder="08x-xxx-xxxx" aria-describedby="phone_err"><p class="err" id="phone_err" hidden></p></div>
+        <fieldset><legend class="legend">คุณเป็นแขกของ</legend>
+          <div class="choices side">
+            <label class="choice"><input type="radio" name="side" value="A"><span><b id="sideA"></b></span></label>
+            <label class="choice"><input type="radio" name="side" value="B"><span><b id="sideB"></b></span></label>
+            <label class="choice"><input type="radio" name="side" value="both"><span><b>ทั้งสองคน</b></span></label>
+          </div></fieldset>
+        <div class="field"><label for="message">คำอวยพรถึงเรา</label><textarea id="message" name="message" maxlength="1000" placeholder="ไม่บังคับ"></textarea></div>
+        <div class="field" id="codeField" hidden><label for="code">รหัสจากการ์ดเชิญ <span class="req" aria-hidden="true">*</span></label><input id="code" name="code" type="text" autocomplete="off" maxlength="40" aria-describedby="code_err"><p class="err" id="code_err" hidden></p></div>
+        <div class="hp" aria-hidden="true"><label for="website">เว็บไซต์</label><input id="website" name="website" type="text" tabindex="-1" autocomplete="off"></div>
+        <label class="consent"><input type="checkbox" id="consent" aria-describedby="consent_err"><span>ยินยอมให้ใช้ข้อมูลนี้เพื่อการจัดงานแต่งงานครั้งนี้เท่านั้น ข้อมูลเห็นได้เฉพาะเจ้าของงาน และขอให้ลบได้ทุกเมื่อ</span></label>
+        <p class="err" id="consent_err" hidden></p>
+        <div class="alert" id="formErr" role="alert" hidden></div>
+        <button class="submit" type="submit" id="submitBtn">ส่งคำตอบ</button>
+      </form>
+      <div class="thanks" id="thanks" hidden tabindex="-1"></div>
+    </div>
+  </section>
+</main>
+
+<footer><p class="names-s" id="footNames"></p><p>ขอบคุณที่เป็นส่วนหนึ่งของเรื่องราวของเรา</p></footer>
+
+<dialog id="lb" aria-label="รูปภาพ"><img id="lbImg" alt=""><div class="lb-bar"><button type="button" id="lbPrev">ก่อนหน้า</button><span id="lbCap"></span><button type="button" id="lbNext">ถัดไป</button><button type="button" id="lbClose">ปิด</button></div></dialog>
+
+<script>
+(function(){
+"use strict";
+const C=Object.assign({nameA:'',nameB:'',weddingDate:'',partyTime:'18:00',endTime:'21:30',photos:[],supabaseUrl:'',supabaseKey:'',calendarEndpoint:'',maxPlus:3},window.RSVP_CONFIG||{});
+const TOKEN=(new URLSearchParams(location.search).get('k')||C.rsvpToken||'').trim();
+const LIVE=!!(TOKEN&&C.supabaseUrl&&C.supabaseKey);
+const $=id=>document.getElementById(id);
+const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const isISO=s=>/^\d{4}-\d{2}-\d{2}$/.test(s||'');
+const todayBKK=()=>{try{return new Intl.DateTimeFormat('en-CA',{timeZone:'Asia/Bangkok',year:'numeric',month:'2-digit',day:'2-digit'}).format(new Date())}catch(e){return new Date().toISOString().slice(0,10)}};
+const toUTC=s=>Date.parse(s+'T00:00:00Z');
+const thaiDate=s=>{try{return new Intl.DateTimeFormat('th-TH',{dateStyle:'full',timeZone:'UTC'}).format(new Date(toUTC(s)))}catch(e){return s}};
+const thaiShort=s=>{try{return new Intl.DateTimeFormat('th-TH',{day:'numeric',month:'long',year:'numeric',timeZone:'UTC'}).format(new Date(toUTC(s)))}catch(e){return s}};
+const ICON={clock:'<circle cx="12" cy="12" r="8.5"/><path d="M12 7.5V12l3 2"/>',pin:'<path d="M12 21s-7-6.1-7-11.5a7 7 0 0 1 14 0C19 14.9 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.5"/>',dress:'<path d="M9 3h6l-1 4 4 13H6l4-13z"/>',sun:'<circle cx="12" cy="12" r="4"/><path d="M12 3v2M12 19v2M3 12h2M19 12h2M5.6 5.6l1.4 1.4M17 17l1.4 1.4M5.6 18.4 7 17M17 7l1.4-1.4"/>'};
+const ic=n=>`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${ICON[n]}</svg>`;
+
+/* ---- content ---- */
+$('demo').hidden=LIVE;if(!LIVE&&C.supabaseUrl)$('demo').textContent='ลิงก์นี้ยังไม่ครบ กรุณาเปิดจากลิงก์ที่ได้รับจากเจ้าของงาน (หน้านี้แสดงเป็นตัวอย่าง)';
+$('names').innerHTML=`${esc(C.nameA)}<i>&amp;</i>${esc(C.nameB)}`;
+$('footNames').textContent=`${C.nameA} & ${C.nameB}`;
+$('sideA').textContent=C.nameA;$('sideB').textContent=C.nameB;
+document.title=`${C.nameA} & ${C.nameB} · ตอบรับคำเชิญ`;
+if(isISO(C.weddingDate)){$('dateTh').textContent=thaiDate(C.weddingDate);const [y,m,d]=C.weddingDate.split('-');$('dateNum').textContent=`${d} . ${m} . ${y}`;const days=Math.round((toUTC(C.weddingDate)-toUTC(todayBKK()))/864e5);$('count').textContent=days>0?`อีก ${days.toLocaleString('th-TH')} วัน`:days===0?'วันนี้คือวันของเรา':'ขอบคุณทุกคนที่มาร่วมงาน'}
+$('welcome').textContent=C.welcome||'';
+const photos=(C.photos||[]).filter(p=>p&&p.src);
+if(photos.length){$('cover').classList.add('has-photo');$('coverBg').style.backgroundImage=`url("${encodeURI(photos[0].src)}")`;
+  if(photos.length>1||true){$('gallerySec').hidden=false;$('gallery').innerHTML=photos.map((p,i)=>`<button type="button" data-i="${i}" aria-label="ดูรูป ${esc(p.alt||'')}"><img src="${esc(p.src)}" alt="${esc(p.alt||'')}" loading="lazy" decoding="async"></button>`).join('')}}
+const det=[];
+if(C.ceremonyTime)det.push(['sun','พิธีช่วงเช้า',`<span class="time">${esc(C.ceremonyTime)} น.</span>`]);
+det.push(['clock','งานเลี้ยงฉลอง',`<span class="time">${esc(C.partyTime)}${C.endTime?' – '+esc(C.endTime):''} น.</span><br>${esc(isISO(C.weddingDate)?thaiDate(C.weddingDate):'')}`]);
+det.push(['pin',esc(C.venueName||'สถานที่'),`${esc(C.venueAddress||'')}${C.mapUrl&&/^https:\/\//.test(C.mapUrl)?`<br><a href="${esc(C.mapUrl)}" target="_blank" rel="noopener">เปิดแผนที่</a>`:''}`]);
+if(C.dressCode)det.push(['dress','การแต่งกาย',esc(C.dressCode)]);
+$('details').innerHTML=det.map(([i,t,b])=>`<div class="d-row">${ic(i)}<div><h3>${t}</h3><p>${b}</p></div></div>`).join('');
+if(isISO(C.rsvpBy)){$('rsvpBy').textContent=`รบกวนตอบภายใน ${thaiShort(C.rsvpBy)} เพื่อให้เราเตรียมที่นั่งและอาหารได้พอดี`;if(todayBKK()>C.rsvpBy){const n=$('closedNote');n.hidden=false;n.textContent='เลยกำหนดตอบรับแล้ว แต่ยังส่งคำตอบได้ หากมีการเปลี่ยนแปลงรบกวนแจ้งเราโดยตรงด้วย'}}
+$('plus').innerHTML=Array.from({length:(+C.maxPlus||0)+1},(_,i)=>`<option value="${i}">${i===0?'มาคนเดียว':i+' คน'}</option>`).join('');
+$('codeField').hidden=!C.askInviteCode;
+
+/* ---- lightbox ---- */
+const lb=$('lb');let cur=0;
+function show(i){cur=(i+photos.length)%photos.length;$('lbImg').src=photos[cur].src;$('lbImg').alt=photos[cur].alt||'';$('lbCap').textContent=`${cur+1} / ${photos.length}`}
+$('gallery').addEventListener('click',e=>{const b=e.target.closest('[data-i]');if(!b)return;show(+b.dataset.i);if(lb.showModal)lb.showModal();else window.open(photos[cur].src,'_blank')});
+$('lbPrev').onclick=()=>show(cur-1);$('lbNext').onclick=()=>show(cur+1);$('lbClose').onclick=()=>lb.close();
+lb.addEventListener('click',e=>{if(e.target===lb)lb.close()});
+lb.addEventListener('keydown',e=>{if(e.key==='ArrowLeft')show(cur-1);if(e.key==='ArrowRight')show(cur+1)});
+
+/* ---- form ---- */
+const form=$('form');
+form.addEventListener('input',e=>{const id=e.target.id||e.target.name;const er=$(id+'_err');if(er&&!er.hidden){er.hidden=true;e.target.removeAttribute('aria-invalid')}});
+form.addEventListener('change',e=>{if(e.target.id==='consent'&&e.target.checked)setErr('consent','');if(e.target.name==='rsvp')setErr('rsvp','');if(e.target.name==='rsvp'){const v=e.target.value;$('attendBlock').hidden=v==='no';$('attendBlock').style.display=v==='no'?'none':'flex'}});
+function setErr(id,msg){const e=$(id+'_err');if(!e)return;const el=$(id)||form.querySelector(`[name="${id}"]`);if(msg){e.textContent=msg;e.hidden=false;el&&el.setAttribute('aria-invalid','true')}else{e.hidden=true;el&&el.removeAttribute('aria-invalid')}}
+function validate(d){const errs={};if(d.name.length<2)errs.name='กรุณากรอกชื่อ';if(!d.rsvp)errs.rsvp='กรุณาเลือกว่าจะมาร่วมงานหรือไม่';if(d.email&&!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(d.email))errs.email='รูปแบบอีเมลไม่ถูกต้อง';if(d.phone&&d.phone.replace(/\D/g,'').length<9)errs.phone='เบอร์โทรควรมีอย่างน้อย 9 หลัก';if(C.askInviteCode&&!d.code)errs.code='กรุณากรอกรหัสจากการ์ด';if(!$('consent').checked)errs.consent='กรุณายินยอมการใช้ข้อมูลก่อนส่ง';['name','rsvp','email','phone','code','consent'].forEach(k=>setErr(k,errs[k]));return errs}
+async function submitAll(d){const r=await fetch(C.supabaseUrl.replace(/\/$/,'')+'/rest/v1/rpc/submit_rsvp',{method:'POST',headers:{'Content-Type':'application/json',apikey:C.supabaseKey,Authorization:'Bearer '+C.supabaseKey},body:JSON.stringify({p_token:TOKEN,p:d})});let j=null;try{j=await r.json()}catch(e){}if(!r.ok||!j)return {ok:false,error:'server'};if(!j.ok)return j;let invited=false;const cal=C.calendarEndpoint||C.endpoint;if(cal&&d.email){try{const k=await send(d,cal);invited=!!(k&&k.invited)}catch(e){}}return {ok:true,invited}}
+async function send(payload,url){const body=JSON.stringify(payload);try{const r=await fetch(url,{method:'POST',body,headers:{'Content-Type':'text/plain;charset=utf-8'},redirect:'follow'});return await r.json()}catch(e){await fetch(url,{method:'POST',body,mode:'no-cors',headers:{'Content-Type':'text/plain;charset=utf-8'}});return {ok:true,unknown:true}}}
+form.addEventListener('submit',async e=>{e.preventDefault();$('formErr').hidden=true;
+ const f=form.elements;const d={name:f.name.value.trim(),rsvp:(form.querySelector('[name=rsvp]:checked')||{}).value||'',plus:f.rsvp.value==='no'?0:+f.plus.value||0,diet:f.diet.value.trim(),email:f.email.value.trim().toLowerCase(),phone:f.phone.value.trim(),side:(form.querySelector('[name=side]:checked')||{}).value||'',message:f.message.value.trim(),code:f.code.value.trim(),website:f.website.value};
+ if(d.rsvp==='no'){d.email=d.email;d.plus=0}
+ const errs=validate(d);const first=Object.keys(errs)[0];if(first){const el=first==='rsvp'?form.querySelector('[name=rsvp]'):$(first);el&&el.focus();return}
+ const btn=$('submitBtn');btn.disabled=true;btn.textContent='กำลังส่ง…';
+ let res;try{res=LIVE?await submitAll(d):await new Promise(r=>setTimeout(()=>r({ok:true,demo:true,invited:d.rsvp==='yes'&&!!d.email}),600))}catch(err){res={ok:false,error:'network'}}
+ btn.disabled=false;btn.textContent='ส่งคำตอบ';
+ if(!res||!res.ok){const m={link:'ลิงก์ฟอร์มไม่ถูกต้อง กรุณาเปิดจากลิงก์ที่ได้รับจากเจ้าของงาน',busy:'ตอนนี้มีคนส่งคำตอบพร้อมกันเยอะ ลองใหม่ในอีกสักครู่',server:'ส่งไม่สำเร็จ ลองอีกครั้งในอีกสักครู่',code:'รหัสจากการ์ดไม่ถูกต้อง ลองตรวจสอบอีกครั้ง',name:'กรุณากรอกชื่อ',email:'รูปแบบอีเมลไม่ถูกต้อง',rsvp:'กรุณาเลือกการตอบรับ',network:'ส่งไม่สำเร็จ ตรวจสอบอินเทอร์เน็ตแล้วลองอีกครั้ง'};const x=$('formErr');x.textContent=m[res&&res.error]||'ส่งไม่สำเร็จ ลองอีกครั้งในอีกสักครู่';x.hidden=false;return}
+ thanks(d,res)});
+function gcalLink(){if(!isISO(C.weddingDate))return '';const z=(t)=>{const [h,m]=(t||'18:00').split(':').map(Number);const dt=new Date(toUTC(C.weddingDate)+((h-7)*60+m)*6e4);return dt.toISOString().replace(/[-:]/g,'').replace(/\.\d{3}/,'')};const p=new URLSearchParams({action:'TEMPLATE',text:`งานแต่งงาน ${C.nameA} & ${C.nameB}`,dates:`${z(C.partyTime)}/${z(C.endTime||'22:00')}`,location:[C.venueName,C.venueAddress].filter(Boolean).join(' '),details:C.mapUrl||''});return 'https://calendar.google.com/calendar/render?'+p.toString()}
+function icsUrl(){if(!isISO(C.weddingDate))return '';const z=t=>{const [h,m]=(t||'18:00').split(':').map(Number);return new Date(toUTC(C.weddingDate)+((h-7)*60+m)*6e4).toISOString().replace(/[-:]/g,'').replace(/\.\d{3}/,'')};const e=s=>String(s||'').replace(/[\\,;]/g,m=>'\\'+m).replace(/\n/g,'\\n');const ics=['BEGIN:VCALENDAR','VERSION:2.0','PRODID:-//OUR DAY//RSVP//TH','BEGIN:VEVENT','UID:ourday-'+C.weddingDate+'@rsvp','DTSTAMP:'+z('00:00'),'DTSTART:'+z(C.partyTime),'DTEND:'+z(C.endTime||'22:00'),'SUMMARY:'+e(`งานแต่งงาน ${C.nameA} & ${C.nameB}`),'LOCATION:'+e([C.venueName,C.venueAddress].filter(Boolean).join(' ')),'DESCRIPTION:'+e(C.mapUrl||''),'END:VEVENT','END:VCALENDAR'].join('\r\n');return URL.createObjectURL(new Blob([ics],{type:'text/calendar'}))}
+function thanks(d,res){form.hidden=true;const t=$('thanks');const yes=d.rsvp==='yes';
+ const calNote=yes?(res.invited?`<p>เราส่งคำเชิญในปฏิทินไปที่ <b>${esc(d.email)}</b> แล้ว กด “ตอบรับ” ในอีเมลเพื่อให้วันงานขึ้นในปฏิทินของคุณ</p>`:`<p>บันทึกวันงานไว้ในปฏิทินของคุณได้เลย</p><div class="cal-btns"><a class="btn2" href="${esc(gcalLink())}" target="_blank" rel="noopener">เพิ่มใน Google Calendar</a><a class="btn2" href="${icsUrl()}" download="our-day.ics">ปฏิทินอื่น (.ics)</a></div>`):'';
+ t.innerHTML=`<div class="orn" style="margin:0"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3" aria-hidden="true"><circle cx="9" cy="13" r="5.5"/><circle cx="15" cy="13" r="5.5"/></svg></div><h2>${yes?'แล้วพบกันในวันงาน':d.rsvp==='maybe'?'ขอบคุณที่แจ้งเรา':'ขอบคุณที่ส่งใจมา'}</h2><p class="lead">${yes?`ขอบคุณ ${esc(d.name)} ที่ตอบรับ${d.plus?` พร้อมผู้ติดตาม ${d.plus} คน`:''}`:d.rsvp==='maybe'?'ถ้าตัดสินใจได้แล้ว กลับมาที่หน้านี้แล้วส่งคำตอบใหม่ได้เลย ระบบจะอัปเดตให้':`เสียดายที่ไม่ได้เจอกัน ขอบคุณ ${esc(d.name)} สำหรับคำอวยพร`}</p>${calNote}${res.demo?'<p class="hint">(ตัวอย่าง: ยังไม่ได้ส่งข้อมูลจริง)</p>':''}<button type="button" class="linkbtn" id="again">แก้ไขคำตอบ</button>`;
+ t.hidden=false;t.focus();t.scrollIntoView({behavior:'smooth',block:'center'});$('again').onclick=()=>{t.hidden=true;form.hidden=false;form.elements.name.focus()}}
+})();
+</script>
+</body>
+</html>

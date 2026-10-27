@@ -1,0 +1,1016 @@
+<!doctype html>
+<html lang="th">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="robots" content="noindex">
+<meta name="theme-color" content="#FAF7F1">
+<title>OUR DAY</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Anuphan:wght@300;400;500;600&family=Trirong:ital,wght@0,400;0,500;0,600;1,400&display=swap">
+<style>
+/* Layout: floating ivory sidebar + editorial content column; mobile = sticky top bar + bottom tab bar. */
+:root{
+  --bg:#FAF7F1; --surface:#FFFDF9; --surface-2:#F3EEE5; --line:#E5DDCE; --ink:#2E2A25; --ink-2:#6C6458; --ink-3:#9A9083;
+  --sage:#6F876A; --sage-ink:#4E6649; --sage-soft:#E4EBDF; --rose:#B07F7C; --rose-soft:#F4E5E2; --champ:#B8975E; --champ-soft:#F3EAD8;
+  --ok:#5A8656; --warn:#AE7A27; --bad:#B0514A; --ok-soft:#E3EEDF; --warn-soft:#F6EBD5; --bad-soft:#F6E1DE;
+  --shadow:0 1px 2px rgba(60,48,30,.05),0 6px 20px rgba(60,48,30,.06); --on-accent:#FFFFFF;
+  --f-display:"Trirong","Noto Serif Thai",Georgia,serif; --f-body:"Anuphan","Noto Sans Thai","Leelawadee UI",system-ui,sans-serif;
+  --r:16px; --r-sm:10px;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#1B1916; --surface:#23201C; --surface-2:#2B2722; --line:#3A342D; --ink:#F0EBE2; --ink-2:#B9AF9F; --ink-3:#8C8374;
+  --sage:#9DB494; --sage-ink:#B9CDB1; --sage-soft:#2C3829; --rose:#D3A29E; --rose-soft:#3D2C2A; --champ:#D7BC88; --champ-soft:#3A3124;
+  --ok:#8CBB85; --warn:#DDAA59; --bad:#E2857C; --ok-soft:#263526; --warn-soft:#3A2F1C; --bad-soft:#3E2523;
+  --shadow:0 1px 2px rgba(0,0,0,.3),0 8px 24px rgba(0,0,0,.25); --on-accent:#1B1916; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#1B1916; --surface:#23201C; --surface-2:#2B2722; --line:#3A342D; --ink:#F0EBE2; --ink-2:#B9AF9F; --ink-3:#8C8374;
+  --sage:#9DB494; --sage-ink:#B9CDB1; --sage-soft:#2C3829; --rose:#D3A29E; --rose-soft:#3D2C2A; --champ:#D7BC88; --champ-soft:#3A3124;
+  --ok:#8CBB85; --warn:#DDAA59; --bad:#E2857C; --ok-soft:#263526; --warn-soft:#3A2F1C; --bad-soft:#3E2523;
+  --shadow:0 1px 2px rgba(0,0,0,.3),0 8px 24px rgba(0,0,0,.25); --on-accent:#1B1916; color-scheme:dark}
+*{box-sizing:border-box}
+html,body{min-height:100%}
+body{background:var(--bg);color:var(--ink);font-family:var(--f-body);font-size:15px;line-height:1.6;-webkit-font-smoothing:antialiased}
+body.modal-open{overflow:hidden}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:10;background:var(--bg)}
+h1,h2,h3{font-family:var(--f-display);font-weight:500;line-height:1.3;margin:0;text-wrap:balance}
+h1{font-size:clamp(1.6rem,1.2rem + 1.4vw,2.2rem)}
+h2{font-size:1.25rem}
+h3{font-size:1.05rem}
+p{margin:0}
+a{color:var(--sage-ink)}
+button,input,select,textarea{font:inherit;color:inherit}
+:focus-visible{outline:2px solid var(--sage);outline-offset:2px;border-radius:6px}
+.num{font-variant-numeric:tabular-nums}
+.muted{color:var(--ink-3)}
+.eyebrow{font-size:.75rem;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-3);font-weight:500}
+.ic{width:20px;height:20px;flex:none}
+.sm .ic,.ic.sm{width:16px;height:16px}
+
+/* app frame */
+#app{display:grid;grid-template-columns:240px minmax(0,1fr);gap:28px;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:16px;max-width:1440px;margin:0 auto}
+.side{position:sticky;top:16px;align-self:start;height:calc(100vh - 32px);display:flex;flex-direction:column;gap:20px;background:var(--surface);border:1px solid var(--line);border-radius:22px;padding:22px 14px}
+.brand{padding:0 10px}
+.brand b{font-family:var(--f-display);font-weight:600;font-size:1.35rem;letter-spacing:.16em}
+.brand small{display:block;font-family:var(--f-display);font-style:italic;color:var(--ink-3);font-size:.82rem;line-height:1.4;margin-top:2px}
+.nav{display:flex;flex-direction:column;gap:2px}
+.nav a{display:flex;align-items:center;gap:12px;padding:10px 12px;border-radius:12px;text-decoration:none;color:var(--ink-2);font-weight:500}
+.nav a:hover{background:var(--surface-2);color:var(--ink)}
+.nav a[aria-current="page"]{background:var(--sage-soft);color:var(--sage-ink)}
+.side-foot{margin-top:auto;display:flex;flex-direction:column;gap:8px;padding:0 6px}
+.who-chip{display:flex;align-items:center;gap:10px;padding:10px;border-radius:12px;background:var(--surface-2);font-size:.86rem}
+.dot{width:10px;height:10px;border-radius:50%;flex:none;background:var(--ink-3)}
+.dot.A{background:var(--sage)} .dot.B{background:var(--rose)} .dot.Both{background:var(--champ)}
+.mode-pill{font-size:.75rem;padding:4px 10px;border-radius:999px;background:var(--champ-soft);color:var(--ink-2);align-self:flex-start}
+.mode-pill.live{background:var(--ok-soft);color:var(--ok)}
+main:focus{outline:none}
+.span2{grid-column:span 2}
+@media (max-width:1100px){.span2{grid-column:1/-1}}
+main{min-width:0;padding-block:8px 64px;display:flex;flex-direction:column;gap:24px}
+.topbar{display:none}
+.tabbar{display:none}
+
+@media (max-width:880px){
+  #app{grid-template-columns:minmax(0,1fr);padding-top:0}
+  .side{display:none}
+  .topbar{display:flex;position:sticky;top:env(safe-area-inset-top,0px);z-index:9;background:var(--bg);align-items:center;justify-content:space-between;padding-block:12px;gap:12px;border-bottom:1px solid var(--line);margin-inline:calc(-1 * max(16px,env(safe-area-inset-left,0px)));padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+  .topbar b{font-family:var(--f-display);letter-spacing:.16em;font-weight:600}
+  .tabbar{display:flex;position:fixed;left:0;right:0;bottom:0;z-index:20;background:var(--surface);border-top:1px solid var(--line);padding-left:max(4px,env(safe-area-inset-left,0px));padding-right:max(4px,env(safe-area-inset-right,0px));padding-bottom:env(safe-area-inset-bottom,0px)}
+  .tabbar a{flex:1;display:flex;flex-direction:column;align-items:center;gap:2px;padding:8px 2px 6px;font-size:.68rem;color:var(--ink-3);text-decoration:none;min-width:0}
+  .tabbar a[aria-current="page"]{color:var(--sage-ink)}
+  main{padding-bottom:calc(96px + env(safe-area-inset-bottom,0px))}
+}
+
+/* generic */
+.ph{display:flex;justify-content:space-between;align-items:flex-end;gap:16px;flex-wrap:wrap}
+.ph > div:first-child{display:flex;flex-direction:column;gap:4px;min-width:0}
+.ph-actions{display:flex;gap:8px;flex-wrap:wrap}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:20px;box-shadow:var(--shadow);min-width:0;display:flex;flex-direction:column;gap:14px}
+.card-h{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap}
+.grid{display:grid;gap:16px}
+.g2{grid-template-columns:repeat(2,minmax(0,1fr))}
+.g3{grid-template-columns:repeat(3,minmax(0,1fr))}
+.g4{grid-template-columns:repeat(4,minmax(0,1fr))}
+@media (max-width:1100px){.g4{grid-template-columns:repeat(2,minmax(0,1fr))}.g3{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (max-width:640px){.g2,.g3,.g4{grid-template-columns:minmax(0,1fr)}}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;border:1px solid transparent;border-radius:999px;padding:9px 18px;font-weight:500;cursor:pointer;background:var(--surface-2);color:var(--ink);transition:background .15s,transform .1s;white-space:nowrap;text-decoration:none;min-height:40px}
+.btn:hover{background:var(--line)}
+.btn:active{transform:scale(.98)}
+.btn.primary{background:var(--sage);color:var(--on-accent)}
+.btn.primary:hover{background:var(--sage-ink)}
+.btn.ghost{background:transparent;border-color:var(--line)}
+.btn.ghost:hover{background:var(--surface-2)}
+.btn.danger{background:var(--bad);color:var(--on-accent)}
+.btn.ghost.danger{background:transparent;color:var(--bad);border-color:transparent}
+.btn.sm{padding:5px 12px;font-size:.85rem;min-height:32px}
+.btn[disabled]{opacity:.5;cursor:not-allowed}
+.icon-btn{display:inline-grid;place-items:center;width:36px;height:36px;border-radius:50%;border:none;background:transparent;cursor:pointer;color:var(--ink-2)}
+.icon-btn:hover{background:var(--surface-2);color:var(--ink)}
+.icon-btn.sm{width:28px;height:28px}
+.chip{display:inline-flex;align-items:center;gap:6px;font-size:.78rem;padding:2px 10px;border-radius:999px;background:var(--surface-2);color:var(--ink-2);white-space:nowrap;font-weight:500}
+.chip.sage{background:var(--sage-soft);color:var(--sage-ink)}
+.chip.rose{background:var(--rose-soft);color:var(--rose)}
+.chip.champ{background:var(--champ-soft);color:var(--champ)}
+.chip.ok{background:var(--ok-soft);color:var(--ok)}
+.chip.warn{background:var(--warn-soft);color:var(--warn)}
+.chip.bad{background:var(--bad-soft);color:var(--bad)}
+.toolbar{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+.toolbar .grow{flex:1 1 200px;min-width:0}
+.input,.toolbar select,.toolbar input[type=search]{border:1px solid var(--line);background:var(--surface);border-radius:999px;padding:8px 14px;min-height:40px;max-width:100%}
+.toolbar input[type=search]{width:100%}
+.seg{display:inline-flex;background:var(--surface-2);border-radius:999px;padding:3px;gap:2px}
+.seg button{border:none;background:transparent;padding:6px 14px;border-radius:999px;cursor:pointer;color:var(--ink-2);font-weight:500;font-size:.88rem}
+.seg button[aria-pressed="true"]{background:var(--surface);color:var(--ink);box-shadow:var(--shadow)}
+.subnav{display:flex;gap:4px;border-bottom:1px solid var(--line);overflow-x:auto}
+.subnav a{padding:10px 14px;text-decoration:none;color:var(--ink-2);font-weight:500;border-bottom:2px solid transparent;white-space:nowrap}
+.subnav a[aria-current="page"]{color:var(--ink);border-color:var(--sage)}
+.banner{display:flex;gap:12px;align-items:center;justify-content:space-between;flex-wrap:wrap;padding:12px 16px;border-radius:var(--r-sm);background:var(--champ-soft);font-size:.9rem}
+.banner.bad{background:var(--bad-soft)}
+.empty{display:flex;flex-direction:column;align-items:center;text-align:center;gap:10px;padding:32px 16px;color:var(--ink-2)}
+.empty h3{color:var(--ink)}
+.empty .ic{width:32px;height:32px;color:var(--ink-3)}
+.table-wrap{overflow-x:auto;border:1px solid var(--line);border-radius:var(--r-sm);background:var(--surface)}
+table{border-collapse:collapse;width:100%;font-size:.9rem}
+th,td{text-align:left;padding:10px 12px;border-bottom:1px solid var(--line);white-space:nowrap;vertical-align:middle}
+th{font-weight:500;color:var(--ink-3);font-size:.78rem;letter-spacing:.04em;background:var(--surface-2)}
+td.r,th.r{text-align:right}
+tbody tr:last-child td{border-bottom:none}
+tbody tr.click{cursor:pointer}
+tbody tr.click:hover{background:var(--surface-2)}
+.wrap{white-space:normal;min-width:180px}
+
+/* home */
+.hero{display:grid;grid-template-columns:minmax(0,1.4fr) minmax(0,1fr);gap:20px;align-items:stretch}
+.hero-main{background:var(--surface);border:1px solid var(--line);border-radius:24px;padding:28px;display:flex;flex-direction:column;gap:16px;position:relative;overflow:hidden}
+.hero-main::after{content:"";position:absolute;right:-60px;top:-60px;width:220px;height:220px;border-radius:50%;border:1px solid var(--champ);opacity:.35}
+.hero-main::before{content:"";position:absolute;right:10px;top:-30px;width:220px;height:220px;border-radius:50%;border:1px solid var(--sage);opacity:.35}
+.couple{font-family:var(--f-display);font-size:clamp(1.8rem,1.2rem + 2vw,2.7rem);line-height:1.2}
+.couple i{color:var(--champ);font-weight:400;padding:0 .2em}
+.countdown{display:flex;align-items:baseline;gap:10px;flex-wrap:wrap}
+.countdown .big{font-family:var(--f-display);font-size:clamp(3rem,2rem + 4vw,4.6rem);line-height:1;color:var(--sage-ink);font-variant-numeric:tabular-nums}
+.quote{background:var(--sage-soft);border-radius:24px;padding:28px;display:flex;flex-direction:column;gap:14px;justify-content:space-between}
+.quote blockquote{margin:0;font-family:var(--f-display);font-style:italic;font-size:1.2rem;line-height:1.55;color:var(--sage-ink)}
+@media (max-width:900px){.hero{grid-template-columns:minmax(0,1fr)}}
+.quick{display:flex;gap:8px;flex-wrap:wrap}
+.figs{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px 16px}
+.figs4{grid-template-columns:repeat(4,minmax(0,1fr))}
+@media (max-width:640px){.figs4{grid-template-columns:repeat(2,minmax(0,1fr))}}
+.fig{display:flex;flex-direction:column;gap:2px;min-width:0}
+.fig .lbl{font-size:.8rem;color:var(--ink-3)}
+.fig .val{font-size:1.25rem;font-weight:500;font-variant-numeric:tabular-nums}
+.fig .val.bad{color:var(--bad)} .fig .val.ok{color:var(--ok)}
+.stepper{display:inline-flex;align-items:center;gap:4px}
+.li.ci{align-items:center;flex-wrap:wrap}
+.sim{border-color:var(--champ)}
+.stack{display:flex;height:12px;border-radius:999px;overflow:hidden;background:var(--surface-2)}
+.stack span{display:block;height:100%}
+.legend{display:flex;gap:14px;flex-wrap:wrap;font-size:.78rem;color:var(--ink-2)}
+.legend i{display:inline-block;width:10px;height:10px;border-radius:3px;margin-right:6px;vertical-align:-1px}
+.c-paid{background:var(--sage)} .c-comm{background:var(--champ)} .c-plan{background:var(--rose-soft);outline:1px dashed var(--rose);outline-offset:-1px}
+.ring{display:flex;align-items:center;gap:18px}
+.ring svg{width:110px;height:110px;flex:none}
+.list{list-style:none;margin:0;padding:0;display:flex;flex-direction:column}
+.li{display:flex;gap:12px;align-items:flex-start;padding:10px 0;border-bottom:1px solid var(--line)}
+.li:last-child{border-bottom:none}
+.li .t{font-weight:500}
+.li .s{font-size:.82rem;color:var(--ink-3)}
+.li .grow{flex:1;min-width:0}
+.datebox{flex:none;width:52px;text-align:center;border-radius:10px;background:var(--surface-2);padding:4px 0;line-height:1.2}
+.datebox b{display:block;font-size:1.1rem;font-variant-numeric:tabular-nums}
+.datebox small{font-size:.7rem;color:var(--ink-3)}
+.datebox.bad{background:var(--bad-soft);color:var(--bad)}
+
+/* tasks */
+.trow{display:flex;gap:10px;align-items:flex-start;padding:10px 12px;border-bottom:1px solid var(--line)}
+.trow:last-child{border-bottom:none}
+.check{flex:none;width:26px;height:26px;border-radius:50%;border:1.5px solid var(--ink-3);background:transparent;display:grid;place-items:center;cursor:pointer;color:transparent;margin-top:2px}
+.check:hover{border-color:var(--sage)}
+.check[aria-pressed="true"]{background:var(--sage);border-color:var(--sage);color:var(--surface)}
+.check .ic{width:14px;height:14px}
+.trow-main{flex:1;min-width:0;text-align:left;background:none;border:none;cursor:pointer;padding:0;display:flex;flex-direction:column;gap:4px}
+.trow-title{font-weight:500}
+.is-done .trow-title{text-decoration:line-through;color:var(--ink-3)}
+.meta{display:flex;gap:6px;flex-wrap:wrap}
+.quickadd{display:flex;gap:8px}
+.quickadd input{flex:1;min-width:0;border:1px dashed var(--line);background:var(--surface);border-radius:12px;padding:10px 14px}
+.board{display:grid;grid-template-columns:repeat(4,minmax(220px,1fr));gap:12px;overflow-x:auto;padding-bottom:6px}
+.col{background:var(--surface-2);border-radius:var(--r);padding:12px;display:flex;flex-direction:column;gap:8px;min-width:0}
+.col h3{font-family:var(--f-body);font-size:.9rem;font-weight:600;display:flex;justify-content:space-between}
+.bcard{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:10px 12px;display:flex;flex-direction:column;gap:8px}
+.bcard button.t{background:none;border:none;padding:0;text-align:left;cursor:pointer;font-weight:500}
+.bcard select{font-size:.8rem;border:1px solid var(--line);border-radius:8px;background:var(--surface);padding:3px 6px}
+.gantt{display:flex;flex-direction:column;gap:6px;min-width:640px}
+.g-row{display:grid;grid-template-columns:200px 1fr;gap:10px;align-items:center;font-size:.85rem}
+.g-row .lab{overflow:hidden;text-overflow:ellipsis;white-space:nowrap;background:none;border:none;text-align:left;cursor:pointer;padding:0}
+.g-track{position:relative;height:18px;background:var(--surface-2);border-radius:6px}
+.g-bar{position:absolute;top:3px;height:12px;border-radius:6px;background:var(--sage);min-width:6px}
+.g-bar.done{background:var(--ink-3);opacity:.5}.g-bar.od{background:var(--bad)}
+.g-axis{position:relative;height:20px;margin-left:210px;font-size:.7rem;color:var(--ink-3)}
+.g-axis span{position:absolute;transform:translateX(-50%);white-space:nowrap}
+.g-wed{position:absolute;top:0;bottom:0;width:2px;background:var(--rose)}
+
+/* budget chart */
+.cat-rows{display:flex;flex-direction:column;gap:12px}
+.cat-row{display:grid;grid-template-columns:minmax(0,190px) minmax(0,1fr) 190px;gap:12px;align-items:center;font-size:.86rem}
+.cat-row .bar{position:relative;height:14px;border-radius:999px;background:var(--surface-2);overflow:hidden}
+.cat-row .bar span{position:absolute;top:0;bottom:0}
+.cat-row .mark{position:absolute;top:-3px;bottom:-3px;width:2px;background:var(--ink)}
+@media (max-width:640px){.cat-row{grid-template-columns:minmax(0,1fr) auto}.cat-row .bar{grid-column:1/-1;order:3}.cat-row{grid-template-columns:minmax(0,1fr) auto}}
+
+/* vendors / ideas cards */
+.vcard{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:16px;display:flex;flex-direction:column;gap:10px;min-width:0}
+.vcard .top{display:flex;justify-content:space-between;gap:10px;align-items:flex-start}
+.vcard h3{font-size:1.05rem}
+.kv{display:grid;grid-template-columns:auto 1fr;gap:4px 12px;font-size:.86rem}
+.kv dt{color:var(--ink-3)} .kv dd{margin:0;text-align:right;font-variant-numeric:tabular-nums;min-width:0;overflow-wrap:anywhere}
+.vcard .acts{display:flex;gap:6px;flex-wrap:wrap;margin-top:auto;align-items:center}
+.cmpbar{position:sticky;bottom:16px;z-index:5;display:flex;justify-content:space-between;align-items:center;gap:12px;padding:12px 16px;border-radius:999px;background:var(--ink);color:var(--bg);box-shadow:var(--shadow)}
+@media (max-width:880px){.cmpbar{bottom:calc(76px + env(safe-area-inset-bottom,0px))}}
+.icard{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);overflow:hidden;display:flex;flex-direction:column;min-width:0}
+.icard .img{aspect-ratio:4/3;max-width:100%;background:var(--surface-2);display:grid;place-items:center;color:var(--ink-3);overflow:hidden}
+.icard .img img{width:100%;height:100%;object-fit:cover}
+.icard .img.ph-pattern{background:repeating-linear-gradient(135deg,var(--surface-2) 0 12px,var(--champ-soft) 12px 24px)}
+.icard .body{padding:14px;display:flex;flex-direction:column;gap:8px;flex:1}
+.votes{display:flex;gap:6px;flex-wrap:wrap}
+.vote{border:1px solid var(--line);background:var(--surface);border-radius:999px;padding:4px 12px;font-size:.82rem;cursor:pointer}
+.vote[aria-pressed="true"]{background:var(--sage-soft);border-color:var(--sage);color:var(--sage-ink)}
+.final{outline:2px solid var(--champ);outline-offset:-2px}
+
+/* calendar */
+.cal{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));border:1px solid var(--line);border-radius:var(--r);overflow:hidden;background:var(--line);gap:1px}
+.cal .dow{background:var(--surface-2);text-align:center;font-size:.75rem;color:var(--ink-3);padding:6px 0}
+.cal .day{background:var(--surface);min-height:96px;padding:6px;display:flex;flex-direction:column;gap:3px;text-align:left;border:none;cursor:pointer;min-width:0}
+.cal .day:hover{background:var(--surface-2)}
+.cal .day.other{background:var(--bg)}
+.cal .day .n{font-size:.8rem;font-variant-numeric:tabular-nums;color:var(--ink-2)}
+.cal .day.today .n{background:var(--sage);color:var(--surface);border-radius:999px;padding:0 7px;align-self:flex-start}
+.cal .day.sel{box-shadow:inset 0 0 0 2px var(--sage)}
+.cal .day.wed{background:var(--rose-soft)}
+.ev{font-size:.72rem;padding:1px 6px;border-radius:5px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;background:var(--surface-2)}
+.ev.sage{background:var(--sage-soft);color:var(--sage-ink)} .ev.rose{background:var(--rose-soft);color:var(--rose)} .ev.champ{background:var(--champ-soft);color:var(--champ)} .ev.ink{background:var(--surface-2);color:var(--ink-2)}
+.ev.done{text-decoration:line-through;opacity:.6}
+@media (max-width:640px){.cal .day{min-height:56px}.cal .ev{font-size:0;height:6px;padding:0;border-radius:3px}}
+
+/* us */
+.qcard{background:var(--rose-soft);border-radius:24px;padding:24px;display:flex;flex-direction:column;gap:14px}
+.qcard .q{font-family:var(--f-display);font-size:1.35rem;line-height:1.5}
+.answers{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+@media (max-width:640px){.answers{grid-template-columns:minmax(0,1fr)}}
+.ans{background:var(--surface);border-radius:14px;padding:14px;display:flex;flex-direction:column;gap:6px}
+.quest{display:flex;gap:12px;align-items:center;padding:12px 0;border-bottom:1px solid var(--line)}
+.quest:last-child{border-bottom:none}
+.quest .pts{font-family:var(--f-display);font-size:1.1rem;color:var(--champ);width:48px;text-align:center;flex:none}
+.tl{list-style:none;margin:0;padding:0 0 0 20px;border-left:1px solid var(--line);display:flex;flex-direction:column;gap:18px}
+.tl li{position:relative;display:flex;flex-direction:column;gap:6px}
+.tl li::before{content:"";position:absolute;left:-26px;top:7px;width:11px;height:11px;border-radius:50%;background:var(--surface);border:2px solid var(--champ)}
+.tl img{max-width:min(100%,320px);border-radius:12px}
+.ms{display:flex;gap:10px;flex-wrap:wrap}
+.ms span{padding:6px 14px;border-radius:999px;border:1px solid var(--champ);color:var(--ink-2);font-size:.85rem}
+
+/* day mode */
+.day-hero{background:var(--ink);color:var(--bg);border-radius:24px;padding:24px;display:flex;flex-direction:column;gap:8px}
+.day-hero h1{font-size:1.9rem}
+.sched{list-style:none;margin:0;padding:0;display:flex;flex-direction:column}
+.sched li{display:grid;grid-template-columns:64px 1fr auto;gap:12px;padding:12px 0;border-bottom:1px solid var(--line);align-items:start}
+.sched li:last-child{border-bottom:none}
+.sched .time{font-family:var(--f-display);font-size:1.15rem;font-variant-numeric:tabular-nums}
+.big-text{font-size:1.02rem}
+.copy-row{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+.copy-row .val{user-select:all;font-variant-numeric:tabular-nums;font-weight:500}
+
+/* forms & modal */
+#modal-root{position:fixed;inset:0;z-index:50;display:grid;place-items:center;padding:16px}
+[hidden]{display:none!important}
+.scrim{position:absolute;inset:0;background:rgba(30,25,20,.38)}
+.modal{position:relative;background:var(--surface);border-radius:20px;width:min(640px,100%);max-height:calc(100vh - 32px);display:flex;flex-direction:column;box-shadow:0 20px 60px rgba(0,0,0,.25);animation:pop .18s ease-out}
+.modal.wide{width:min(960px,100%)}
+@keyframes pop{from{transform:translateY(8px);opacity:.6}to{transform:none;opacity:1}}
+.mhead{display:flex;justify-content:space-between;align-items:center;padding:18px 20px 8px;gap:12px}
+.mbody{padding:8px 20px 16px;overflow:auto;display:flex;flex-direction:column;gap:16px}
+.mfoot{display:flex;justify-content:space-between;align-items:center;gap:8px;padding:12px 20px 16px;border-top:1px solid var(--line);flex-wrap:wrap}
+.foot-left,.foot-right{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+.confirm-inline{font-size:.88rem;color:var(--bad)}
+@media (max-width:640px){#modal-root{place-items:end center;padding:0}.modal,.modal.wide{width:100%;border-radius:20px 20px 0 0;max-height:92vh;padding-bottom:env(safe-area-inset-bottom,0px)}}
+.fgrid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px 14px}
+@media (max-width:560px){.fgrid{grid-template-columns:minmax(0,1fr)}}
+.field{display:flex;flex-direction:column;gap:4px;min-width:0}
+.field.full{grid-column:1/-1}
+.field label{font-size:.84rem;color:var(--ink-2);font-weight:500}
+.field input,.field select,.field textarea,.pay-row input,.pay-row select,textarea.input{border:1px solid var(--line);background:var(--bg);border-radius:10px;padding:9px 12px;min-height:42px;width:100%;min-width:0}
+.field textarea,textarea.input{resize:vertical;line-height:1.5}
+.field [aria-invalid="true"]{border-color:var(--bad)}
+.req{color:var(--rose)}
+.help{font-size:.78rem;color:var(--ink-3)}
+.err{font-size:.78rem;color:var(--bad)}
+.checkline{display:flex;gap:10px;align-items:center;font-size:.9rem;cursor:pointer}
+.checkline input{width:18px;height:18px;accent-color:var(--sage)}
+.subsec{display:flex;flex-direction:column;gap:10px;border-top:1px solid var(--line);padding-top:14px}
+.subhead{display:flex;justify-content:space-between;align-items:center;gap:8px}
+.pay-row{display:grid;grid-template-columns:110px 1fr 1fr auto 1fr auto;gap:8px;align-items:center;background:var(--surface-2);padding:8px;border-radius:12px}
+@media (max-width:640px){.pay-row{grid-template-columns:1fr 1fr}.pay-row .checkline{grid-column:1/-1}}
+.attach-list{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:6px}
+.attach-list li{display:flex;gap:10px;align-items:center;font-size:.88rem;min-width:0}
+.attach-list li a{flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.attach-list img{width:44px;height:44px;object-fit:cover;border-radius:8px}
+.attach-head{display:flex;justify-content:space-between;align-items:center;gap:8px}
+.attach-head .lbl{font-size:.84rem;color:var(--ink-2);font-weight:500}
+.file-btn{cursor:pointer}
+.comments{display:flex;flex-direction:column;gap:8px}
+.cmt{background:var(--surface-2);border-radius:12px;padding:8px 12px;font-size:.88rem}
+.cmt .s{font-size:.75rem;color:var(--ink-3)}
+
+/* toasts */
+#toasts{position:fixed;right:max(16px,env(safe-area-inset-right,0px));bottom:calc(16px + env(safe-area-inset-bottom,0px));z-index:60;display:flex;flex-direction:column;gap:8px;align-items:flex-end;pointer-events:none}
+@media (max-width:880px){#toasts{left:max(16px,env(safe-area-inset-left,0px));bottom:calc(84px + env(safe-area-inset-bottom,0px));align-items:stretch}}
+body.modal-open #toasts{bottom:auto;top:calc(16px + env(safe-area-inset-top,0px))}
+.toast{pointer-events:none;background:var(--ink);color:var(--bg);padding:12px 16px;border-radius:14px;box-shadow:var(--shadow);font-size:.9rem;max-width:420px;animation:pop .2s ease-out;position:relative;overflow:hidden}
+.toast.bad{background:var(--bad);color:var(--on-accent)}
+.toast.celebrate{background:var(--surface);color:var(--ink);border:1px solid var(--champ)}
+.toast.celebrate b{font-family:var(--f-display);font-size:1.1rem;display:block}
+.petal{position:absolute;top:-10px;width:8px;height:8px;border-radius:50% 0;background:var(--champ);opacity:.7;animation:fall 1.8s ease-in forwards}
+@keyframes fall{to{transform:translateY(90px) rotate(200deg);opacity:0}}
+@media (prefers-reduced-motion: reduce){*{animation:none!important;transition:none!important}}
+.loading{display:grid;place-items:center;min-height:60vh;text-align:center;gap:12px}
+.spin{width:28px;height:28px;border-radius:50%;border:2px solid var(--line);border-top-color:var(--sage);animation:sp 1s linear infinite;margin:0 auto}
+@keyframes sp{to{transform:rotate(360deg)}}
+.setup{max-width:640px;margin:0 auto;width:100%;display:flex;flex-direction:column;gap:20px}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
+</style>
+
+<style>:root{padding-top:env(safe-area-inset-top,0px)}html,body{margin:0}</style>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.js"></script>
+<script src="config.js"></script>
+</head>
+<body>
+<div id="app">
+  <aside class="side" aria-label="เมนูหลัก">
+    <div class="brand"><b>OUR DAY</b><small>One journey. Two hearts. Our day.</small></div>
+    <nav class="nav" id="nav"></nav>
+    <div class="side-foot" id="sidefoot"></div>
+  </aside>
+  <header class="topbar"><b>OUR DAY</b><div id="topwho"></div></header>
+  <main id="main" tabindex="-1"><div class="loading"><div><div class="spin"></div><p>กำลังเปิดพื้นที่ของเรา…</p></div></div></main>
+</div>
+<nav class="tabbar" id="tabbar" aria-label="เมนูหลัก"></nav>
+<div id="modal-root" hidden></div>
+<div id="toasts" role="status" aria-live="polite"></div>
+
+<script>
+(function(){
+"use strict";
+/* ================= constants ================= */
+const COLS=['tasks','expenses','vendors','guests','events','ideas','polls','memories','quests','answers','activity','wday','gifts'];
+const CATS=[['venue','สถานที่จัดงาน',20],['catering','อาหารและเครื่องดื่ม',25],['outfits','ชุดแต่งงาน',8],['rings','แหวน',8],['photo','ช่างภาพและวิดีโอ',8],['makeup','แต่งหน้าและทำผม',3],['flowers','ดอกไม้และตกแต่ง',8],['invites','การ์ดและของชำร่วย',4],['ceremony','พิธีการและศาสนา',4],['ent','ดนตรีและความบันเทิง',3],['travel','การเดินทางและที่พัก',2],['misc','เบ็ดเตล็ด',2],['contingency','เงินสำรองฉุกเฉิน',5]];
+const CAT=Object.fromEntries(CATS.map(c=>[c[0],c[1]]));
+const TASK_CATS=[['planning','วางแผนทั่วไป'],...CATS.filter(c=>c[0]!=='contingency').map(c=>[c[0],c[1]]),['guests','แขกและการเชิญ']];
+const TCAT=Object.fromEntries(TASK_CATS);
+const VEN_CATS=[...CATS.filter(c=>!['contingency','misc'].includes(c[0])).map(c=>[c[0],c[1]]),['misc','อื่นๆ']];
+const TASK_ST={todo:'ยังไม่เริ่ม',doing:'กำลังทำ',waiting:'รอผล',done:'เสร็จแล้ว'};
+const PRIO={high:'สำคัญมาก',med:'ปกติ',low:'ไม่เร่ง'};
+const VEN_ST={interested:'สนใจ',contacted:'ติดต่อแล้ว',comparing:'กำลังเปรียบเทียบ',negotiating:'กำลังต่อรอง',booked:'จองแล้ว',completed:'เสร็จสิ้น',rejected:'ไม่เลือก'};
+const VEN_ORDER=Object.keys(VEN_ST);
+const CONTRACT={none:'ยังไม่มีสัญญา',draft:'ร่างสัญญา',signed:'เซ็นสัญญาแล้ว'};
+const EXP_ST={planned:'วางแผน',committed:'ผูกพันแล้ว',paid:'จ่ายครบ'};
+const RSVP={pending:'รอตอบ',yes:'มา',maybe:'ยังไม่แน่ใจ',no:'ไม่มา'};
+const GGROUP={family:'ครอบครัว',friends:'เพื่อน',work:'ที่ทำงาน',other:'อื่นๆ'};
+const EV_TYPES={appointment:['นัดผู้ให้บริการ','rose'],visit:['ดูสถานที่','sage'],fitting:['ลองชุด','champ'],family:['นัดครอบครัว','sage'],payment:['ชำระเงิน','champ'],ceremony:['พิธี/กำหนดการ','rose'],other:['อื่นๆ','ink']};
+const IDEA_COLS={theme:'ธีมและโทนสี',venue:'สถานที่',outfits:'ชุด',flowers:'ดอกไม้',rings:'แหวน',invites:'การ์ด',decor:'การตกแต่ง',other:'อื่นๆ'};
+const PAY_KIND={deposit:'มัดจำ',installment:'งวดชำระ',final:'งวดสุดท้าย'};
+const GIFT_TYPE={envelope:'ซองช่วยงาน',family:'เงินสมทบจากครอบครัว',gift:'ของขวัญ',other:'อื่นๆ'};
+const GIFT_METHOD={cash:'เงินสด',transfer:'โอนเงิน',item:'สิ่งของ'};
+const PHASE={365:'12 เดือนก่อนงาน',182:'6 เดือนก่อนงาน',91:'3 เดือนก่อนงาน',30:'1 เดือนก่อนงาน',7:'1 สัปดาห์ก่อนงาน',0:'วันงาน'};
+const TPL=[
+ [365,'planning','กำหนดงบประมาณรวมและแหล่งเงิน','Both','high'],
+ [365,'guests','ร่างจำนวนแขกคร่าวๆ ของทั้งสองฝ่าย','Both','med'],
+ [365,'planning','เลือกรูปแบบงานและธีมที่อยากได้','Both','med'],
+ [365,'venue','ดูและจองสถานที่จัดงาน','Both','high'],
+ [365,'ceremony','คุยกับครอบครัวเรื่องพิธีการและวันเวลาที่เหมาะสม','Both','high'],
+ [365,'planning','ตั้งบัญชีหรือกองเงินสำหรับงานแต่ง','A','med'],
+ [182,'photo','เปรียบเทียบและจองช่างภาพ/วิดีโอ','B','high'],
+ [182,'makeup','จองช่างแต่งหน้าและทำผม','A','med'],
+ [182,'outfits','เลือกชุดและนัดลองชุดครั้งแรก','Both','med'],
+ [182,'flowers','คุยแบบดอกไม้และการตกแต่งกับร้าน','A','med'],
+ [182,'catering','เลือกเมนูและนัดชิมอาหาร','Both','med'],
+ [182,'ent','จองดนตรีหรือพิธีกร','B','low'],
+ [182,'guests','ทำรายชื่อแขกพร้อมช่องทางติดต่อ','Both','med'],
+ [182,'rings','เลือกและสั่งแหวน','Both','high'],
+ [91,'invites','ออกแบบและสั่งพิมพ์การ์ด','A','med'],
+ [91,'invites','เลือกของชำร่วย','B','low'],
+ [91,'guests','ส่งการ์ดและเชิญแขก','Both','high'],
+ [91,'travel','จัดการเดินทางและที่พักให้ผู้ใหญ่ที่มาจากต่างจังหวัด','B','med'],
+ [91,'travel','จองรถสำหรับวันงาน','B','low'],
+ [91,'ceremony','ซ้อมลำดับพิธีกับครอบครัว','Both','med'],
+ [30,'guests','ติดตามการตอบรับของแขก','Both','high'],
+ [30,'guests','จัดผังที่นั่ง','Both','med'],
+ [30,'planning','ยืนยันกำหนดการกับผู้ให้บริการทุกราย','A','high'],
+ [30,'outfits','ลองชุดครั้งสุดท้าย','Both','med'],
+ [30,'planning','เตรียมเงินสำหรับชำระงวดสุดท้าย','B','high'],
+ [7,'catering','ยืนยันจำนวนแขกกับสถานที่และอาหาร','A','high'],
+ [7,'planning','ส่งกำหนดการวันงานให้ทีมและผู้ช่วย','B','med'],
+ [7,'planning','จัดกระเป๋าของที่ต้องนำไปวันงาน','Both','med'],
+ [7,'planning','นอนให้พอและเผื่อเวลาพักด้วยกัน','Both','low'],
+ [0,'planning','ตรวจของที่ต้องนำไปวันงานให้ครบ','Both','high'],
+ [0,'planning','ส่งมอบรายการชำระเงินวันงานให้ผู้ดูแล','A','high'],
+ [0,'planning','หยุดพักแล้วมองหน้ากันสักนาที','Both','low']
+];
+const QUESTIONS=['งานแต่งในฝันตอนเด็กของคุณหน้าตาเป็นแบบไหน','ช่วงเวลาไหนในงานที่คุณอยากจำให้ได้มากที่สุด','ถ้าต้องตัดงบหนึ่งอย่าง คุณจะตัดอะไรก่อน','เพลงไหนที่ทำให้นึกถึงเราสองคน','สิ่งเล็กๆ ที่อีกฝ่ายทำแล้วคุณรู้สึกว่ารัก','อยากให้แขกพูดถึงงานของเราว่าอย่างไร','ห้าปีข้างหน้า อยากให้วันธรรมดาของเราเป็นแบบไหน','ประเพณีครอบครัวไหนที่อยากเก็บไว้ และไหนที่อยากปรับ','ความทรงจำแรกที่คุณรู้ว่าคนนี้แหละ','อะไรคือสิ่งที่ทำให้เครียดที่สุดตอนนี้ และอีกฝ่ายช่วยได้อย่างไร','อยากไปฮันนีมูนที่ไหน ถ้าไม่ต้องคิดเรื่องเงิน','อาหารจานไหนที่ต้องมีในงานของเรา','เราจะแบ่งงานบ้านกันอย่างไรหลังแต่งงาน','คำสัญญาหนึ่งข้อที่อยากให้กันในวันนั้น','วันหยุดแบบไหนที่ทำให้คุณรู้สึกได้พักจริงๆ','อยากให้บ้านของเรามีมุมอะไรเป็นพิเศษ','เรื่องเงินเรื่องไหนที่อยากตกลงกันให้ชัดก่อนแต่ง','ครั้งไหนที่เราทะเลาะกันแล้วจบได้ดี และเพราะอะไร','สามคำที่อธิบายความสัมพันธ์ของเราตอนนี้','อยากฉลองวันครบรอบแต่งงานปีแรกอย่างไร','มีเพื่อนคนไหนที่อยากให้มีบทบาทพิเศษในงาน','คุณอยากมีลูกไหม และถ้ามี อยากเลี้ยงแบบไหน','อะไรที่คุณกังวลเกี่ยวกับวันงาน และเราจะรับมืออย่างไร','ชุดแบบไหนที่คุณแอบอยากเห็นอีกฝ่ายใส่','ถ้าวันงานฝนตก เราจะทำอย่างไรให้ยังสนุก','เป้าหมายส่วนตัวที่อยากให้อีกฝ่ายช่วยสนับสนุน','ช่วงไหนของการเตรียมงานที่สนุกที่สุดจนถึงตอนนี้','งานแต่งของใครที่เคยไปแล้วชอบ และชอบเพราะอะไร','อยากให้พ่อแม่ทั้งสองฝ่ายรู้สึกอย่างไรในวันงาน','หลังงานจบ คืนนั้นอยากทำอะไรด้วยกัน'];
+const QUOTES=['ไม่ต้องสมบูรณ์แบบทุกอย่าง แค่ให้เป็นวันที่เป็นเราสองคน','งานใหญ่แค่ไหนก็เริ่มจากการคุยกันทีละเรื่อง','วันนั้นคือหนึ่งวัน แต่การเตรียมด้วยกันคือความทรงจำหลายเดือน','ตัดสินใจช้าได้ ถ้ายังเดินไปทางเดียวกัน','งบที่ดีคืองบที่ทำให้หลังงานเรายังยิ้มได้','ถามอีกฝ่ายวันละหนึ่งคำถาม แล้วฟังให้จบ','เช็กลิสต์มีไว้ช่วยเรา ไม่ได้มีไว้ตัดสินเรา','ทุกงานที่ติ๊กได้ คือก้าวที่เดินมาด้วยกัน'];
+const QUESTS=[
+ {k:'tasks3',t:'ทำงานในเช็กลิสต์ให้เสร็จ 3 รายการ',p:30,auto:'tasks'},
+ {k:'talk20',t:'นั่งคุยเรื่องงานแต่งด้วยกัน 20 นาที แบบไม่รีบ',p:20},
+ {k:'vendors2',t:'อัปเดตหรือทบทวนผู้ให้บริการ 2 ราย',p:20},
+ {k:'answer3',t:'ตอบคำถามประจำวันด้วยกันครบ 3 วัน',p:25,auto:'answers'},
+ {k:'budget',t:'ทบทวนงบประมาณด้วยกันหนึ่งครั้ง',p:20},
+ {k:'memory',t:'บันทึกความทรงจำใหม่หนึ่งเรื่อง',p:15,auto:'memory'},
+ {k:'date',t:'ออกเดตหนึ่งครั้งโดยไม่พูดเรื่องงานแต่ง',p:25},
+ {k:'ideas3',t:'โหวตไอเดียในห้องตัดสินใจ 3 รายการ',p:15}
+];
+const TH_MONTH=['มกราคม','กุมภาพันธ์','มีนาคม','เมษายน','พฤษภาคม','มิถุนายน','กรกฎาคม','สิงหาคม','กันยายน','ตุลาคม','พฤศจิกายน','ธันวาคม'];
+const TH_MON=['ม.ค.','ก.พ.','มี.ค.','เม.ย.','พ.ค.','มิ.ย.','ก.ค.','ส.ค.','ก.ย.','ต.ค.','พ.ย.','ธ.ค.'];
+const TH_DOW=['อา','จ','อ','พ','พฤ','ศ','ส'];
+const DEFAULT_DATE='2027-10-27';
+
+/* ================= icons ================= */
+const P={
+ home:'<path d="M3 11l9-7 9 7v9a1 1 0 0 1-1 1h-5v-6h-6v6H4a1 1 0 0 1-1-1z"/>',
+ plan:'<path d="M10 6h10M10 12h10M10 18h10M3.5 6l1.5 1.5L7.5 5M3.5 12l1.5 1.5 2.5-2.5M3.5 18l1.5 1.5 2.5-2.5"/>',
+ vendors:'<path d="M4 9.5 5.2 4h13.6L20 9.5M4 9.5V20h16V9.5M4 9.5c0 1.4 1.1 2.5 2.7 2.5S9.3 10.9 9.3 9.5c0 1.4 1.2 2.5 2.7 2.5s2.7-1.1 2.7-2.5c0 1.4 1.1 2.5 2.6 2.5S20 10.9 20 9.5M10 20v-5h4v5"/>',
+ us:'<circle cx="9" cy="13" r="5.5"/><circle cx="15" cy="13" r="5.5"/><path d="M10.5 4.5 12 3l1.5 1.5"/>',
+ calendar:'<rect x="3.5" y="5" width="17" height="15" rx="2"/><path d="M3.5 10h17M8 3v4M16 3v4"/>',
+ options:'<path d="M4 7h9m4 0h3M4 17h3m4 0h9"/><circle cx="15" cy="7" r="2"/><circle cx="9" cy="17" r="2"/>',
+ plus:'<path d="M12 5v14M5 12h14"/>', check:'<path d="m5 12.5 4.5 4.5L19 7.5"/>', x:'<path d="M6 6l12 12M18 6 6 18"/>',
+ clip:'<path d="m20 11.5-8.1 8.1a5 5 0 0 1-7.1-7.1l8.5-8.5a3.3 3.3 0 0 1 4.7 4.7l-8.4 8.4a1.7 1.7 0 0 1-2.4-2.4l7.7-7.7"/>',
+ file:'<path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8z"/><path d="M14 3v5h5"/>',
+ left:'<path d="m15 6-6 6 6 6"/>', right:'<path d="m9 6 6 6-6 6"/>', sun:'<circle cx="12" cy="12" r="4"/><path d="M12 2.5v2M12 19.5v2M2.5 12h2M19.5 12h2M5.3 5.3l1.4 1.4M17.3 17.3l1.4 1.4M5.3 18.7l1.4-1.4M17.3 6.7l1.4-1.4"/>',
+ coin:'<ellipse cx="12" cy="7" rx="7" ry="3"/><path d="M5 7v5c0 1.7 3.1 3 7 3s7-1.3 7-3V7M5 12v5c0 1.7 3.1 3 7 3s7-1.3 7-3v-5"/>',
+ guests:'<circle cx="9" cy="8" r="3.5"/><path d="M2.5 20c.6-3.6 3.2-5.5 6.5-5.5s5.9 1.9 6.5 5.5"/><path d="M16 4.6a3.5 3.5 0 0 1 0 6.8M18 14.8c2 .7 3.2 2.4 3.5 5.2"/>',
+ idea:'<path d="M9 18h6M10 21h4M12 3a6 6 0 0 0-3.6 10.8c.7.5 1.1 1.3 1.1 2.2h5c0-.9.4-1.7 1.1-2.2A6 6 0 0 0 12 3z"/>',
+ image:'<rect x="3.5" y="4.5" width="17" height="15" rx="2"/><circle cx="9" cy="10" r="1.8"/><path d="m4 18 5-5 4 4 3-3 4 4"/>',
+ copy:'<rect x="8.5" y="8.5" width="11" height="11" rx="2"/><path d="M15.5 8.5V6a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v7.5a2 2 0 0 0 2 2h2.5"/>',
+ download:'<path d="M12 4v11m0 0-4.5-4.5M12 15l4.5-4.5M5 20h14"/>', upload:'<path d="M12 16V5m0 0L7.5 9.5M12 5l4.5 4.5M5 20h14"/>',
+ star:'<path d="m12 3.5 2.6 5.3 5.9.9-4.3 4.1 1 5.8L12 16.9l-5.2 2.7 1-5.8-4.3-4.1 5.9-.9z"/>',
+ phone:'<path d="M5 4h3.5l1.5 4-2.2 1.4a11 11 0 0 0 6.8 6.8L16 14l4 1.5V19a1.5 1.5 0 0 1-1.6 1.5C10.6 20 4 13.4 3.5 5.6A1.5 1.5 0 0 1 5 4z"/>',
+ pin:'<path d="M12 21s-7-6.1-7-11.5a7 7 0 0 1 14 0C19 14.9 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.5"/>',
+ bag:'<path d="M5 8h14l-1 12H6zM9 8V6a3 3 0 0 1 6 0v2"/>', alert:'<path d="M12 4 2.5 20h19z"/><path d="M12 10v4M12 17h.01"/>',
+ note:'<path d="M5 4h14v12l-4 4H5z"/><path d="M15 20v-4h4M8.5 9h7M8.5 12.5h4"/>',
+ search:'<circle cx="11" cy="11" r="6.5"/><path d="m20 20-4.2-4.2"/>'
+};
+const icon=(n,cls='')=>`<svg class="ic ${cls}" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">${P[n]||''}</svg>`;
+
+/* ================= utils ================= */
+const $=(s,r=document)=>r.querySelector(s);
+const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const uid=()=>Date.now().toString(36)+Math.random().toString(36).slice(2,8);
+const num=v=>{const n=Number(v);return isFinite(n)?n:0};
+const round2=n=>Math.round(n*100)/100;
+const clone=o=>JSON.parse(JSON.stringify(o||{}));
+const arr=c=>[...S.data[c].values()];
+const isISO=s=>/^\d{4}-\d{2}-\d{2}$/.test(s||'')&&!isNaN(Date.parse(s+'T00:00:00Z'))&&new Date(s+'T00:00:00Z').toISOString().slice(0,10)===s;
+function todayISO(){try{return new Intl.DateTimeFormat('en-CA',{timeZone:'Asia/Bangkok',year:'numeric',month:'2-digit',day:'2-digit'}).format(new Date())}catch(e){return new Date().toISOString().slice(0,10)}}
+const toUTC=s=>Date.parse(s+'T00:00:00Z');
+const dayDiff=(a,b)=>Math.round((toUTC(b)-toUTC(a))/864e5);
+const addDays=(s,n)=>new Date(toUTC(s)+n*864e5).toISOString().slice(0,10);
+const dow=s=>new Date(toUTC(s)).getUTCDay();
+const weekStart=s=>addDays(s,-((dow(s)+6)%7));
+function fmtD(s){if(!isISO(s))return '—';const [y,m,d]=s.split('-');const yy=S.settings&&S.settings.yearStyle==='be'?(+y+543):y;return `${d}/${m}/${yy}`}
+function longThai(s){if(!isISO(s))return '';try{return new Intl.DateTimeFormat('th-TH',{dateStyle:'full',timeZone:'UTC'}).format(new Date(toUTC(s)))}catch(e){return fmtD(s)}}
+const fmtB=n=>'฿'+Number(n||0).toLocaleString('th-TH',{maximumFractionDigits:2});
+const fmtTime=iso=>{try{return new Intl.DateTimeFormat('th-TH',{timeZone:'Asia/Bangkok',day:'2-digit',month:'short',hour:'2-digit',minute:'2-digit'}).format(new Date(iso))}catch(e){return ''}};
+function csvEsc(v){v=String(v??'');return /[",\n]/.test(v)?'"'+v.replace(/"/g,'""')+'"':v}
+function toCSV(rows){return '﻿'+rows.map(r=>r.map(csvEsc).join(',')).join('\r\n')}
+function parseCSV(text){const rows=[];let row=[],f='',q=false;text=text.replace(/^﻿/,'');for(let i=0;i<text.length;i++){const c=text[i];if(q){if(c==='"'){if(text[i+1]==='"'){f+='"';i++}else q=false}else f+=c}else if(c==='"')q=true;else if(c===','){row.push(f);f=''}else if(c==='\n'||c==='\r'){if(c==='\r'&&text[i+1]==='\n')i++;row.push(f);rows.push(row);row=[];f=''}else f+=c}if(f!==''||row.length){row.push(f);rows.push(row)}return rows.filter(r=>r.some(x=>x.trim()!==''))}
+function store(k,v){try{if(v===undefined)return localStorage.getItem(k);localStorage.setItem(k,v)}catch(e){return null}}
+
+/* ================= state ================= */
+const S={mode:'loading',slow:false,canWrite:true,settings:null,settingsLoaded:false,me:null,uid:null,user:null,assets:null,downloads:null,data:{},
+ ui:{taskView:'list',tq:'',tst:'open',twho:'all',tcat:'all',tsort:'due',ecat:'all',est:'all',ewho:'all',esort:'due',gq:'',gside:'all',grsvp:'all',gview:'list',vcat:'all',vst:'all',vsort:'status',icol:'all',imutual:false,calMonth:null,calView:'month',calDay:null,gfq:'',gft:'all',gfth:'all',ciq:'',simOpen:'0',simGuests:'',simPh:'',simCatering:true,simVendor:'',simExtra:'',simEnv:''}};
+const CMP=new Set();
+COLS.forEach(c=>S.data[c]=new Map());
+
+const Q=new Map();
+function enqueue(key,fn){const p=(Q.get(key)||Promise.resolve()).then(fn).catch(onDbErr);Q.set(key,p);return p}
+function onDbErr(e){console.error(e);const msg=String((e&&(e.message||e.code))||'');if(/row-level security|permission|42501/i.test(msg))toast('บันทึกไม่สำเร็จ บัญชีนี้ไม่ได้อยู่ในพื้นที่นี้แล้ว ลองรีเฟรชหน้า','bad');else if(/JWT|token/i.test(msg))toast('การเข้าสู่ระบบหมดอายุ รีเฟรชหน้าแล้วล็อกอินใหม่','bad');else if(/fetch|network|Failed/i.test(msg))toast('ออฟไลน์อยู่ ข้อมูลล่าสุดยังไม่ถูกบันทึก ลองใหม่เมื่อมีอินเทอร์เน็ต','bad');else toast('บันทึกไม่สำเร็จ ลองอีกครั้ง','bad');schedule()}
+function guard(){if(!S.canWrite){toast('บัญชีนี้แก้ไขข้อมูลไม่ได้','bad');return false}return true}
+const chk=r=>{if(r&&r.error)throw r.error;return r};
+const Store={sb:null,
+ put(col,o){if(!guard())return false;const now=new Date().toISOString();o.updatedAt=now;if(!o.createdAt)o.createdAt=now;S.data[col].set(o.id,o);schedule();if(this.sb&&S.ws){const d=clone(o),ws=S.ws;enqueue(col+'/'+o.id,()=>this.sb.from('records').upsert({workspace_id:ws,col,id:o.id,data:d}).then(chk))}return true},
+ del(col,id){if(!guard())return false;S.data[col].delete(id);schedule();if(this.sb&&S.ws){const ws=S.ws;enqueue(col+'/'+id,()=>this.sb.from('records').delete().match({workspace_id:ws,col,id}).then(chk))}return true},
+ settings(patch){if(!guard())return false;S.settings=Object.assign({},S.settings||{},patch);schedule();if(this.sb&&S.ws){const d=clone(S.settings),ws=S.ws;enqueue('settings',()=>this.sb.from('workspaces').update({settings:d}).eq('id',ws).then(chk))}return true}
+};
+function logAct(text,ref){if(!S.canWrite)return;const o={id:uid(),at:new Date().toISOString(),by:S.me||'',text,ref:ref||''};Store.put('activity',o);const acts=arr('activity');if(acts.length>300){acts.sort((a,b)=>(a.at||'').localeCompare(b.at||'')).slice(0,acts.length-300).forEach(a=>Store.del('activity',a.id))}}
+
+/* ================= identity ================= */
+const nameOf=k=>{const s=S.settings||{};return k==='A'?(s.nameA||'คนที่หนึ่ง'):k==='B'?(s.nameB||'คนที่สอง'):k==='Both'?'ทั้งคู่':'—'};
+const other=k=>k==='A'?'B':'A';
+const whoOpts=()=>[['Both','ทั้งคู่'],['A',nameOf('A')],['B',nameOf('B')]];
+function resolveMe(){if(S.mode!=='live')return;const mine=(S.members||[]).find(m=>m.user_id===S.uid);S.me=mine?mine.partner:null}
+async function setMe(k){if(S.mode!=='live'){S.me=k;schedule();return}const mine=(S.members||[]).find(m=>m.user_id===S.uid);if(mine)mine.partner=k;S.me=k;schedule();const r=await SB.from('workspace_members').update({partner:k}).match({workspace_id:S.ws,user_id:S.uid});if(r.error){onDbErr(r.error);return}await loadMembers();schedule()}
+
+/* ================= calculations ================= */
+function expCalc(e){const pays=e.payments||[];const paid=round2(pays.filter(p=>p.paid).reduce((s,p)=>s+num(p.amount),0));const agreed=(e.agreed===null||e.agreed===''||e.agreed===undefined)?null:num(e.agreed);const est=num(e.estimated);const base=agreed!==null?agreed:est;const projected=Math.max(base,paid);const outstanding=agreed!==null?Math.max(round2(agreed-paid),0):0;const status=agreed===null?(paid>0?'committed':'planned'):(agreed>0&&paid>=agreed?'paid':'committed');const next=pays.filter(p=>!p.paid&&isISO(p.due)).sort((a,b)=>a.due.localeCompare(b.due))[0]||null;return {paid,agreed,est,projected,outstanding,status,next}}
+function budget(){const st=S.settings||{};const total=num(st.budget);let paid=0,comm=0,proj=0,planned=0;const byCat={};CATS.forEach(c=>byCat[c[0]]={paid:0,comm:0,plan:0,proj:0,budget:num((st.catBudgets||{})[c[0]])});
+ arr('expenses').forEach(e=>{const c=expCalc(e);paid+=c.paid;comm+=c.outstanding;proj+=c.projected;const pl=c.agreed===null?Math.max(c.est-c.paid,0):0;planned+=pl;const b=byCat[e.cat]||(byCat[e.cat]={paid:0,comm:0,plan:0,proj:0,budget:0});b.paid+=c.paid;b.comm+=c.outstanding;b.plan+=pl;b.proj+=c.projected});
+ return {total,paid:round2(paid),comm:round2(comm),planned:round2(planned),proj:round2(proj),cash:round2(total-paid),afterProj:round2(total-proj),byCat}}
+function risk(b){if(!b.budget)return b.proj>0?'':'';if(b.proj>b.budget)return 'over';if(b.proj>=b.budget*.9)return 'near';return ''}
+function taskStats(){const t=arr('tasks');const done=t.filter(x=>x.status==='done').length;return {total:t.length,done,pct:t.length?Math.round(done/t.length*100):0}}
+function payItems(){const out=[];arr('expenses').forEach(e=>(e.payments||[]).forEach(p=>out.push({e,p})));return out}
+function guestStats(){const g=arr('guests');const heads=x=>1+Math.max(0,Math.floor(num(x.plus)));const st={invited:0,yes:0,no:0,pending:0,maybe:0,rows:g.length};g.forEach(x=>{const h=heads(x);st.invited+=h;st[x.rsvp||'pending']+=h});st.cost=st.yes*num((S.settings||{}).costPerHead);st.projCost=(st.yes+st.pending+st.maybe)*num((S.settings||{}).costPerHead);return st}
+function weekInfo(t){const ws=weekStart(t),we=addDays(ws,6);const inW=d=>isISO(d)&&d>=ws&&d<=we;const tasks=arr('tasks');return {ws,we,due:tasks.filter(x=>x.status!=='done'&&inW(x.due)),doneW:tasks.filter(x=>x.completedAt&&inW(x.completedAt.slice(0,10))),pays:payItems().filter(o=>!o.p.paid&&inW(o.p.due)),events:arr('events').filter(e=>inW(e.date))}}
+function upcoming(t,n){const end=addDays(t,n);const out=[];arr('tasks').forEach(x=>{if(x.status!=='done'&&isISO(x.due)&&x.due>=t&&x.due<=end)out.push({d:x.due,k:'task',t:x.title,s:'งาน · '+nameOf(x.who),act:'editTask',id:x.id})});payItems().forEach(({e,p})=>{if(!p.paid&&isISO(p.due)&&p.due>=t&&p.due<=end)out.push({d:p.due,k:'pay',t:`${PAY_KIND[p.kind]||'ชำระ'} · ${e.name}`,s:fmtB(p.amount)+' · '+nameOf(e.who),act:'editExpense',id:e.id})});arr('events').forEach(v=>{if(isISO(v.date)&&v.date>=t&&v.date<=end)out.push({d:v.date,k:'ev',t:v.title,s:(EV_TYPES[v.type]||EV_TYPES.other)[0]+(v.time?' · '+v.time:''),act:'editEvent',id:v.id})});return out.sort((a,b)=>a.d.localeCompare(b.d))}
+function milestones(){const ms=[];const st=taskStats();const v=arr('vendors');if(S.settings&&S.settings.weddingDate)ms.push({k:'setup',t:'เริ่มวางแผนด้วยกัน'});if(v.some(x=>x.cat==='venue'&&['booked','completed'].includes(x.status)))ms.push({k:'venue',t:'ได้สถานที่แล้ว'});if(v.filter(x=>['booked','completed'].includes(x.status)).length>=3)ms.push({k:'v3',t:'จองผู้ให้บริการครบ 3 ราย'});if(st.total>=5)[25,50,75,100].forEach(p=>{if(st.pct>=p)ms.push({k:'p'+p,t:p===100?'เช็กลิสต์ครบทุกข้อ':`เช็กลิสต์ ${p}%`})});if(arr('ideas').some(i=>i.final))ms.push({k:'decide',t:'ตัดสินใจร่วมกันครั้งแรก'});if(arr('memories').length)ms.push({k:'mem',t:'ความทรงจำแรกในสมุด'});const g=guestStats();if(g.invited>=10&&g.yes/g.invited>=.5)ms.push({k:'rsvp',t:'แขกตอบรับเกินครึ่ง'});return ms}
+function qIndex(d){return Math.abs(Math.floor(toUTC(d)/864e5))%QUESTIONS.length}
+function weekQuests(t){const ws=weekStart(t);const n=Math.floor(toUTC(ws)/(7*864e5));const out=[];for(let i=0;i<4;i++)out.push(QUESTS[(n*3+i)%QUESTS.length]);return out}
+function questProgress(q,t){const w=weekInfo(t);if(q.auto==='tasks')return {cur:w.doneW.length,need:3};if(q.auto==='answers'){const c=arr('answers').filter(a=>a.id>=w.ws&&a.id<=w.we&&a.A&&a.B).length;return {cur:c,need:3}}if(q.auto==='memory'){const c=arr('memories').filter(m=>m.createdAt&&m.createdAt.slice(0,10)>=w.ws).length;return {cur:c,need:1}}return null}
+
+/* ================= render core ================= */
+let raf=0;function schedule(){if(raf)return;raf=requestAnimationFrame(()=>{raf=0;render()})}
+let dt=0;function debounced(){clearTimeout(dt);dt=setTimeout(schedule,120)}
+const NAV=[['home','หน้าหลัก','home'],['tasks','วางแผน','plan'],['vendors','ผู้ให้บริการ','vendors'],['us','เราสองคน','us'],['calendar','ปฏิทิน','calendar'],['options','ตั้งค่า','options']];
+const PLAN_ROUTES=['tasks','budget','guests','gifts','ideas'];
+function route(){const h=(location.hash||'').slice(1);const all=['home','tasks','budget','guests','gifts','ideas','vendors','us','calendar','options','day'];return all.includes(h)?h:'home'}
+function navKey(r){return PLAN_ROUTES.includes(r)?'tasks':r==='day'?'home':r}
+function renderChrome(){const r=navKey(route());const items=!((S.mode==='live'||S.mode==='demo')&&S.settings&&S.me)?'':NAV.map(([k,l,i])=>`<a href="#${k}" ${r===k?'aria-current="page"':''}>${icon(i)}<span>${l}</span></a>`).join('');$('#nav').innerHTML=items;$('#tabbar').innerHTML=items;
+ const ready=S.settings&&S.me;const modeP=S.mode==='demo'?'<span class="mode-pill">โหมดตัวอย่าง · ไม่บันทึก</span>':S.mode==='live'?`<span class="mode-pill live">${S.canWrite?'ซิงก์ร่วมกันแล้ว':'ดูได้อย่างเดียว'}</span>`:'';
+ $('#sidefoot').innerHTML=(ready?`<div class="who-chip"><span class="dot ${S.me}"></span><span>คุณคือ <b>${esc(nameOf(S.me))}</b></span></div>`:'')+modeP;
+ $('#topwho').innerHTML=ready?`<span class="chip"><span class="dot ${S.me}"></span>${esc(nameOf(S.me))}</span>`:''}
+function render(){const main=$('#main');const ae=document.activeElement;const fid=ae&&ae.id&&main.contains(ae)?ae.id:null;let sel=null;try{if(ae&&'selectionStart' in ae&&ae.selectionStart!=null)sel=[ae.selectionStart,ae.selectionEnd]}catch(e){}
+ renderChrome();main.innerHTML=view();
+ if(fid){const el=document.getElementById(fid);if(el){el.focus({preventScroll:true});try{if(sel)el.setSelectionRange(sel[0],sel[1])}catch(e){}}}
+ checkMilestones()}
+function view(){if(S.mode==='loading')return vLoading();if(S.mode==='login')return vLogin();if(S.mode==='error')return vError();if(S.mode==='choose'||!S.settings)return vSetup();resolveMe();if(!S.me)return vWho();const r=route();const banner=topBanner();const map={home:vHome,tasks:vTasks,budget:vBudget,guests:vGuests,ideas:vIdeas,vendors:vVendors,us:vUs,calendar:vCalendar,options:vOptions,day:vDay,gifts:vGifts};return banner+map[r]()}
+function topBanner(){if(S.mode==='demo')return `<div class="banner"><span><b>โหมดตัวอย่าง</b> ข้อมูลในหน้านี้เป็นข้อมูลสมมติ ไม่ถูกบันทึก และจะหายเมื่อปิดหน้า</span><span class="toolbar"><span class="muted">ดูในมุมของ</span><span class="seg" role="group" aria-label="สลับมุมมองคู่"><button type="button" data-act="demoMe" data-id="A" aria-pressed="${S.me==='A'}">${esc(nameOf('A'))}</button><button type="button" data-act="demoMe" data-id="B" aria-pressed="${S.me==='B'}">${esc(nameOf('B'))}</button></span>${SB?'<button class="btn sm" data-act="exitDemo">ออกจากโหมดตัวอย่าง</button>':''}</span></div>`;return ''}
+function ph(eyebrow,title,actions=''){return `<header class="ph"><div><p class="eyebrow">${eyebrow}</p><h1>${title}</h1></div><div class="ph-actions">${actions}</div></header>`}
+function empty(ic,title,text,btn=''){return `<div class="empty">${icon(ic)}<h3>${title}</h3><p>${text}</p>${btn}</div>`}
+function planNav(){const r=route();return `<nav class="subnav" aria-label="ส่วนของการวางแผน">${[['tasks','เช็กลิสต์'],['budget','งบประมาณ'],['guests','แขก'],['gifts','ซองและเงินสมทบ'],['ideas','ห้องตัดสินใจ']].map(([k,l])=>`<a href="#${k}" ${r===k?'aria-current="page"':''}>${l}</a>`).join('')}</nav>`}
+function vLoading(){return `<div class="loading"><div style="display:flex;flex-direction:column;gap:14px;align-items:center"><div class="spin"></div><p>กำลังเปิดพื้นที่ของเรา…</p></div></div>`}
+function vError(){return `<section class="setup"><div class="card">${empty('alert','เปิดข้อมูลไม่สำเร็จ',esc(S.err||'ลองรีเฟรชหน้าอีกครั้ง'),`<span class="toolbar"><button class="btn primary" data-act="reload">ลองอีกครั้ง</button><button class="btn ghost" data-act="signOut">ออกจากระบบ</button></span>`)}</div></section>`}
+function vLogin(){return `<section class="setup"><header class="ph"><div><p class="eyebrow">OUR DAY</p><h1>เข้าสู่พื้นที่วางแผนของเรา</h1><p class="muted">ใส่อีเมล แล้วระบบจะส่งลิงก์เข้าสู่ระบบไปให้ ไม่ต้องตั้งรหัสผ่าน</p></div></header>
+<form class="card" data-form="login" novalidate>${S.loginSent?`<div class="banner" style="background:var(--sage-soft)"><span>ส่งลิงก์ไปที่ <b>${esc(S.loginSent)}</b> แล้ว เปิดอีเมลบนอุปกรณ์นี้แล้วกดลิงก์ (ถ้าไม่เห็น ลองดูในจดหมายขยะ)</span></div>`:''}<div class="field"><label for="loginEmail">อีเมล</label><input id="loginEmail" name="email" type="email" autocomplete="email" inputmode="email" value="${esc(S.loginSent||'')}"></div><div class="toolbar" style="justify-content:space-between"><button class="btn ghost" type="button" data-act="startDemo">ลองดูโหมดตัวอย่าง</button><button class="btn primary" type="submit">${S.loginSent?'ส่งลิงก์อีกครั้ง':'ส่งลิงก์เข้าสู่ระบบ'}</button></div></form>
+<p class="help">ข้อมูลงานแต่งเห็นได้เฉพาะคุณกับคู่ที่เข้าร่วมด้วยรหัสเชิญเท่านั้น</p></section>`}
+function joinCard(){return `<form class="card" data-form="join" novalidate><div class="card-h"><h2>มีรหัสเชิญจากคู่แล้ว?</h2><button type="button" class="btn sm ghost" data-act="signOut">ออกจากระบบ</button></div><p class="muted">ล็อกอินเป็น ${esc((S.session&&S.session.user.email)||'')} · ใส่รหัส 8 ตัวที่คู่ของคุณเห็นในหน้าตั้งค่า เพื่อเข้าร่วมพื้นที่เดียวกัน</p><div class="quickadd"><label class="sr" for="joinCode">รหัสเชิญ</label><input id="joinCode" name="code" autocomplete="off" maxlength="12" placeholder="เช่น K7Q2M9XA" style="text-transform:uppercase"><button class="btn primary" type="submit">เข้าร่วม</button></div></form><p class="muted" style="text-align:center">หรือเริ่มพื้นที่ใหม่ของคุณเอง</p>`}
+
+/* ================= setup & identity ================= */
+function vSetup(){return `<section class="setup">${S.mode==='demo'?topBanner():''}<header class="ph"><div><p class="eyebrow">เริ่มต้น</p><h1>ตั้งค่างานแต่งของเรา</h1><p class="muted">ใช้เวลาไม่ถึงนาที แก้ไขได้ทุกอย่างภายหลังในหน้าตั้งค่า</p></div></header>
+${S.mode==='live'&&!S.canWrite?'<div class="banner bad"><span>บัญชีนี้ยังไม่มีสิทธิ์แก้ไขหน้านี้ ขอให้เจ้าของเชิญคุณเป็น “ผู้แก้ไข” แล้วเปิดใหม่อีกครั้ง</span></div>':''}${S.mode==='choose'?joinCard():''}<form class="card" id="setupForm" novalidate><div class="fgrid">
+${fieldHtml({k:'nameA',label:'ชื่อของคุณ',req:true,max:40,ph:'เช่น มิว'})}${fieldHtml({k:'nameB',label:'ชื่อคู่ของคุณ',req:true,max:40,ph:'เช่น ภูมิ'})}
+${fieldHtml({k:'weddingDate',label:'วันแต่งงาน',type:'date',req:true},DEFAULT_DATE)}${fieldHtml({k:'budget',label:'งบประมาณรวม (บาท)',type:'number',req:true,ph:'เช่น 800000'})}
+${fieldHtml({k:'guestEstimate',label:'จำนวนแขกโดยประมาณ',type:'number',step:'1',ph:'เช่น 200'})}${fieldHtml({k:'costPerHead',label:'ค่าอาหารต่อหัวโดยประมาณ (บาท)',type:'number',ph:'เช่น 1000'})}
+${fieldHtml({k:'starter',label:'เพิ่มเช็กลิสต์เริ่มต้น 12 เดือน–วันงาน (ลบหรือแก้ได้ทุกข้อ)',type:'check',full:true},true)}
+${fieldHtml({k:'split',label:'แบ่งงบรายหมวดตามสัดส่วนแนะนำ (ปรับได้ภายหลัง)',type:'check',full:true},true)}
+</div><div class="toolbar" style="justify-content:flex-end"><button class="btn primary" type="submit">เริ่มวางแผน</button></div></form></section>`}
+const setupFields=[{k:'nameA',req:true,label:''},{k:'nameB',req:true,label:''},{k:'weddingDate',type:'date',req:true,label:''},{k:'budget',type:'number',req:true,label:''},{k:'guestEstimate',type:'number',label:''},{k:'costPerHead',type:'number',label:''},{k:'starter',type:'check',label:''},{k:'split',type:'check',label:''}];
+async function submitSetup(form){const {out,errs}=readForm(form,setupFields);if(out.weddingDate&&out.weddingDate<todayISO())errs.weddingDate='วันแต่งงานต้องเป็นวันนี้หรือหลังจากนี้';showErrs(form,setupFields,errs);if(Object.keys(errs).length)return;
+ const cb={};if(out.split)CATS.forEach(c=>cb[c[0]]=Math.round(out.budget*c[2]/100));
+ const settings={nameA:out.nameA,nameB:out.nameB,weddingDate:out.weddingDate,budget:out.budget,guestEstimate:out.guestEstimate||0,costPerHead:out.costPerHead||0,planningStart:todayISO(),style:'',yearStyle:'ce',gamify:true,notify:{weekly:true,deadline:true,payment:true},catBudgets:cb,dayNotes:'',createdAt:new Date().toISOString()};
+ if(S.mode==='choose'){const btn=form.querySelector('button[type=submit]');btn.disabled=true;btn.textContent='กำลังสร้าง…';try{const r=await SB.rpc('create_workspace',{p_settings:settings});if(r.error)throw r.error;const id=r.data;store('ourday-ws',id);if(out.starter){const now=new Date().toISOString();const rows=starterTasks(out.weddingDate).map(t=>{t.createdAt=now;t.updatedAt=now;return {workspace_id:id,col:'tasks',id:t.id,data:t}});const r2=await SB.from('records').insert(rows);if(r2.error)console.error(r2.error)}await loadWorkspace();logAct('เริ่มวางแผนงานแต่ง');toast('พร้อมแล้ว ชวนคู่ของคุณได้ในหน้าตั้งค่า');location.hash='home'}catch(e){btn.disabled=false;btn.textContent='เริ่มวางแผน';toast('สร้างพื้นที่ไม่สำเร็จ: '+(e.message||'ลองอีกครั้ง'),'bad')}return}
+ if(!Store.settings(settings))return;S.me='A';
+ if(out.starter)starterTasks(out.weddingDate).forEach(t=>Store.put('tasks',t));
+ logAct('เริ่มวางแผนงานแต่ง');toast('พร้อมแล้ว เริ่มวางแผนด้วยกันได้เลย');location.hash='home'}
+function starterTasks(wd,pick){const t=todayISO();return TPL.filter((x,i)=>!pick||pick.includes(i)).map(([off,cat,title,who,prio])=>{let due=addDays(wd,-off);if(due<t)due=addDays(t,14)>wd?wd:addDays(t,14);let start=addDays(due,-21);if(start<t)start=t;if(start>due)start=due;return {id:uid(),title,desc:'',cat,who,prio,start,due,status:'todo',notes:'',comments:[],phase:off}})}
+function vWho(){const taken=k=>(S.members||[]).some(m=>m.partner===k&&m.user_id!==S.uid);return `<section class="setup"><header class="ph"><div><p class="eyebrow">ยินดีต้อนรับ</p><h1>คุณคือใครในงานนี้</h1><p class="muted">เลือกครั้งเดียว ระบบจะจำว่าใครโหวต ตอบคำถาม หรือแก้ไขอะไร</p></div></header><div class="grid g2">${['A','B'].map(k=>`<button class="card" style="cursor:pointer;text-align:left" data-act="pickMe" data-id="${k}" ${taken(k)?'disabled':''}><span class="dot ${k}"></span><h2>${esc(nameOf(k))}</h2><span class="muted">${taken(k)?'อีกบัญชีเลือกชื่อนี้แล้ว':'เลือกชื่อนี้'}</span></button>`).join('')}</div></section>`}
+
+/* ================= HOME ================= */
+function vHome(){const s=S.settings,t=todayISO();const wd=s.weddingDate;const days=isISO(wd)?dayDiff(t,wd):null;const ts=taskStats();const b=budget();const up=upcoming(t,21);const od=arr('tasks').filter(x=>x.status!=='done'&&isISO(x.due)&&x.due<t).sort((a,b)=>a.due.localeCompare(b.due));const odPay=payItems().filter(o=>!o.p.paid&&isISO(o.p.due)&&o.p.due<t);const w=weekInfo(t);const acts=arr('activity').sort((a,b)=>(b.at||'').localeCompare(a.at||'')).slice(0,7);const ms=milestones();const q=QUOTES[Math.abs(Math.floor(toUTC(t)/864e5))%QUOTES.length];
+ const cd=days===null?`<div class="banner"><span>ยังไม่ได้ตั้งวันแต่งงาน</span><a class="btn sm" href="#options">ตั้งวันแต่งงาน</a></div>`:days>0?`<div class="countdown"><span class="big">${days.toLocaleString('th-TH')}</span><span>วันก่อนถึงวันของเรา</span></div>`:days===0?`<div class="countdown"><span class="big">วันนี้</span><span>คือวันของเรา</span></div>`:`<div class="countdown"><span class="big">${(-days).toLocaleString('th-TH')}</span><span>วันที่เราแต่งงานกันมา</span></div>`;
+ const circ=2*Math.PI*42;const pctBar=x=>b.total>0?Math.min(100,x/b.total*100):0;
+ const sumLine=[w.due.length?`งานครบกำหนด ${w.due.length} รายการ`:'',w.doneW.length?`ทำเสร็จแล้ว ${w.doneW.length} รายการ`:'',w.pays.length?`ชำระเงิน ${w.pays.length} งวด รวม ${fmtB(w.pays.reduce((s,o)=>s+num(o.p.amount),0))}`:'',w.events.length?`นัดหมาย ${w.events.length} นัด`:''].filter(Boolean);
+ return `<section class="hero"><div class="hero-main"><p class="eyebrow">${esc(longThai(wd)||'วันแต่งงาน')}</p><div class="couple">${esc(s.nameA)}<i>&amp;</i>${esc(s.nameB)}</div>${cd}<div class="quick">${days!==null&&days<=60&&days>=-1?`<a class="btn primary" href="#day">${icon('sun')} โหมดวันงาน</a>`:''}<button class="btn ghost" data-act="newTask">${icon('plus','sm')} งาน</button><button class="btn ghost" data-act="newExpense">${icon('plus','sm')} ค่าใช้จ่าย</button><button class="btn ghost" data-act="newVendor">${icon('plus','sm')} ผู้ให้บริการ</button><button class="btn ghost" data-act="newIdea">${icon('plus','sm')} ไอเดีย</button>${days!==null&&(days>60||days<-1)?`<a class="btn ghost" href="#day">${icon('sun','sm')} โหมดวันงาน</a>`:''}</div></div>
+ <aside class="quote"><blockquote>“${esc(q)}”</blockquote><div>${ms.length?`<p class="eyebrow">หมุดหมายล่าสุด</p><p>${esc(ms[ms.length-1].t)} · ผ่านมาแล้ว ${ms.length} หมุดหมาย</p>`:'<p class="muted">หมุดหมายแรกรออยู่ไม่ไกล</p>'}</div></aside></section>
+ <section class="grid g3">
+  <article class="card"><div class="card-h"><h2>ความคืบหน้า</h2><a href="#tasks" class="btn sm ghost">เช็กลิสต์</a></div>
+   <div class="ring"><svg viewBox="0 0 100 100" role="img" aria-label="ความคืบหน้า ${ts.pct}%"><circle cx="50" cy="50" r="42" fill="none" stroke="var(--surface-2)" stroke-width="9"/><circle cx="50" cy="50" r="42" fill="none" stroke="var(--sage)" stroke-width="9" stroke-linecap="round" stroke-dasharray="${circ}" stroke-dashoffset="${circ*(1-ts.pct/100)}" transform="rotate(-90 50 50)"/><text x="50" y="56" text-anchor="middle" font-size="20" fill="var(--ink)" font-family="Trirong,serif">${ts.pct}%</text></svg>
+   <div class="figs" style="grid-template-columns:1fr"><div class="fig"><span class="lbl">เสร็จแล้ว</span><span class="val">${ts.done} / ${ts.total} งาน</span></div><div class="fig"><span class="lbl">เลยกำหนด</span><span class="val ${od.length?'bad':''}">${od.length} งาน</span></div></div></div></article>
+  <article class="card span2"><div class="card-h"><h2>งบประมาณ</h2><a href="#budget" class="btn sm ghost">รายละเอียด</a></div>
+   ${b.total>0?`<div class="figs figs4"><div class="fig"><span class="lbl">งบรวม</span><span class="val">${fmtB(b.total)}</span></div><div class="fig"><span class="lbl">จ่ายแล้ว (เงินออกจริง)</span><span class="val">${fmtB(b.paid)}</span></div><div class="fig"><span class="lbl">ตกลงแล้ว รอจ่าย</span><span class="val">${fmtB(b.comm)}</span></div><div class="fig"><span class="lbl">งบเงินสดคงเหลือ</span><span class="val ${b.cash<0?'bad':''}">${fmtB(b.cash)}</span></div></div>
+   <div class="stack" role="img" aria-label="สัดส่วนการใช้งบ"><span class="c-paid" style="width:${pctBar(b.paid)}%"></span><span class="c-comm" style="width:${pctBar(b.comm)}%"></span><span class="c-plan" style="width:${pctBar(b.planned)}%"></span></div>
+   <div class="legend"><span><i class="c-paid"></i>จ่ายแล้ว</span><span><i class="c-comm"></i>ตกลงแล้ว รอจ่าย</span><span><i class="c-plan"></i>ประมาณการ ยังไม่ตกลง</span><span>คาดการณ์รวม <b class="num">${fmtB(b.proj)}</b> · ${b.afterProj<0?`<b style="color:var(--bad)">เกินงบ ${fmtB(-b.afterProj)}</b>`:`เหลือ ${fmtB(b.afterProj)}`}</span></div>`:empty('coin','ยังไม่ได้ตั้งงบ','ตั้งงบรวมเพื่อให้ระบบคำนวณเงินคงเหลือให้',`<a class="btn primary" href="#options">ตั้งงบประมาณ</a>`)}</article>
+ </section>
+ <section class="grid g3">
+  <article class="card"><div class="card-h"><h2>ใกล้ถึงกำหนด</h2><span class="muted">21 วันข้างหน้า</span></div>${up.length?`<ul class="list">${up.slice(0,7).map(i=>`<li class="li"><span class="datebox"><b>${i.d.slice(8)}</b><small>${TH_MON[+i.d.slice(5,7)-1]}</small></span><div class="grow"><button class="trow-main" data-act="${i.act}" data-id="${i.id}"><span class="t">${esc(i.t)}</span><span class="s">${esc(i.s)}</span></button></div></li>`).join('')}</ul>`:empty('check','ไม่มีอะไรเร่งด่วน','สามสัปดาห์ข้างหน้ายังว่าง')}</article>
+  <article class="card"><div class="card-h"><h2>เลยกำหนด</h2>${od.length+odPay.length?`<span class="chip bad">${od.length+odPay.length}</span>`:''}</div>${od.length+odPay.length?`<ul class="list">${od.slice(0,5).map(x=>`<li class="li"><span class="datebox bad"><b>${x.due.slice(8)}</b><small>${TH_MON[+x.due.slice(5,7)-1]}</small></span><div class="grow"><button class="trow-main" data-act="editTask" data-id="${x.id}"><span class="t">${esc(x.title)}</span><span class="s">เลยมา ${dayDiff(x.due,t)} วัน · ${esc(nameOf(x.who))}</span></button></div><button class="check" data-act="toggleTask" data-id="${x.id}" aria-label="ทำเครื่องหมายว่าเสร็จ: ${esc(x.title)}" aria-pressed="false">${icon('check')}</button></li>`).join('')}${odPay.slice(0,3).map(({e,p})=>`<li class="li"><span class="datebox bad"><b>${p.due.slice(8)}</b><small>${TH_MON[+p.due.slice(5,7)-1]}</small></span><div class="grow"><button class="trow-main" data-act="editExpense" data-id="${e.id}"><span class="t">ค้างชำระ · ${esc(e.name)}</span><span class="s">${fmtB(p.amount)}</span></button></div></li>`).join('')}</ul>`:empty('check','ไม่มีงานค้าง','ทุกอย่างยังอยู่ในกำหนด')}</article>
+  <article class="card"><div class="card-h"><h2>สัปดาห์นี้</h2><span class="muted">${fmtD(w.ws)}–${fmtD(w.we)}</span></div>${sumLine.length?`<ul class="list">${sumLine.map(x=>`<li class="li">${esc(x)}</li>`).join('')}</ul>`:'<p class="muted">สัปดาห์นี้ไม่มีกำหนดส่งหรือนัดหมาย เป็นจังหวะดีที่จะคุยกันเรื่องที่ยังค้างในใจ</p>'}${s.gamify!==false?`<a class="btn sm ghost" href="#us" style="align-self:flex-start">ภารกิจของสัปดาห์</a>`:''}</article>
+ </section>
+ <section class="card"><div class="card-h"><h2>ความเคลื่อนไหวล่าสุด</h2></div>${acts.length?`<ul class="list">${acts.map(a=>`<li class="li"><span class="dot ${esc(a.by)}" style="margin-top:8px"></span><div class="grow"><span>${esc(a.text)}</span><div class="s muted">${esc(nameOf(a.by))} · ${fmtTime(a.at)}</div></div></li>`).join('')}</ul>`:'<p class="muted">ทุกการเพิ่ม แก้ไข หรือติ๊กงานของทั้งสองคนจะแสดงที่นี่</p>'}</section>`}
+
+/* ================= TASKS ================= */
+function vTasks(){const t=todayISO();const u=S.ui;let list=arr('tasks');const all=list.length;
+ if(u.tq)list=list.filter(x=>(x.title+' '+(x.desc||'')+' '+(x.notes||'')).toLowerCase().includes(u.tq.toLowerCase()));
+ if(u.tst==='open')list=list.filter(x=>x.status!=='done');else if(u.tst==='overdue')list=list.filter(x=>x.status!=='done'&&isISO(x.due)&&x.due<t);else if(u.tst!=='all')list=list.filter(x=>x.status===u.tst);
+ if(u.twho!=='all')list=list.filter(x=>x.who===u.twho||(u.twho!=='Both'&&x.who==='Both'));if(u.tcat!=='all')list=list.filter(x=>x.cat===u.tcat);
+ const pr={high:0,med:1,low:2};list.sort(u.tsort==='prio'?(a,b)=>(pr[a.prio]??1)-(pr[b.prio]??1)||(a.due||'9').localeCompare(b.due||'9'):u.tsort==='created'?(a,b)=>(b.createdAt||'').localeCompare(a.createdAt||''):(a,b)=>(a.due||'9999').localeCompare(b.due||'9999'));
+ const ts=taskStats();
+ const tb=`<div class="toolbar"><div class="grow"><label class="sr" for="tq">ค้นหางาน</label><input type="search" id="tq" data-ui="tq" placeholder="ค้นหางาน" value="${esc(u.tq)}"></div>
+ ${sel('tst','สถานะ',[['open','ยังไม่เสร็จ'],['all','ทั้งหมด'],['overdue','เลยกำหนด'],...Object.entries(TASK_ST)],u.tst)}${sel('twho','ผู้รับผิดชอบ',[['all','ทุกคน'],...whoOpts()],u.twho)}${sel('tcat','หมวด',[['all','ทุกหมวด'],...TASK_CATS],u.tcat)}${sel('tsort','เรียง',[['due','ตามกำหนด'],['prio','ตามความสำคัญ'],['created','เพิ่มล่าสุด']],u.tsort)}
+ <span class="seg" role="group" aria-label="มุมมอง">${[['list','รายการ'],['board','บอร์ด'],['timeline','ไทม์ไลน์']].map(([k,l])=>`<button type="button" data-act="setUi" data-id="taskView:${k}" aria-pressed="${u.taskView===k}">${l}</button>`).join('')}</span></div>`;
+ let body;
+ if(!all)body=`<div class="card">${empty('plan','ยังไม่มีงานในเช็กลิสต์','เริ่มจากแม่แบบ 12 เดือนถึงวันงาน หรือพิมพ์งานแรกด้านบน',`<button class="btn primary" data-act="templates">เพิ่มจากแม่แบบ</button>`)}</div>`;
+ else if(u.taskView==='board')body=`<div class="board">${Object.entries(TASK_ST).map(([k,l])=>{const items=list.filter(x=>x.status===k||(u.tst==='open'&&false));const col=(u.tst==='open'&&k==='done')?arr('tasks').filter(x=>x.status==='done'):items;return `<section class="col" aria-label="${l}"><h3>${l}<span class="muted">${col.length}</span></h3>${col.map(x=>`<div class="bcard"><button class="t" data-act="editTask" data-id="${x.id}">${esc(x.title)}</button><div class="meta">${taskChips(x,t)}</div><label class="sr" for="mv_${x.id}">ย้ายสถานะ</label><select id="mv_${x.id}" data-chg="moveTask" data-id="${x.id}">${Object.entries(TASK_ST).map(([s,sl])=>`<option value="${s}" ${s===x.status?'selected':''}>${sl}</option>`).join('')}</select></div>`).join('')||'<p class="muted" style="font-size:.85rem">ว่าง</p>'}</section>`}).join('')}</div>`;
+ else if(u.taskView==='timeline')body=timeline(list,t);
+ else body=list.length?`<ul class="list card" style="padding:4px 8px;gap:0">${list.map(x=>taskRow(x,t)).join('')}</ul>`:`<div class="card">${empty('search','ไม่พบงานที่ตรงกับตัวกรอง','ลองเปลี่ยนตัวกรองหรือคำค้นหา')}</div>`;
+ return ph('วางแผน','เช็กลิสต์ของเรา',`<button class="btn ghost" data-act="templates">แม่แบบ</button><button class="btn primary" data-act="newTask">${icon('plus','sm')} เพิ่มงาน</button>`)+planNav()+
+ `<div class="banner" style="background:var(--sage-soft)"><span>เสร็จแล้ว <b class="num">${ts.done}</b> จาก <b class="num">${ts.total}</b> งาน (${ts.pct}%)</span><span class="stack" style="flex:1 1 160px;max-width:320px"><span class="c-paid" style="width:${ts.pct}%"></span></span></div>
+ <form class="quickadd" data-form="quickTask"><label class="sr" for="qt">เพิ่มงานด่วน</label><input id="qt" name="title" placeholder="พิมพ์งานใหม่แล้วกด Enter เช่น นัดดูชุดวันเสาร์" maxlength="140" autocomplete="off"><button class="btn" type="submit">เพิ่ม</button></form>`+tb+body}
+function sel(key,label,opts,val){return `<label class="sr" for="u_${key}">${label}</label><select id="u_${key}" data-ui="${key}" aria-label="${label}">${opts.map(([k,l])=>`<option value="${esc(k)}" ${k===val?'selected':''}>${esc(l)}</option>`).join('')}</select>`}
+function taskChips(x,t){const c=[];if(isISO(x.due)){const d=dayDiff(t,x.due);c.push(x.status!=='done'&&d<0?`<span class="chip bad">เลยกำหนด ${fmtD(x.due)}</span>`:x.status!=='done'&&d<=7?`<span class="chip warn">${d===0?'วันนี้':'อีก '+d+' วัน'}</span>`:`<span class="chip">${fmtD(x.due)}</span>`)}c.push(`<span class="chip"><span class="dot ${x.who}"></span>${esc(nameOf(x.who))}</span>`);c.push(`<span class="chip">${esc(TCAT[x.cat]||'—')}</span>`);if(x.prio==='high')c.push('<span class="chip rose">สำคัญมาก</span>');if(x.status==='doing')c.push('<span class="chip sage">กำลังทำ</span>');if(x.status==='waiting')c.push('<span class="chip champ">รอผล</span>');if((x.comments||[]).length)c.push(`<span class="chip">${x.comments.length} ความเห็น</span>`);return c.join('')}
+function taskRow(x,t){const d=x.status==='done';return `<li class="trow ${d?'is-done':''}"><button class="check" data-act="toggleTask" data-id="${x.id}" aria-pressed="${d}" aria-label="${d?'ยกเลิกเสร็จ':'ทำเครื่องหมายว่าเสร็จ'}: ${esc(x.title)}">${icon('check')}</button><button class="trow-main" data-act="editTask" data-id="${x.id}"><span class="trow-title">${esc(x.title)}</span><span class="meta">${taskChips(x,t)}</span></button></li>`}
+function timeline(list,t){const items=list.filter(x=>isISO(x.due));if(!items.length)return `<div class="card">${empty('calendar','ยังไม่มีงานที่มีกำหนดวัน','ใส่วันเริ่มและกำหนดเสร็จให้งาน แล้วไทม์ไลน์จะแสดงที่นี่')}</div>`;const wd=S.settings.weddingDate;let min=items.reduce((m,x)=>{const s=isISO(x.start)?x.start:addDays(x.due,-7);return s<m?s:m},t);let max=items.reduce((m,x)=>x.due>m?x.due:m,isISO(wd)?wd:t);min=min.slice(0,8)+'01';const range=Math.max(1,dayDiff(min,max)+1);const pos=d=>Math.max(0,Math.min(100,dayDiff(min,d)/range*100));
+ const ticks=[];let m=min;while(m<=max){ticks.push(m);const [y,mo]=m.split('-').map(Number);m=(mo===12?`${y+1}-01`:`${y}-${String(mo+1).padStart(2,'0')}`)+'-01'}const step=Math.ceil(ticks.length/10);
+ return `<div class="card" style="overflow-x:auto"><div class="gantt"><div class="g-axis">${ticks.filter((_,i)=>i%step===0).map(d=>`<span style="left:${pos(d)}%">${TH_MON[+d.slice(5,7)-1]} ${String((+d.slice(0,4)+(S.settings.yearStyle==='be'?543:0))).slice(2)}</span>`).join('')}</div>
+ ${items.sort((a,b)=>a.due.localeCompare(b.due)).map(x=>{const s=isISO(x.start)&&x.start<=x.due?x.start:addDays(x.due,-7);const od=x.status!=='done'&&x.due<t;return `<div class="g-row"><button class="lab" data-act="editTask" data-id="${x.id}" title="${esc(x.title)}">${esc(x.title)}</button><div class="g-track">${isISO(wd)?`<span class="g-wed" style="left:${pos(wd)}%" title="วันแต่งงาน"></span>`:''}<span class="g-bar ${x.status==='done'?'done':od?'od':''}" style="left:${pos(s)}%;width:${Math.max(.8,pos(x.due)-pos(s))}%" title="${fmtD(s)}–${fmtD(x.due)}"></span></div></div>`}).join('')}</div><p class="help">เส้นสีชมพูคือวันแต่งงาน · แถบแดงคืองานที่เลยกำหนด</p></div>`}
+
+/* ================= BUDGET ================= */
+function vBudget(){const b=budget();const u=S.ui;const t=todayISO();let list=arr('expenses').map(e=>({e,c:expCalc(e)}));
+ if(u.ecat!=='all')list=list.filter(o=>o.e.cat===u.ecat);if(u.est!=='all')list=list.filter(o=>o.c.status===u.est);if(u.ewho!=='all')list=list.filter(o=>o.e.who===u.ewho);
+ const srt={due:(a,b)=>((a.c.next&&a.c.next.due)||'9999').localeCompare((b.c.next&&b.c.next.due)||'9999'),amount:(a,b)=>b.c.projected-a.c.projected,cat:(a,b)=>(CAT[a.e.cat]||'').localeCompare(CAT[b.e.cat]||'','th'),outstanding:(a,b)=>b.c.outstanding-a.c.outstanding};list.sort(srt[u.esort]||srt.due);
+ const cats=CATS.filter(c=>b.byCat[c[0]].budget||b.byCat[c[0]].proj);const scale=Math.max(1,...cats.map(c=>Math.max(b.byCat[c[0]].budget,b.byCat[c[0]].proj)));const risky=cats.filter(c=>risk(b.byCat[c[0]]));
+ const vend=Object.fromEntries(arr('vendors').map(v=>[v.id,v.name]));
+ return ph('วางแผน','งบประมาณและค่าใช้จ่าย',`<button class="btn ghost" data-act="setUi" data-id="simOpen:${S.ui.simOpen==='1'?'0':'1'}" aria-pressed="${S.ui.simOpen==='1'}">จำลองงบ “ถ้า…”</button><button class="btn ghost" data-act="exportExpenses">${icon('download','sm')} ส่งออก CSV</button><button class="btn primary" data-act="newExpense">${icon('plus','sm')} เพิ่มค่าใช้จ่าย</button>`)+planNav()+
+ `<section class="grid g3"><article class="card"><p class="eyebrow">เงินสด</p><div class="figs"><div class="fig"><span class="lbl">งบรวม</span><span class="val">${fmtB(b.total)}</span></div><div class="fig"><span class="lbl">จ่ายแล้ว (เงินออกจริง)</span><span class="val">${fmtB(b.paid)}</span></div><div class="fig" style="grid-column:1/-1"><span class="lbl">งบเงินสดคงเหลือ = งบรวม − จ่ายแล้ว</span><span class="val ${b.cash<0?'bad':''}">${fmtB(b.cash)}</span></div></div><button class="btn sm ghost" data-act="editBudget" style="align-self:flex-start">แก้งบรวม</button></article>
+ <article class="card"><p class="eyebrow">ภาระที่ตกลงแล้ว</p><div class="figs"><div class="fig" style="grid-column:1/-1"><span class="lbl">ตกลงราคาแล้ว แต่ยังไม่จ่าย</span><span class="val">${fmtB(b.comm)}</span></div><div class="fig" style="grid-column:1/-1"><span class="lbl">ประมาณการ (ยังไม่ตกลงราคา)</span><span class="val">${fmtB(b.planned)}</span></div></div></article>
+ <article class="card"><p class="eyebrow">คาดการณ์ปลายทาง</p><div class="figs"><div class="fig" style="grid-column:1/-1"><span class="lbl">ค่าใช้จ่ายสุดท้ายที่คาดว่าจะเกิด</span><span class="val">${fmtB(b.proj)}</span></div><div class="fig" style="grid-column:1/-1"><span class="lbl">${b.afterProj<0?'เกินงบ':'เหลือจากงบหลังคาดการณ์'}</span><span class="val ${b.afterProj<0?'bad':'ok'}">${fmtB(Math.abs(b.afterProj))}</span></div></div>${giftStats().total?`<div class="fig"><span class="lbl">รายรับที่ได้แล้ว (ซอง/เงินสมทบ)</span><span class="val">${fmtB(giftStats().total)}</span></div><div class="fig"><span class="lbl">ต้นทุนสุทธิ = คาดการณ์ − รายรับ</span><span class="val">${fmtB(b.proj-giftStats().total)}</span></div>`:''}<p class="help">คาดการณ์ = ราคาที่ตกลงแล้ว (หรือประมาณการถ้ายังไม่ตกลง) ไม่นับซ้ำเมื่อสถานะเปลี่ยน</p></article></section>
+ <section class="card"><div class="card-h"><h2>ตามหมวด</h2>${risky.length?`<span class="chip bad">${icon('alert','sm')} ${risky.length} หมวดต้องระวัง</span>`:''}</div>${cats.length?`<div class="cat-rows">${cats.map(c=>{const x=b.byCat[c[0]];const r=risk(x);const w=v=>v/scale*100;return `<div class="cat-row"><span>${esc(c[1])} ${r==='over'?'<span class="chip bad">เกินงบหมวด</span>':r==='near'?'<span class="chip warn">ใกล้เต็ม</span>':''}</span><div class="bar" role="img" aria-label="${esc(c[1])}: จ่ายแล้ว ${fmtB(x.paid)}, รอจ่าย ${fmtB(x.comm)}, ประมาณการ ${fmtB(x.plan)}, งบหมวด ${fmtB(x.budget)}"><span class="c-paid" style="left:0;width:${w(x.paid)}%"></span><span class="c-comm" style="left:${w(x.paid)}%;width:${w(x.comm)}%"></span><span class="c-plan" style="left:${w(x.paid+x.comm)}%;width:${w(x.plan)}%"></span>${x.budget?`<span class="mark" style="left:calc(${w(x.budget)}% - 1px)" title="งบหมวด"></span>`:''}</div><span class="num muted" style="font-size:.8rem">${fmtB(x.proj)} / ${x.budget?fmtB(x.budget):'ไม่ได้ตั้ง'}</span></div>`}).join('')}</div><div class="legend"><span><i class="c-paid"></i>จ่ายแล้ว</span><span><i class="c-comm"></i>ตกลงแล้ว รอจ่าย</span><span><i class="c-plan"></i>ประมาณการ</span><span><i style="background:var(--ink);width:2px"></i>งบหมวด</span></div>`:'<p class="muted">ตั้งงบรายหมวดในหน้าตั้งค่า หรือเพิ่มค่าใช้จ่ายรายการแรก</p>'}</section>
+ ${simHtml(b)}<div class="toolbar">${sel('ecat','หมวด',[['all','ทุกหมวด'],...CATS.map(c=>[c[0],c[1]])],u.ecat)}${sel('est','สถานะ',[['all','ทุกสถานะ'],...Object.entries(EXP_ST)],u.est)}${sel('ewho','ผู้จ่าย',[['all','ทุกคน'],...whoOpts()],u.ewho)}${sel('esort','เรียง',[['due','งวดถัดไป'],['amount','ยอดคาดการณ์'],['outstanding','ยอดค้าง'],['cat','หมวด']],u.esort)}</div>
+ ${arr('expenses').length?(list.length?`<div class="table-wrap"><table><thead><tr><th>รายการ</th><th>หมวด</th><th class="r">ประมาณการ</th><th class="r">ตกลงแล้ว</th><th class="r">จ่ายแล้ว</th><th class="r">ค้างจ่าย</th><th>งวดถัดไป</th><th>สถานะ</th><th>ผู้จ่าย</th></tr></thead><tbody>${list.map(({e,c})=>`<tr class="click" data-act="editExpense" data-id="${e.id}" tabindex="0"><td class="wrap"><b style="font-weight:500">${esc(e.name)}</b>${e.vendorId&&vend[e.vendorId]?`<div class="muted" style="font-size:.78rem">${esc(vend[e.vendorId])}</div>`:''}</td><td>${esc(CAT[e.cat]||'—')}</td><td class="r num">${fmtB(c.est)}</td><td class="r num">${c.agreed===null?'<span class="muted">—</span>':fmtB(c.agreed)}</td><td class="r num">${fmtB(c.paid)}</td><td class="r num">${c.outstanding?fmtB(c.outstanding):'—'}</td><td>${c.next?`<span class="chip ${c.next.due<t?'bad':dayDiff(t,c.next.due)<=14?'warn':''}">${fmtD(c.next.due)} · ${fmtB(c.next.amount)}</span>`:'—'}</td><td><span class="chip ${c.status==='paid'?'ok':c.status==='committed'?'champ':''}">${EXP_ST[c.status]}</span></td><td><span class="chip"><span class="dot ${e.who}"></span>${esc(nameOf(e.who))}</span></td></tr>`).join('')}</tbody></table></div>`:`<div class="card">${empty('search','ไม่มีรายการตามตัวกรอง','ลองเลือกหมวดหรือสถานะอื่น')}</div>`):`<div class="card">${empty('coin','ยังไม่มีรายการค่าใช้จ่าย','เพิ่มรายการแรก เช่น มัดจำสถานที่ แล้วตัวเลขทั้งหน้าจะคำนวณให้เอง',`<button class="btn primary" data-act="newExpense">เพิ่มค่าใช้จ่าย</button>`)}</div>`}`}
+
+/* ================= GUESTS ================= */
+function vGuests(){const u=S.ui;const g=guestStats();let list=arr('guests');if(u.gq)list=list.filter(x=>(x.name+' '+(x.phone||'')+' '+(x.table||'')).toLowerCase().includes(u.gq.toLowerCase()));if(u.gside!=='all')list=list.filter(x=>x.side===u.gside);if(u.grsvp!=='all')list=list.filter(x=>(x.rsvp||'pending')===u.grsvp);list.sort((a,b)=>a.name.localeCompare(b.name,'th'));
+ const sideL=k=>k==='A'?'ฝั่ง'+nameOf('A'):k==='B'?'ฝั่ง'+nameOf('B'):'ทั้งสองฝ่าย';
+ let body;if(!arr('guests').length)body=`<div class="card">${empty('guests','ยังไม่มีรายชื่อแขก','เพิ่มทีละคน หรือนำเข้าจากไฟล์ CSV ที่มีคอลัมน์ name, side, group, phone, rsvp, plus, diet, table',`<span class="toolbar"><button class="btn primary" data-act="newGuest">เพิ่มแขก</button><button class="btn ghost" data-act="importGuests">นำเข้า CSV</button></span>`)}</div>`;
+ else if(u.gview==='seating'){const tables={};arr('guests').filter(x=>x.rsvp!=='no').forEach(x=>{const k=(x.table||'').trim()||'—';(tables[k]=tables[k]||[]).push(x)});const keys=Object.keys(tables).sort((a,b)=>a==='—'?1:b==='—'?-1:a.localeCompare(b,'th',{numeric:true}));body=`<div class="grid g3">${keys.map(k=>{const heads=tables[k].reduce((s,x)=>s+1+Math.max(0,Math.floor(num(x.plus))),0);return `<article class="card"><div class="card-h"><h3>${k==='—'?'ยังไม่จัดโต๊ะ':'โต๊ะ '+esc(k)}</h3><span class="chip">${heads} ที่</span></div><ul class="list">${tables[k].map(x=>`<li class="li"><span class="dot ${x.side==='A'?'A':x.side==='B'?'B':'Both'}" style="margin-top:8px"></span><button class="trow-main" data-act="editGuest" data-id="${x.id}"><span>${esc(x.name)}${num(x.plus)?` +${Math.floor(num(x.plus))}`:''}</span><span class="s">${esc(RSVP[x.rsvp||'pending'])}${x.diet?' · '+esc(x.diet):''}</span></button></li>`).join('')}</ul></article>`}).join('')}</div>`}
+ else body=list.length?`<div class="table-wrap"><table><thead><tr><th>ชื่อ</th><th>ฝ่าย</th><th>กลุ่ม</th><th>ตอบรับ</th><th class="r">ผู้ติดตาม</th><th>อาหาร</th><th>โต๊ะ</th><th>ติดต่อ</th></tr></thead><tbody>${list.map(x=>`<tr class="click" data-act="editGuest" data-id="${x.id}" tabindex="0"><td class="wrap">${esc(x.name)}</td><td>${esc(sideL(x.side))}</td><td>${esc(GGROUP[x.group]||'—')}</td><td><span class="chip ${x.rsvp==='yes'?'ok':x.rsvp==='no'?'bad':x.rsvp==='maybe'?'warn':''}">${RSVP[x.rsvp||'pending']}</span></td><td class="r num">${Math.floor(num(x.plus))||'—'}</td><td>${esc(x.diet||'—')}</td><td>${esc(x.table||'—')}</td><td>${esc(x.phone||'—')}</td></tr>`).join('')}</tbody></table></div>`:`<div class="card">${empty('search','ไม่พบแขกตามตัวกรอง','ลองเปลี่ยนคำค้นหา')}</div>`;
+ return ph('วางแผน','รายชื่อแขกและที่นั่ง',`<button class="btn ghost" data-act="importGuests">${icon('upload','sm')} นำเข้า</button><button class="btn ghost" data-act="exportGuests">${icon('download','sm')} ส่งออก</button><button class="btn primary" data-act="newGuest">${icon('plus','sm')} เพิ่มแขก</button>`)+planNav()+
+ `<section class="grid g4"><div class="card"><span class="eyebrow">เชิญทั้งหมด (รวมผู้ติดตาม)</span><span class="fig"><span class="val">${g.invited} คน</span><span class="lbl">${g.rows} รายชื่อ · เป้า ${num(S.settings.guestEstimate)||'—'} คน</span></span></div><div class="card"><span class="eyebrow">ยืนยันมา</span><span class="fig"><span class="val ok">${g.yes} คน</span><span class="lbl">ไม่มา ${g.no} · รอ/ไม่แน่ใจ ${g.pending+g.maybe}</span></span></div><div class="card"><span class="eyebrow">ค่าอาหารจากคนที่ยืนยัน</span><span class="fig"><span class="val">${fmtB(g.cost)}</span><span class="lbl">${num(S.settings.costPerHead)?fmtB(S.settings.costPerHead)+' ต่อคน':'ยังไม่ได้ตั้งค่าอาหารต่อหัว'}</span></span></div><div class="card"><span class="eyebrow">ถ้าคนที่ยังไม่ตอบมาด้วย</span><span class="fig"><span class="val">${fmtB(g.projCost)}</span><span class="lbl">${g.yes+g.pending+g.maybe} คน</span></span></div></section>
+ <div class="toolbar"><div class="grow"><label class="sr" for="gq">ค้นหาแขก</label><input type="search" id="gq" data-ui="gq" placeholder="ค้นหาชื่อ เบอร์ หรือโต๊ะ" value="${esc(u.gq)}"></div>${sel('gside','ฝ่าย',[['all','ทุกฝ่าย'],['A','ฝั่ง'+nameOf('A')],['B','ฝั่ง'+nameOf('B')],['both','ทั้งสองฝ่าย']],u.gside)}${sel('grsvp','ตอบรับ',[['all','ทุกสถานะ'],...Object.entries(RSVP)],u.grsvp)}<span class="seg" role="group" aria-label="มุมมอง">${[['list','รายชื่อ'],['seating','ผังโต๊ะ']].map(([k,l])=>`<button type="button" data-act="setUi" data-id="gview:${k}" aria-pressed="${u.gview===k}">${l}</button>`).join('')}</span></div>`+body+`<p class="help">ข้อมูลติดต่อของแขกเห็นได้เฉพาะคุณสองคนที่ล็อกอินเข้าพื้นที่นี้</p>`}
+
+/* ================= IDEAS ================= */
+function vIdeas(){const u=S.ui;let list=arr('ideas');if(u.icol!=='all')list=list.filter(x=>x.col===u.icol);if(u.imutual)list=list.filter(x=>x.votes&&x.votes.A==='like'&&x.votes.B==='like');list.sort((a,b)=>(b.final?1:0)-(a.final?1:0)||(b.createdAt||'').localeCompare(a.createdAt||''));
+ const polls=arr('polls');
+ return ph('วางแผน','ห้องตัดสินใจ',`<button class="btn primary" data-act="newIdea">${icon('plus','sm')} เพิ่มไอเดีย</button>`)+planNav()+
+ `<p class="muted">ต่างคนต่างโหวต ชอบ · เฉยๆ · ไม่ชอบ ผลจะเปิดเมื่อทั้งสองคนโหวตครบ</p><div class="toolbar"><span class="seg" role="group" aria-label="หมวดไอเดีย" style="flex-wrap:wrap">${[['all','ทั้งหมด'],...Object.entries(IDEA_COLS)].map(([k,l])=>`<button type="button" data-act="setUi" data-id="icol:${k}" aria-pressed="${u.icol===k}">${l}</button>`).join('')}</span><label class="checkline"><input type="checkbox" id="imutual" data-ui="imutual" ${u.imutual?'checked':''}> ชอบตรงกันเท่านั้น</label></div>
+ ${list.length?`<div class="grid g3">${list.map(ideaCard).join('')}</div>`:`<div class="card">${empty('idea',arr('ideas').length?'ไม่มีไอเดียในตัวกรองนี้':'ยังไม่มีไอเดีย','เก็บรูปชุด ดอกไม้ หรือธีมที่ชอบไว้ แล้วให้อีกฝ่ายโหวต',`<button class="btn primary" data-act="newIdea">เพิ่มไอเดียแรก</button>`)}</div>`}`}
+function ideaCard(x){const v=x.votes||{};const mine=v[S.me];const both=v.A&&v.B;const L={like:'ชอบ',neutral:'เฉยๆ',dislike:'ไม่ชอบ'};const img=(x.files||[]).find(f=>(f.type||'').startsWith('image/'));
+ return `<article class="icard ${x.final?'final':''}"><div class="img ${img&&fileUrl(img)?'':'ph-pattern'}">${img&&fileUrl(img)?`<img src="${esc(fileUrl(img))}" alt="${esc(x.title)}" loading="lazy">`:icon('image')}</div><div class="body"><div class="card-h"><span class="chip">${esc(IDEA_COLS[x.col]||'อื่นๆ')}</span>${x.final?'<span class="chip champ">ตัดสินใจแล้ว</span>':both&&v.A==='like'&&v.B==='like'?'<span class="chip ok">ชอบตรงกัน</span>':''}</div><h3>${esc(x.title)}</h3>${x.note?`<p class="muted" style="font-size:.88rem">${esc(x.note)}</p>`:''}${num(x.cost)?`<p class="num" style="font-size:.88rem">ประมาณ ${fmtB(x.cost)}</p>`:''}${x.link?`<a href="${esc(x.link)}" target="_blank" rel="noopener" style="font-size:.85rem">เปิดลิงก์อ้างอิง</a>`:''}
+ ${x.final?`<p style="font-size:.86rem"><b>เหตุผล:</b> ${esc(x.reason||'—')}</p>`:''}
+ <div class="votes" role="group" aria-label="โหวตของคุณ">${Object.entries(L).map(([k,l])=>`<button class="vote" data-act="vote" data-id="${x.id}:${k}" aria-pressed="${mine===k}">${l}</button>`).join('')}</div>
+ <p class="help">${both?`${esc(nameOf('A'))}: ${L[v.A]} · ${esc(nameOf('B'))}: ${L[v.B]}`:mine?`คุณโหวตแล้ว · รอ${esc(nameOf(other(S.me)))}`:v[other(S.me)]?`${esc(nameOf(other(S.me)))} โหวตแล้ว · ถึงตาคุณ`:'ยังไม่มีใครโหวต'}</p>
+ <div class="toolbar"><button class="btn sm ghost" data-act="editIdea" data-id="${x.id}">แก้ไข</button>${x.final?`<button class="btn sm ghost" data-act="unfinal" data-id="${x.id}">ยกเลิกการตัดสินใจ</button>`:`<button class="btn sm" data-act="finalIdea" data-id="${x.id}">${icon('star','sm')} เลือกอันนี้</button>`}</div></div></article>`}
+
+/* ================= VENDORS ================= */
+function vendorMoney(v){const ex=arr('expenses').filter(e=>e.vendorId===v.id);let out=0,paid=0;ex.forEach(e=>{const c=expCalc(e);out+=c.outstanding;paid+=c.paid});return {ex,out,paid}}
+function vVendors(){const u=S.ui;let list=arr('vendors');if(u.vcat!=='all')list=list.filter(v=>v.cat===u.vcat);if(u.vst!=='all')list=list.filter(v=>v.status===u.vst);const price=v=>num(v.negotiated)||num(v.quoted);list.sort(u.vsort==='price'?(a,b)=>price(a)-price(b):u.vsort==='cat'?(a,b)=>(CAT[a.cat]||'').localeCompare(CAT[b.cat]||'','th'):(a,b)=>VEN_ORDER.indexOf(b.status)-VEN_ORDER.indexOf(a.status)||a.name.localeCompare(b.name,'th'));
+ [...CMP].forEach(id=>{if(!S.data.vendors.has(id))CMP.delete(id)});
+ const totOut=arr('vendors').reduce((s,v)=>s+vendorMoney(v).out,0);
+ return ph('ผู้ให้บริการ','ผู้ให้บริการและสถานที่',`<button class="btn primary" data-act="newVendor">${icon('plus','sm')} เพิ่มผู้ให้บริการ</button>`)+
+ `<div class="toolbar">${sel('vcat','หมวด',[['all','ทุกหมวด'],...VEN_CATS],u.vcat)}${sel('vst','สถานะ',[['all','ทุกสถานะ'],...Object.entries(VEN_ST)],u.vst)}${sel('vsort','เรียง',[['status','ตามสถานะ'],['price','ราคาต่ำไปสูง'],['cat','ตามหมวด']],u.vsort)}<span class="muted">ยอดค้างจ่ายผู้ให้บริการรวม <b class="num">${fmtB(totOut)}</b></span></div>
+ ${list.length?`<div class="grid g3">${list.map(v=>{const m=vendorMoney(v);const st=v.status;return `<article class="vcard"><div class="top"><div style="min-width:0"><span class="muted" style="font-size:.8rem">${esc(CAT[v.cat]||'อื่นๆ')}</span><h3>${esc(v.name)}</h3></div><label class="checkline" title="เลือกเพื่อเปรียบเทียบ"><input type="checkbox" data-chg="cmp" data-id="${v.id}" ${CMP.has(v.id)?'checked':''} aria-label="เปรียบเทียบ ${esc(v.name)}"><span class="sr">เปรียบเทียบ</span></label></div>
+ <div class="meta"><span class="chip ${st==='booked'||st==='completed'?'ok':st==='rejected'?'bad':st==='negotiating'||st==='comparing'?'champ':''}">${VEN_ST[st]||'—'}</span><span class="chip">${CONTRACT[v.contract]||'ยังไม่มีสัญญา'}</span>${(v.files||[]).length?`<span class="chip">${icon('clip','sm')} ${v.files.length}</span>`:''}</div>
+ <dl class="kv"><dt>ราคาเสนอ</dt><dd>${num(v.quoted)?fmtB(v.quoted):'—'}</dd><dt>ราคาที่ต่อรองได้</dt><dd>${num(v.negotiated)?fmtB(v.negotiated):'—'}</dd><dt>มัดจำ</dt><dd>${num(v.deposit)?fmtB(v.deposit):'—'}</dd>${m.ex.length?`<dt>จ่ายแล้ว / ค้าง</dt><dd>${fmtB(m.paid)} / <b>${fmtB(m.out)}</b></dd>`:''}${v.contact||v.phone?`<dt>ติดต่อ</dt><dd>${esc([v.contact,v.phone].filter(Boolean).join(' · '))}</dd>`:''}</dl>
+ <div class="acts"><button class="btn sm ghost" data-act="editVendor" data-id="${v.id}">แก้ไข</button>${m.ex.length?`<a class="btn sm ghost" href="#budget">ดูในงบ</a>`:`<button class="btn sm ghost" data-act="vendorToExpense" data-id="${v.id}">ผูกกับงบ</button>`}${v.link?`<a class="btn sm ghost" href="${esc(v.link)}" target="_blank" rel="noopener">เว็บไซต์</a>`:''}</div></article>`}).join('')}</div>`:`<div class="card">${empty('vendors',arr('vendors').length?'ไม่มีผู้ให้บริการในตัวกรองนี้':'ยังไม่มีผู้ให้บริการ','เก็บใบเสนอราคา ข้อดีข้อเสีย และสถานะการจองของแต่ละเจ้าไว้ที่เดียว',`<button class="btn primary" data-act="newVendor">เพิ่มผู้ให้บริการ</button>`)}</div>`}
+ ${CMP.size?`<div class="cmpbar"><span>เลือกไว้ ${CMP.size} ราย ${CMP.size<2?'· เลือกอย่างน้อย 2 ราย':''}</span><span class="toolbar"><button class="btn sm ghost" style="color:inherit;border-color:currentColor" data-act="clearCmp">ล้าง</button><button class="btn sm primary" data-act="compare" ${CMP.size<2?'disabled':''}>เปรียบเทียบ</button></span></div>`:''}`}
+
+/* ================= US ================= */
+function vUs(){const t=todayISO();const s=S.settings;const qi=qIndex(t);const ans=S.data.answers.get(t)||{};const mine=ans[S.me];const theirs=ans[other(S.me)];const both=ans.A&&ans.B;
+ const past=arr('answers').filter(a=>a.id!==t&&a.A&&a.B).sort((a,b)=>b.id.localeCompare(a.id)).slice(0,6);
+ const qs=weekQuests(t);const ws=weekStart(t);const comp=arr('quests');const pts=comp.reduce((x,c)=>x+num(c.points),0);const wkPts=comp.filter(c=>c.week===ws).reduce((x,c)=>x+num(c.points),0);
+ const polls=arr('polls').sort((a,b)=>(b.createdAt||'').localeCompare(a.createdAt||''));const mems=arr('memories').sort((a,b)=>(b.date||'').localeCompare(a.date||''));const ms=milestones();
+ return ph('เราสองคน','พื้นที่ของเรา',`<button class="btn ghost" data-act="newPoll">${icon('plus','sm')} โพลล์</button><button class="btn primary" data-act="newMemory">${icon('plus','sm')} ความทรงจำ</button>`)+
+ `<section class="qcard"><p class="eyebrow">คำถามประจำวัน · ${fmtD(t)}</p><p class="q">${esc(QUESTIONS[qi])}</p>
+ ${mine?`<div class="answers"><div class="ans"><span class="eyebrow">${esc(nameOf(S.me))}</span><p>${esc(mine)}</p></div><div class="ans"><span class="eyebrow">${esc(nameOf(other(S.me)))}</span><p>${theirs?esc(theirs):'<span class="muted">ยังไม่ได้ตอบ คำตอบของทั้งคู่จะแสดงเมื่อตอบครบ</span>'}</p></div></div>${both?'':''}`:`<form data-form="answer" class="field"><label for="ansT">คำตอบของคุณ (อีกฝ่ายจะเห็นเมื่อตอบครบทั้งคู่)</label><textarea id="ansT" name="a" rows="3" maxlength="1000" required></textarea><div class="toolbar"><button class="btn primary" type="submit">ส่งคำตอบ</button>${theirs?`<span class="muted">${esc(nameOf(other(S.me)))} ตอบแล้ว รอคุณอยู่</span>`:''}</div></form>`}
+ ${mine&&!both?'':''}</section>
+ ${past.length?`<details class="card"><summary style="cursor:pointer"><b>คำตอบย้อนหลัง</b> <span class="muted">${past.length} วัน</span></summary><ul class="list">${past.map(a=>`<li class="li"><div class="grow"><p class="s">${fmtD(a.id)} · ${esc(a.q||QUESTIONS[qIndex(a.id)])}</p><p><b>${esc(nameOf('A'))}:</b> ${esc(a.A)}</p><p><b>${esc(nameOf('B'))}:</b> ${esc(a.B)}</p></div></li>`).join('')}</ul></details>`:''}
+ <section class="grid g2">
+ ${s.gamify!==false?`<article class="card"><div class="card-h"><h2>ภารกิจสัปดาห์นี้</h2><span class="chip champ">${wkPts} แต้มสัปดาห์นี้ · รวม ${pts}</span></div><div>${qs.map(q=>{const id=ws+'_'+q.k;const done=S.data.quests.get(id);const pr=questProgress(q,t);const ready=!pr||pr.cur>=pr.need;return `<div class="quest"><span class="pts">+${q.p}</span><div class="grow" style="flex:1;min-width:0"><p>${esc(q.t)}</p>${pr?`<p class="help">${Math.min(pr.cur,pr.need)}/${pr.need} นับจากข้อมูลจริง</p>`:''}${done?`<p class="help">สำเร็จโดย ${esc(nameOf(done.by))}</p>`:''}</div>${done?'<span class="chip ok">สำเร็จแล้ว</span>':`<button class="btn sm ${ready?'primary':''}" data-act="quest" data-id="${q.k}" ${ready?'':'disabled'}>${ready?'สำเร็จแล้ว':'ยังไม่ครบ'}</button>`}</div>`}).join('')}</div><p class="help">แต้มไม่มีแพ้ชนะ เป็นของเราสองคนร่วมกัน ปิดได้ในหน้าตั้งค่า</p></article>`:''}
+ <article class="card"><div class="card-h"><h2>โพลล์ของเรา</h2><button class="btn sm ghost" data-act="newPoll">ตั้งคำถาม</button></div>${polls.length?polls.map(pollHtml).join(''):'<p class="muted">ตั้งคำถามที่ต้องตัดสินใจร่วมกัน เช่น จัดงานเช้าหรือเย็น แล้วต่างคนต่างเลือก</p>'}</article>
+ </section>
+ <section class="card"><div class="card-h"><h2>หมุดหมายของเรา</h2></div>${ms.length?`<div class="ms">${ms.map(m=>`<span>${esc(m.t)}</span>`).join('')}</div>`:'<p class="muted">หมุดหมายจะปรากฏเองเมื่อจองสถานที่ ทำเช็กลิสต์ได้ครบไตรมาส หรือตัดสินใจร่วมกันครั้งแรก</p>'}</section>
+ <section class="card"><div class="card-h"><h2>สมุดความทรงจำ</h2><button class="btn sm ghost" data-act="newMemory">เพิ่ม</button></div>${mems.length?`<ol class="tl">${mems.map(m=>{const img=(m.files||[]).find(f=>(f.type||'').startsWith('image/'));return `<li><span class="muted" style="font-size:.82rem">${fmtD(m.date)}</span><h3>${esc(m.title)}</h3>${img&&fileUrl(img)?`<img src="${esc(fileUrl(img))}" alt="${esc(m.title)}" loading="lazy">`:''}${m.note?`<p>${esc(m.note)}</p>`:''}<button class="btn sm ghost" style="align-self:flex-start" data-act="editMemory" data-id="${m.id}">แก้ไข</button></li>`}).join('')}</ol>`:'<p class="muted">บันทึกวันที่เลือกแหวน วันที่จองสถานที่ หรือวันที่ได้ธีมงาน พร้อมรูปถ่าย</p>'}</section>`}
+function pollHtml(p){const v=p.votes||{};const a=v.A,b=v.B;const mine=v[S.me];const st=a&&b?(a===b?['ok','เห็นตรงกัน']:['warn','ต้องคุยกันเพิ่ม']):['','รอ'+(a?nameOf('B'):b?nameOf('A'):'ทั้งคู่')+'ตอบ'];
+ return `<div class="li" style="flex-direction:column;align-items:stretch;gap:8px"><div class="card-h"><b>${esc(p.q)}</b><span class="chip ${st[0]}">${esc(st[1])}</span></div><div class="votes" role="group" aria-label="เลือกคำตอบ">${(p.opts||[]).map((o,i)=>`<button class="vote" data-act="pollVote" data-id="${p.id}:${i}" aria-pressed="${mine===String(i)}">${esc(o)}</button>`).join('')}</div>${a&&b?`<p class="help">${esc(nameOf('A'))}: ${esc(p.opts[+a]||'—')} · ${esc(nameOf('B'))}: ${esc(p.opts[+b]||'—')}</p>`:''}<div class="toolbar"><button class="btn sm ghost danger" data-act="delPoll" data-id="${p.id}">ลบโพลล์</button></div></div>`}
+
+/* ================= CALENDAR ================= */
+function calItems(){const out=[];const wd=S.settings.weddingDate;if(isISO(wd))out.push({d:wd,t:'วันแต่งงาน',c:'rose',act:'goDay',id:''});arr('tasks').forEach(x=>{if(isISO(x.due))out.push({d:x.due,t:x.title,c:'sage',act:'editTask',id:x.id,done:x.status==='done',k:'งาน'})});payItems().forEach(({e,p})=>{if(isISO(p.due))out.push({d:p.due,t:`${PAY_KIND[p.kind]||'ชำระ'} ${e.name}`,c:'champ',act:'editExpense',id:e.id,done:p.paid,k:'ชำระเงิน '+fmtB(p.amount)})});arr('events').forEach(v=>{if(isISO(v.date)){const ty=EV_TYPES[v.type]||EV_TYPES.other;out.push({d:v.date,time:v.time,t:v.title,c:ty[1],act:'editEvent',id:v.id,k:ty[0]})}});return out.sort((a,b)=>a.d.localeCompare(b.d)||(a.time||'').localeCompare(b.time||''))}
+function vCalendar(){const t=todayISO();const u=S.ui;const m=u.calMonth||t.slice(0,7);const [y,mo]=m.split('-').map(Number);const items=calItems();const by={};items.forEach(i=>(by[i.d]=by[i.d]||[]).push(i));const first=`${m}-01`;const lead=dow(first);const dim=new Date(Date.UTC(y,mo,0)).getUTCDate();const yy=S.settings.yearStyle==='be'?y+543:y;
+ const legend=`<div class="legend"><span><i style="background:var(--sage)"></i>งาน</span><span><i style="background:var(--champ)"></i>ชำระเงิน/ลองชุด</span><span><i style="background:var(--rose)"></i>นัดผู้ให้บริการ/พิธี</span></div>`;
+ let body;if(u.calView==='agenda'){const list=items.filter(i=>i.d>=t).slice(0,80);const grp={};list.forEach(i=>(grp[i.d]=grp[i.d]||[]).push(i));body=list.length?`<div class="card"><ul class="list">${Object.keys(grp).map(d=>`<li class="li"><span class="datebox"><b>${d.slice(8)}</b><small>${TH_MON[+d.slice(5,7)-1]}</small></span><div class="grow" style="display:flex;flex-direction:column;gap:6px">${grp[d].map(evLine).join('')}</div></li>`).join('')}</ul></div>`:`<div class="card">${empty('calendar','ไม่มีกำหนดการข้างหน้า','เพิ่มนัดดูสถานที่ ลองชุด หรือนัดครอบครัว',`<button class="btn primary" data-act="newEvent">เพิ่มนัดหมาย</button>`)}</div>`}
+ else{let cells='';for(let i=0;i<lead;i++)cells+='<div class="day other" aria-hidden="true"></div>';for(let d=1;d<=dim;d++){const iso=`${m}-${String(d).padStart(2,'0')}`;const its=by[iso]||[];cells+=`<button class="day ${iso===t?'today':''} ${iso===u.calDay?'sel':''} ${iso===S.settings.weddingDate?'wed':''}" data-act="calDay" data-id="${iso}" aria-label="${fmtD(iso)} ${its.length?its.length+' รายการ':''}"><span class="n">${d}</span>${its.slice(0,3).map(i=>`<span class="ev ${i.c} ${i.done?'done':''}">${i.time?i.time+' ':''}${esc(i.t)}</span>`).join('')}${its.length>3?`<span class="muted" style="font-size:.7rem">+${its.length-3}</span>`:''}</button>`}
+  const sd=u.calDay&&u.calDay.startsWith(m)?u.calDay:null;const dayList=sd?(by[sd]||[]):[];
+  body=`<div class="cal" aria-label="${TH_MONTH[mo-1]} ${yy}">${TH_DOW.map(d=>`<div class="dow">${d}</div>`).join('')}${cells}</div>${sd?`<section class="card"><div class="card-h"><h2>${esc(longThai(sd))}</h2><button class="btn sm primary" data-act="newEvent" data-id="${sd}">${icon('plus','sm')} นัดหมายวันนี้</button></div>${dayList.length?`<div style="display:flex;flex-direction:column;gap:8px">${dayList.map(evLine).join('')}</div>`:'<p class="muted">วันนี้ยังว่าง</p>'}</section>`:''}`}
+ return ph('ปฏิทิน','กำหนดการทั้งหมด',`<button class="btn primary" data-act="newEvent">${icon('plus','sm')} เพิ่มนัดหมาย</button>`)+`<div class="toolbar"><span class="seg" role="group" aria-label="มุมมองปฏิทิน">${[['month','รายเดือน'],['agenda','รายการ']].map(([k,l])=>`<button type="button" data-act="setUi" data-id="calView:${k}" aria-pressed="${u.calView===k}">${l}</button>`).join('')}</span>${u.calView==='month'?`<button class="icon-btn" data-act="calNav" data-id="-1" aria-label="เดือนก่อน">${icon('left')}</button><h2 style="min-width:150px;text-align:center">${TH_MONTH[mo-1]} ${yy}</h2><button class="icon-btn" data-act="calNav" data-id="1" aria-label="เดือนถัดไป">${icon('right')}</button><button class="btn sm ghost" data-act="calNav" data-id="0">วันนี้</button>${isISO(S.settings.weddingDate)?`<button class="btn sm ghost" data-act="calNav" data-id="wed">เดือนแต่งงาน</button>`:''}`:''}</div>`+legend+body}
+function evLine(i){return `<button class="trow-main" data-act="${i.act}" data-id="${i.id}" style="flex-direction:row;align-items:center;gap:10px"><span class="ev ${i.c} ${i.done?'done':''}" style="flex:none">${esc(i.k||'')}</span><span>${i.time?`<b class="num">${esc(i.time)}</b> `:''}${esc(i.t)}</span></button>`}
+
+/* ================= DAY MODE ================= */
+function vDay(){const s=S.settings,t=todayISO();const w=arr('wday');const by=k=>w.filter(x=>x.type===k);const sched=by('schedule').sort((a,b)=>(a.time||'').localeCompare(b.time||''));const bring=by('bring');const contacts=by('contact');const places=by('place');const vend=arr('vendors').filter(v=>['booked','completed'].includes(v.status));const pays=payItems().filter(o=>isISO(o.p.due)&&o.p.due>=addDays(s.weddingDate||t,-7)&&o.p.due<=addDays(s.weddingDate||t,1)||(!o.p.paid&&o.p.kind==='final'));const days=isISO(s.weddingDate)?dayDiff(t,s.weddingDate):null;
+ const sec=(title,type,inner,ic)=>`<section class="card"><div class="card-h"><h2 style="display:flex;gap:8px;align-items:center">${icon(ic)} ${title}</h2>${type?`<button class="btn sm ghost" data-act="newWday" data-id="${type}">${icon('plus','sm')} เพิ่ม</button>`:''}</div>${inner}</section>`;
+ return `<section class="day-hero"><a href="#home" style="color:inherit;font-size:.85rem">← ออกจากโหมดวันงาน</a><h1>${esc(s.nameA)} &amp; ${esc(s.nameB)}</h1><p>${esc(longThai(s.weddingDate))}${days!==null&&days>0?` · อีก ${days} วัน`:days===0?' · วันนี้':''}</p></section>
+ ${sec('กำหนดการวันงาน','schedule',sched.length?`<ul class="sched">${sched.map(x=>`<li><span class="time">${esc(x.time||'—')}</span><div><p class="big-text"><b style="font-weight:500">${esc(x.title)}</b></p><p class="muted">${esc([x.owner&&('ดูแลโดย '+x.owner),x.location].filter(Boolean).join(' · '))}</p>${x.note?`<p class="help">${esc(x.note)}</p>`:''}</div><button class="icon-btn sm" data-act="editWday" data-id="${x.id}" aria-label="แก้ไข ${esc(x.title)}">${icon('note','sm')}</button></li>`).join('')}</ul>`:'<p class="muted">ใส่ลำดับพิธีตามเวลา เช่น 07:09 พิธีสงฆ์ 18:30 งานเลี้ยง</p>','calendar')}
+ ${checkinHtml()}
+ <div class="grid g2">
+ ${sec('ติดต่อผู้ให้บริการ','',vend.length?`<ul class="list">${vend.map(v=>`<li class="li"><div class="grow"><p><b style="font-weight:500">${esc(v.name)}</b> <span class="muted">· ${esc(CAT[v.cat]||'')}</span></p>${v.contact?`<p class="muted">${esc(v.contact)}</p>`:''}${v.phone?`<div class="copy-row"><span class="val">${esc(v.phone)}</span><button class="btn sm ghost" data-act="copy" data-id="${esc(v.phone)}">${icon('copy','sm')} คัดลอก</button></div>`:''}</div></li>`).join('')}</ul>`:'<p class="muted">ผู้ให้บริการที่สถานะ “จองแล้ว” จะแสดงที่นี่พร้อมเบอร์โทร</p>','phone')}
+ ${sec('ติดต่อฉุกเฉิน','contact',contacts.length?`<ul class="list">${contacts.map(x=>`<li class="li"><div class="grow"><p><b style="font-weight:500">${esc(x.title)}</b> ${x.owner?`<span class="muted">· ${esc(x.owner)}</span>`:''}</p>${x.phone?`<div class="copy-row"><span class="val">${esc(x.phone)}</span><button class="btn sm ghost" data-act="copy" data-id="${esc(x.phone)}">${icon('copy','sm')} คัดลอก</button></div>`:''}</div><button class="icon-btn sm" data-act="editWday" data-id="${x.id}" aria-label="แก้ไข">${icon('note','sm')}</button></li>`).join('')}</ul>`:'<p class="muted">เพื่อนเจ้าบ่าวเจ้าสาว ผู้ประสานงาน หรือคนในครอบครัวที่ติดต่อได้ทันที</p>','alert')}
+ ${sec('สถานที่และลิงก์','place',places.length?`<ul class="list">${places.map(x=>`<li class="li"><div class="grow"><p><b style="font-weight:500">${esc(x.title)}</b></p>${x.note?`<p class="muted" style="user-select:all">${esc(x.note)}</p>`:''}${x.link?`<a href="${esc(x.link)}" target="_blank" rel="noopener">เปิดแผนที่/ลิงก์</a>`:''}</div><button class="icon-btn sm" data-act="editWday" data-id="${x.id}" aria-label="แก้ไข">${icon('note','sm')}</button></li>`).join('')}</ul>`:'<p class="muted">ที่อยู่สถานที่จัดงาน โรงแรม หรือบ้านฝ่ายไหนก็ได้</p>','pin')}
+ ${sec('ของที่ต้องนำไป','bring',bring.length?`<ul class="list">${bring.map(x=>`<li class="li"><button class="check" data-act="toggleWday" data-id="${x.id}" aria-pressed="${!!x.done}" aria-label="${esc(x.title)}">${icon('check')}</button><div class="grow" ${x.done?'style="text-decoration:line-through;color:var(--ink-3)"':''}><p>${esc(x.title)}</p>${x.owner?`<p class="s muted">${esc(x.owner)}</p>`:''}</div><button class="icon-btn sm" data-act="editWday" data-id="${x.id}" aria-label="แก้ไข">${icon('note','sm')}</button></li>`).join('')}</ul>`:'<p class="muted">แหวน ซองเงิน ชุดสำรอง ที่ชาร์จ ยาประจำตัว</p>','bag')}
+ ${sec('เช็กลิสต์การชำระเงินวันงาน','',pays.length?`<ul class="list">${pays.map(({e,p})=>`<li class="li"><button class="check" data-act="togglePay" data-id="${e.id}:${p.id}" aria-pressed="${!!p.paid}" aria-label="จ่ายแล้ว ${esc(e.name)}">${icon('check')}</button><div class="grow"><p>${esc(e.name)} · ${esc(PAY_KIND[p.kind]||'')}</p><p class="s muted">${fmtB(p.amount)} · ${esc(nameOf(e.who))}${isISO(p.due)?' · ครบกำหนด '+fmtD(p.due):''}</p></div></li>`).join('')}</ul>`:'<p class="muted">งวดที่ครบกำหนดช่วงวันงาน หรืองวดสุดท้ายที่ยังไม่จ่าย จะแสดงที่นี่</p>','coin')}
+ </div>
+ <section class="card"><div class="card-h"><h2 style="display:flex;gap:8px;align-items:center">${icon('note')} บันทึกด่วน</h2></div><form data-form="dayNotes" class="field"><label for="dayNotesT" class="sr">บันทึกด่วน</label><textarea id="dayNotesT" name="n" rows="5" class="input" style="border-radius:12px">${esc(s.dayNotes||'')}</textarea><div class="toolbar"><button class="btn primary" type="submit">บันทึก</button></div></form></section>`}
+
+/* ================= OPTIONS ================= */
+function vOptions(){const s=S.settings;const cb=s.catBudgets||{};const sumCb=CATS.reduce((x,c)=>x+num(cb[c[0]]),0);const n=s.notify||{};const members=s.members||{};
+ return ph('ตั้งค่า','ตั้งค่างานแต่งและพื้นที่ร่วมกัน')+
+ `<form class="card" data-form="settings" id="settingsForm" novalidate><h2>ข้อมูลงาน</h2><div class="fgrid">${optFields().map(f=>fieldHtml(f,s[f.k])).join('')}</div><div class="toolbar" style="justify-content:flex-end"><button class="btn primary" type="submit">บันทึกการตั้งค่า</button></div></form>
+ <form class="card" data-form="catBudgets" id="cbForm" novalidate><div class="card-h"><h2>งบรายหมวด</h2><button type="button" class="btn sm ghost" data-act="splitBudget">แบ่งตามสัดส่วนแนะนำ</button></div><p class="help">รวมทุกหมวด ${fmtB(sumCb)} จากงบรวม ${fmtB(s.budget)} ${sumCb>num(s.budget)?'<b style="color:var(--bad)">· เกินงบรวม</b>':''}</p><div class="fgrid">${CATS.map(c=>fieldHtml({k:'cb_'+c[0],label:`${c[1]} (แนะนำ ${c[2]}%)`,type:'number'},cb[c[0]]??'')).join('')}</div><div class="toolbar" style="justify-content:flex-end"><button class="btn primary" type="submit">บันทึกงบรายหมวด</button></div></form>
+ <section class="grid g2"><form class="card" data-form="prefs" id="prefsForm"><h2>การแสดงผลและการแจ้งเตือน</h2>
+ <div class="field"><label for="yearStyle">ปีที่แสดง</label><select id="yearStyle" name="yearStyle"><option value="ce" ${s.yearStyle!=='be'?'selected':''}>ค.ศ. (27/10/2027)</option><option value="be" ${s.yearStyle==='be'?'selected':''}>พ.ศ. (27/10/2570)</option></select><p class="help">สกุลเงินบาท · เขตเวลา Asia/Bangkok · รูปแบบวันที่ วว/ดด/ปปปป</p></div>
+ <label class="checkline"><input type="checkbox" name="gamify" ${s.gamify!==false?'checked':''}> เปิดภารกิจและแต้มในหน้าเราสองคน</label>
+ <fieldset style="border:none;padding:0;margin:0;display:flex;flex-direction:column;gap:6px"><legend class="field" style="font-size:.84rem;color:var(--ink-2);font-weight:500;margin-bottom:4px">การแจ้งเตือนที่อยากได้</legend><label class="checkline"><input type="checkbox" name="n_weekly" ${n.weekly?'checked':''}> สรุปประจำสัปดาห์</label><label class="checkline"><input type="checkbox" name="n_deadline" ${n.deadline?'checked':''}> งานใกล้ครบกำหนด</label><label class="checkline"><input type="checkbox" name="n_payment" ${n.payment?'checked':''}> งวดชำระเงิน</label></fieldset>
+ <p class="help">ตอนนี้ยังไม่มีระบบส่งข้อความหรืออีเมลอัตโนมัติ ค่าที่เลือกจะถูกเก็บไว้ใช้เมื่อเชื่อมต่อระบบแจ้งเตือนในอนาคต ระหว่างนี้ดูได้จากหน้าหลักและปฏิทิน</p><div class="toolbar" style="justify-content:flex-end"><button class="btn primary" type="submit">บันทึก</button></div></form>
+ <article class="card"><h2>พื้นที่ร่วมกันของเรา</h2>${S.mode==='live'?partnerHtml():'<p>ตอนนี้อยู่ในโหมดตัวอย่าง ข้อมูลอยู่ในหน้าจอนี้เท่านั้น</p>'}
+ <div class="toolbar"><button class="btn ghost" data-act="switchMe">เปลี่ยนว่าฉันคือใคร</button>${S.mode==='live'?'<button class="btn ghost" data-act="signOut">ออกจากระบบ</button>':''}</div></article></section>
+ <section class="card"><h2>ข้อมูล</h2><div class="toolbar"><button class="btn ghost" data-act="exportExpenses">${icon('download','sm')} รายงานค่าใช้จ่าย CSV</button><button class="btn ghost" data-act="exportGuests">${icon('download','sm')} รายชื่อแขก CSV</button><button class="btn ghost" data-act="backup">${icon('download','sm')} สำรองข้อมูลทั้งหมด (JSON)</button></div>
+ <div class="banner bad"><span>${S.mode==='demo'?'ล้างข้อมูลตัวอย่างแล้วเริ่มตั้งค่างานของตัวเอง':'ลบข้อมูลงานแต่งทั้งหมดของทั้งสองคน กู้คืนไม่ได้'}</span><button class="btn danger sm" data-act="wipe">${S.mode==='demo'?'ล้างข้อมูลตัวอย่าง':'ลบข้อมูลทั้งหมด'}</button></div></section>
+ <section class="card"><h2>ที่จะต่อยอดได้</h2><p class="muted" style="font-size:.9rem">ยังไม่ได้เปิดใช้: ผู้ช่วย AI แนะนำงบและงาน · จำลองงบแบบ what-if · แจ้งเตือนอัตโนมัติและสรุปรายสัปดาห์ทางอีเมล · อ่านใบเสร็จด้วย OCR · เว็บไซต์งานแต่งและลิงก์ตอบรับสำหรับแขก · ซิงก์กับ Google Calendar โครงสร้างข้อมูลรองรับการต่อยอดเหล่านี้แล้ว</p></section>`}
+function optFields(){return [{k:'nameA',label:'ชื่อคนที่หนึ่ง',req:true,max:40},{k:'nameB',label:'ชื่อคนที่สอง',req:true,max:40},{k:'weddingDate',label:'วันแต่งงาน',type:'date',req:true},{k:'planningStart',label:'วันเริ่มวางแผน',type:'date'},{k:'budget',label:'งบประมาณรวม (บาท)',type:'number',req:true},{k:'guestEstimate',label:'จำนวนแขกโดยประมาณ',type:'number',step:'1'},{k:'costPerHead',label:'ค่าอาหารต่อหัว (บาท)',type:'number'},{k:'style',label:'สไตล์และสิ่งที่ชอบ',max:200,ph:'เช่น งานเช้าในสวน โทนเขียวเสจ แขกไม่เกิน 200'}]}
+
+/* ================= GIFTS / INCOME ================= */
+function giftStats(){const g=arr('gifts');const st={total:0,count:g.length,by:{},unthanked:0,items:0};g.forEach(x=>{const a=x.method==='item'?0:num(x.amount);st.total+=a;st.by[x.type]=(st.by[x.type]||0)+a;if(!x.thanked)st.unthanked++;if(x.method==='item')st.items++});st.total=round2(st.total);return st}
+function vGifts(){const u=S.ui;const st=giftStats();const b=budget();const gname=Object.fromEntries(arr('guests').map(g=>[g.id,g.name]));let list=arr('gifts');
+ if(u.gfq)list=list.filter(x=>((x.from||'')+' '+(x.item||'')+' '+(x.note||'')).toLowerCase().includes(u.gfq.toLowerCase()));if(u.gft!=='all')list=list.filter(x=>x.type===u.gft);if(u.gfth==='no')list=list.filter(x=>!x.thanked);if(u.gfth==='yes')list=list.filter(x=>x.thanked);
+ list.sort((a,b)=>(b.date||'').localeCompare(a.date||'')||(b.createdAt||'').localeCompare(a.createdAt||''));
+ const net=round2(b.proj-st.total);
+ return ph('วางแผน','ซองช่วยงานและเงินสมทบ',`<button class="btn ghost" data-act="exportGifts">${icon('download','sm')} ส่งออก CSV</button><button class="btn primary" data-act="newGift">${icon('plus','sm')} บันทึกรายรับ</button>`)+planNav()+
+ `<section class="grid g4"><div class="card"><span class="eyebrow">ได้รับแล้วทั้งหมด</span><span class="fig"><span class="val">${fmtB(st.total)}</span><span class="lbl">${st.count} รายการ${st.items?` · สิ่งของ ${st.items} ชิ้น`:''}</span></span></div><div class="card"><span class="eyebrow">ซองช่วยงาน</span><span class="fig"><span class="val">${fmtB(st.by.envelope||0)}</span><span class="lbl">เงินสมทบจากครอบครัว ${fmtB(st.by.family||0)}</span></span></div><div class="card"><span class="eyebrow">ต้นทุนสุทธิที่คาด</span><span class="fig"><span class="val ${net<0?'ok':''}">${net<0?'เหลือ '+fmtB(-net):fmtB(net)}</span><span class="lbl">คาดการณ์ค่าใช้จ่าย ${fmtB(b.proj)} − รายรับ</span></span></div><div class="card"><span class="eyebrow">ยังไม่ได้ขอบคุณ</span><span class="fig"><span class="val ${st.unthanked?'':'ok'}">${st.unthanked} รายการ</span><span class="lbl">ติ๊กเมื่อส่งคำขอบคุณแล้ว</span></span></div></section>
+ <div class="toolbar"><div class="grow"><label class="sr" for="gfq">ค้นหารายรับ</label><input type="search" id="gfq" data-ui="gfq" placeholder="ค้นหาชื่อ สิ่งของ หรือบันทึก" value="${esc(u.gfq)}"></div>${sel('gft','ประเภท',[['all','ทุกประเภท'],...Object.entries(GIFT_TYPE)],u.gft)}${sel('gfth','การขอบคุณ',[['all','ทั้งหมด'],['no','ยังไม่ได้ขอบคุณ'],['yes','ขอบคุณแล้ว']],u.gfth)}</div>
+ ${arr('gifts').length?(list.length?`<div class="table-wrap"><table><thead><tr><th>วันที่</th><th>จาก</th><th>ประเภท</th><th>รูปแบบ</th><th class="r">จำนวนเงิน</th><th>รายละเอียด</th><th>ขอบคุณแล้ว</th></tr></thead><tbody>${list.map(x=>`<tr class="click" data-act="editGift" data-id="${x.id}" tabindex="0"><td>${fmtD(x.date)}</td><td class="wrap">${esc(x.from)}${x.guestId&&gname[x.guestId]&&gname[x.guestId]!==x.from?`<div class="muted" style="font-size:.78rem">แขก: ${esc(gname[x.guestId])}</div>`:''}</td><td>${esc(GIFT_TYPE[x.type]||'—')}</td><td>${esc(GIFT_METHOD[x.method]||'—')}</td><td class="r num">${x.method==='item'?(num(x.amount)?'<span class="muted">มูลค่า ~'+fmtB(x.amount)+'</span>':'—'):fmtB(x.amount)}</td><td class="wrap">${esc([x.item,x.note].filter(Boolean).join(' · ')||'—')}</td><td><button class="check" data-act="thank" data-id="${x.id}" aria-pressed="${!!x.thanked}" aria-label="ขอบคุณ ${esc(x.from)} แล้ว">${icon('check')}</button></td></tr>`).join('')}</tbody></table></div>`:`<div class="card">${empty('search','ไม่มีรายการตามตัวกรอง','ลองเปลี่ยนตัวกรองหรือคำค้นหา')}</div>`):`<div class="card">${empty('coin','ยังไม่มีรายรับ','บันทึกเงินสมทบจากครอบครัวได้ตั้งแต่วันนี้ ส่วนซองช่วยงานบันทึกได้ระหว่างเช็กอินแขกในโหมดวันงาน',`<button class="btn primary" data-act="newGift">บันทึกรายรับ</button>`)}</div>`}
+ <p class="help">มูลค่าของ “สิ่งของ” เป็นค่าประมาณ ไม่นับรวมในยอดเงินที่ได้รับ</p>`}
+function giftForm(id,preset){const x=id?S.data.gifts.get(id):null;if(id&&!x)return;const v=x?clone(x):Object.assign({type:'envelope',method:'cash',date:todayISO()},preset||{});
+ const gopts=[['','— ไม่ผูกกับรายชื่อแขก —'],...arr('guests').sort((a,b)=>a.name.localeCompare(b.name,'th')).map(g=>[g.id,g.name])];
+ const fields=[{k:'from',label:'จากใคร',req:true,max:120},{k:'type',label:'ประเภท',type:'select',opts:Object.entries(GIFT_TYPE)},{k:'guestId',label:'แขกในรายชื่อ',type:'select',opts:gopts},{k:'method',label:'รูปแบบ',type:'select',opts:Object.entries(GIFT_METHOD)},{k:'amount',label:'จำนวนเงิน (บาท)',type:'number',help:'ถ้าเป็นสิ่งของ ใส่มูลค่าโดยประมาณได้ (ไม่นับในยอดเงิน)'},{k:'date',label:'วันที่ได้รับ',type:'date'},{k:'item',label:'สิ่งของ / รายละเอียด',max:200},{k:'thanked',label:'ส่งคำขอบคุณแล้ว',type:'check'},{k:'note',label:'บันทึก',type:'textarea',max:1000}];
+ openForm({title:x?'แก้ไขรายรับ':'บันทึกรายรับ',fields,values:v,
+  validate(o){if(o.method!=='item'&&!(num(o.amount)>0))return {amount:'ใส่จำนวนเงินมากกว่า 0'};if(o.method==='item'&&!o.item)return {item:'ระบุว่าเป็นของอะไร'}},
+  onSave(o){const n=Object.assign(x?clone(x):{id:uid()},o,{amount:o.amount===null?0:o.amount});if(!Store.put('gifts',n))return false;logAct(x?`แก้ไขรายรับจาก ${n.from}`:`บันทึก${GIFT_TYPE[n.type]}จาก ${n.from}`);toast('บันทึกรายรับแล้ว')},
+  onDelete(){if(Store.del('gifts',x.id)){logAct(`ลบรายรับจาก ${x.from}`);toast('ลบแล้ว')}}})}
+
+/* ================= CHECK-IN ================= */
+function checkinHtml(){const u=S.ui;const gs=arr('guests').filter(x=>x.rsvp!=='no');const heads=x=>1+Math.max(0,Math.floor(num(x.plus)));const expected=gs.filter(x=>x.rsvp==='yes').reduce((s,x)=>s+heads(x),0);const arrived=gs.filter(x=>x.checkedIn).reduce((s,x)=>s+num(x.arrivedHeads||heads(x)),0);const q=(u.ciq||'').toLowerCase();const giftBy=new Set(arr('gifts').map(g=>g.guestId).filter(Boolean));
+ const shown=gs.filter(x=>!q||(x.name+' '+(x.table||'')+' '+(x.phone||'')).toLowerCase().includes(q)).sort((a,b)=>(a.checkedIn?1:0)-(b.checkedIn?1:0)||a.name.localeCompare(b.name,'th'));const lim=q?80:40;
+ return `<section class="card"><div class="card-h"><h2 style="display:flex;gap:8px;align-items:center">${icon('guests')} เช็กอินแขก</h2><span class="chip ${expected&&arrived>=expected?'ok':'sage'}">มาแล้ว ${arrived} / ยืนยัน ${expected} คน</span></div>
+ <div class="toolbar"><div class="grow"><label class="sr" for="ciq">ค้นหาแขกเพื่อเช็กอิน</label><input type="search" id="ciq" data-ui="ciq" placeholder="พิมพ์ชื่อ เบอร์ หรือเลขโต๊ะ" value="${esc(u.ciq)}" autocomplete="off"></div><button class="btn ghost" data-act="walkIn">${icon('plus','sm')} แขกที่ไม่มีในรายชื่อ</button></div>
+ ${gs.length?(shown.length?`<ul class="list">${shown.slice(0,lim).map(x=>`<li class="li ci"><button class="check" data-act="checkIn" data-id="${x.id}" aria-pressed="${!!x.checkedIn}" aria-label="เช็กอิน ${esc(x.name)}">${icon('check')}</button><div class="grow"><p class="big-text">${esc(x.name)}${x.table?` <span class="chip sage">โต๊ะ ${esc(x.table)}</span>`:''}${x.rsvp!=='yes'?` <span class="chip">${esc(RSVP[x.rsvp||'pending'])}</span>`:''}</p><p class="s muted">${heads(x)>1?'ผู้ติดตาม '+(heads(x)-1)+' คน':'มาคนเดียว'}${x.diet?' · '+esc(x.diet):''}</p></div>${x.checkedIn?`<span class="stepper" role="group" aria-label="จำนวนที่มาจริงของ ${esc(x.name)}"><button class="icon-btn sm" data-act="heads" data-id="${x.id}:-1" aria-label="ลดจำนวน">−</button><b class="num">${num(x.arrivedHeads||heads(x))}</b><button class="icon-btn sm" data-act="heads" data-id="${x.id}:1" aria-label="เพิ่มจำนวน">+</button></span>`:''}<button class="btn sm ${giftBy.has(x.id)?'':'ghost'}" data-act="giftFor" data-id="${x.id}">${giftBy.has(x.id)?'ดูซอง':'บันทึกซอง'}</button></li>`).join('')}</ul>${shown.length>lim?`<p class="help">แสดง ${lim} รายชื่อแรก พิมพ์ค้นหาเพื่อหาคนอื่น</p>`:''}`:'<p class="muted">ไม่พบชื่อนี้ กด “แขกที่ไม่มีในรายชื่อ” เพื่อเพิ่ม</p>'):'<p class="muted">ยังไม่มีรายชื่อแขก เพิ่มได้ในหน้าแขก</p>'}</section>`}
+
+/* ================= WHAT-IF ================= */
+function simulate(){const u=S.ui,s=S.settings,b=budget(),g=guestStats();const baseGuests=(g.yes+g.pending+g.maybe)||num(s.guestEstimate);const guests=u.simGuests!==''?Math.max(0,Math.floor(num(u.simGuests))):baseGuests;const ph=u.simPh!==''?num(u.simPh):num(s.costPerHead);const cats={};CATS.forEach(c=>cats[c[0]]=b.byCat[c[0]].proj);
+ if(u.simCatering&&ph>0)cats.catering=Math.max(round2(guests*ph),b.byCat.catering.paid);
+ let swap=null;if(u.simVendor){const v=S.data.vendors.get(u.simVendor);if(v){const k=CAT[v.cat]?v.cat:'misc';const price=num(v.negotiated)||num(v.quoted);if(price){swap={k,name:v.name};cats[k]=Math.max(price,b.byCat[k].paid)}}}
+ CATS.forEach(c=>{const raw=u['sa_'+c[0]];if(raw!==undefined&&String(raw).trim()!==''){const pct=Number(raw);if(isFinite(pct))cats[c[0]]=Math.max(b.byCat[c[0]].paid,round2(cats[c[0]]*(1+pct/100)))}});
+ const extra=num(u.simExtra);const total=round2(Object.values(cats).reduce((x,y)=>x+y,0)+extra);const env=round2(guests*num(u.simEnv));
+ return {guests,ph,cats,extra,total,swap,delta:round2(total-b.proj),vsBudget:round2(b.total-total),env,net:round2(total-env)}}
+const sgn=n=>(n>0?'+':n<0?'−':'')+fmtB(Math.abs(n));
+function simHtml(b){const u=S.ui;if(u.simOpen!=='1')return '';const r=simulate();const venOpts=[['','— ไม่เปลี่ยน —'],...arr('vendors').filter(v=>v.status!=='rejected'&&(num(v.negotiated)||num(v.quoted))).map(v=>[v.id,`${v.name} · ${fmtB(num(v.negotiated)||num(v.quoted))}`])];
+ const changed=CATS.filter(c=>Math.abs(r.cats[c[0]]-b.byCat[c[0]].proj)>0.5);
+ const inp=(id,label,val,ph)=>`<div class="field"><label for="${id}">${label}</label><input id="${id}" data-ui="${id}" type="text" inputmode="decimal" autocomplete="off" value="${esc(val)}" placeholder="${esc(ph)}"></div>`;
+ return `<section class="card sim" aria-label="จำลองงบ"><div class="card-h"><div><p class="eyebrow">ลองคิดก่อนตัดสินใจ</p><h2>จำลองงบแบบ “ถ้า…”</h2></div><div class="toolbar"><button class="btn sm ghost" data-act="simReset">ล้างค่า</button><button class="btn sm ghost" data-act="setUi" data-id="simOpen:0">ปิด</button></div></div>
+ <p class="help">ตัวเลขในส่วนนี้ไม่ถูกบันทึกและไม่เปลี่ยนข้อมูลจริง</p>
+ <div class="fgrid">${inp('simGuests','จำนวนแขก (คน)',u.simGuests,String(r.guests))}${inp('simPh','ค่าอาหารต่อหัว (บาท)',u.simPh,String(num(S.settings.costPerHead)))}
+ <div class="field"><label for="simVendor">ถ้าเปลี่ยนไปใช้ผู้ให้บริการ</label><select id="simVendor" data-ui="simVendor">${venOpts.map(([k,l])=>`<option value="${esc(k)}" ${u.simVendor===k?'selected':''}>${esc(l)}</option>`).join('')}</select></div>
+ ${inp('simExtra','เพิ่มรายการใหม่ (บาท)',u.simExtra,'0')}${inp('simEnv','ซองเฉลี่ยต่อแขก (บาท)',u.simEnv,'เช่น 1000')}
+ <div class="field" style="justify-content:flex-end"><label class="checkline"><input type="checkbox" id="simCatering" data-ui="simCatering" ${u.simCatering?'checked':''}> คิดค่าอาหาร = จำนวนแขก × ค่าต่อหัว</label></div></div>
+ <details ${CATS.some(c=>u['sa_'+c[0]])?'open':''}><summary style="cursor:pointer;font-size:.9rem">ปรับรายหมวด (± %)</summary><div class="fgrid" style="margin-top:10px">${CATS.filter(c=>b.byCat[c[0]].proj>0).map(c=>inp('sa_'+c[0],`${c[1]} · ${fmtB(b.byCat[c[0]].proj)}`,u['sa_'+c[0]]??'','เช่น -10 หรือ 15')).join('')||'<p class="muted">ยังไม่มีค่าใช้จ่ายให้ปรับ</p>'}</div></details>
+ <div class="figs figs4"><div class="fig"><span class="lbl">คาดการณ์ตอนนี้</span><span class="val">${fmtB(b.proj)}</span></div><div class="fig"><span class="lbl">ถ้าเป็นแบบนี้</span><span class="val">${fmtB(r.total)}</span></div><div class="fig"><span class="lbl">ต่างจากตอนนี้</span><span class="val ${r.delta>0?'bad':r.delta<0?'ok':''}">${sgn(r.delta)}</span></div><div class="fig"><span class="lbl">${r.vsBudget<0?'เกินงบรวม':'เหลือจากงบรวม'}</span><span class="val ${r.vsBudget<0?'bad':'ok'}">${fmtB(Math.abs(r.vsBudget))}</span></div>
+ ${num(u.simEnv)?`<div class="fig"><span class="lbl">ซองที่คาดว่าจะได้ (${r.guests} คน)</span><span class="val">${fmtB(r.env)}</span></div><div class="fig"><span class="lbl">ต้นทุนสุทธิที่คาด</span><span class="val">${fmtB(r.net)}</span></div>`:''}</div>
+ ${changed.length||r.extra?`<div class="table-wrap"><table><thead><tr><th>หมวดที่เปลี่ยน</th><th class="r">ตอนนี้</th><th class="r">ถ้าเป็นแบบนี้</th><th class="r">ต่าง</th></tr></thead><tbody>${changed.map(c=>{const a=b.byCat[c[0]].proj,z=r.cats[c[0]];return `<tr><td>${esc(c[1])}${r.swap&&r.swap.k===c[0]?` <span class="muted">(${esc(r.swap.name)})</span>`:''}</td><td class="r num">${fmtB(a)}</td><td class="r num">${fmtB(z)}</td><td class="r num">${sgn(round2(z-a))}</td></tr>`}).join('')}${r.extra?`<tr><td>รายการใหม่</td><td class="r num">—</td><td class="r num">${fmtB(r.extra)}</td><td class="r num">${sgn(r.extra)}</td></tr>`:''}</tbody></table></div>`:''}
+ <p class="help">ค่าอาหาร การเปลี่ยนผู้ให้บริการ และการปรับหมวด จะไม่ทำให้ยอดต่ำกว่าเงินที่จ่ายไปแล้ว</p></section>`}
+
+function rsvpLink(){const C=window.OURDAY_CONFIG||{};const base=C.rsvpUrl||new URL('rsvp/',location.href.split('#')[0]).href;return S.wsMeta&&S.wsMeta.token?base+'?k='+S.wsMeta.token:''}
+function partnerHtml(){const ms=S.members||[];const full=ms.length>=2;const link=rsvpLink();return `<p>คุณคือ <b>${esc(nameOf(S.me))}</b> · ${esc((S.session&&S.session.user.email)||'')}</p>
+ <ul class="list">${ms.map(m=>`<li class="li"><span class="dot ${esc(m.partner||'')}" style="margin-top:8px"></span><div class="grow"><span>${esc(m.partner?nameOf(m.partner):'ยังไม่ได้เลือกชื่อ')}</span><div class="s muted">${esc(m.email||'')}${m.user_id===S.uid?' · คุณ':''}</div></div></li>`).join('')}</ul>
+ ${full?'<p class="help">พื้นที่นี้มีสมาชิกครบ 2 คนแล้ว</p>':`<div class="field"><label>รหัสเชิญสำหรับคู่ของคุณ</label><div class="copy-row"><span class="val" style="font-size:1.3rem;letter-spacing:.15em">${esc(S.wsMeta.invite)}</span><button class="btn sm ghost" data-act="copy" data-id="${esc(S.wsMeta.invite)}">${icon('copy','sm')} คัดลอก</button><button class="btn sm ghost" data-act="rotateCode">สร้างรหัสใหม่</button></div><p class="help">ให้คู่ของคุณเปิดเว็บนี้ ล็อกอินด้วยอีเมลของตัวเอง แล้วใส่รหัสนี้</p></div>`}
+ <div class="field"><label>ลิงก์ฟอร์มตอบรับสำหรับแขก</label><div class="copy-row"><span class="val" style="font-size:.82rem;word-break:break-all">${esc(link)}</span></div><div class="toolbar"><button class="btn sm ghost" data-act="copy" data-id="${esc(link)}">${icon('copy','sm')} คัดลอกลิงก์</button><a class="btn sm ghost" href="${esc(link)}" target="_blank" rel="noopener">เปิดดู</a></div><p class="help">คำตอบของแขกจะเข้ามาในหน้าแขกของแอปนี้ทันที</p></div>`}
+
+/* ================= modal / form infra ================= */
+let closeModal=()=>{};
+function openModal({title,body,foot,wide,onMount}){const root=$('#modal-root');const prev=document.activeElement;root.innerHTML=`<div class="scrim" data-close></div><div class="modal ${wide?'wide':''}" role="dialog" aria-modal="true" aria-labelledby="mh"><header class="mhead"><h2 id="mh">${esc(title)}</h2><button type="button" class="icon-btn" data-close aria-label="ปิด">${icon('x')}</button></header><div class="mbody">${body}</div>${foot?`<footer class="mfoot">${foot}</footer>`:''}</div>`;root.hidden=false;document.body.classList.add('modal-open');
+ closeModal=()=>{root.hidden=true;root.innerHTML='';document.body.classList.remove('modal-open');closeModal=()=>{};try{prev&&prev.focus&&prev.focus()}catch(e){}};
+ root.querySelectorAll('[data-close]').forEach(b=>b.addEventListener('click',()=>closeModal()));const m=root.querySelector('.modal');if(onMount)onMount(m);setTimeout(()=>{const f=m.querySelector('.mbody input:not([type=hidden]):not([type=checkbox]),.mbody select,.mbody textarea');(f||m.querySelector('[data-close]')).focus()},30)}
+function fieldHtml(f,v){const id='f_'+f.k;const lab=`<label for="${id}">${esc(f.label)}${f.req?' <span class="req" aria-hidden="true">*</span>':''}</label>`;let inp;const aria=`aria-describedby="${id}_err"`;
+ switch(f.type){case 'textarea':inp=`<textarea id="${id}" name="${f.k}" rows="${f.rows||3}" placeholder="${esc(f.ph||'')}" ${aria} ${f.max?`maxlength="${f.max}"`:''}>${esc(v??'')}</textarea>`;break;
+ case 'select':{const val=String(v??f.def??(f.opts[0]&&f.opts[0][0]));inp=`<select id="${id}" name="${f.k}" ${aria}>${f.opts.map(([k,l])=>`<option value="${esc(k)}" ${val===String(k)?'selected':''}>${esc(l)}</option>`).join('')}</select>`;break}
+ case 'number':inp=`<input id="${id}" name="${f.k}" type="number" inputmode="decimal" min="0" step="${f.step||'any'}" value="${v===null||v===undefined?'':esc(v)}" placeholder="${esc(f.ph||'')}" ${aria}>`;break;
+ case 'check':return `<div class="field ${f.full?'full':''}"><label class="checkline"><input id="${id}" name="${f.k}" type="checkbox" ${v?'checked':''}> ${esc(f.label)}</label></div>`;
+ default:inp=`<input id="${id}" name="${f.k}" type="${f.type||'text'}" value="${esc(v??'')}" placeholder="${esc(f.ph||'')}" ${f.max?`maxlength="${f.max}"`:''} ${aria} ${f.type==='email'?'autocomplete="off"':''}>`}
+ return `<div class="field ${f.full||f.type==='textarea'?'full':''}">${lab}${inp}${f.help?`<p class="help">${esc(f.help)}</p>`:''}<p class="err" id="${id}_err" hidden></p></div>`}
+function readForm(form,fields){const out={},errs={};for(const f of fields){const el=form.elements[f.k];if(!el)continue;let v=f.type==='check'?el.checked:String(el.value).trim();
+ if(f.req&&v===''){errs[f.k]='กรุณากรอกช่องนี้';continue}
+ if(f.type==='number'){if(v===''){v=null}else{const n=Number(v);if(!isFinite(n)||n<0){errs[f.k]='ใส่ตัวเลขตั้งแต่ 0 ขึ้นไป';continue}if(n>1e10){errs[f.k]='ตัวเลขสูงเกินไป';continue}v=f.step==='1'?Math.floor(n):round2(n)}}
+ if(f.type==='date'&&v&&!isISO(v))errs[f.k]='วันที่ไม่ถูกต้อง';
+ if(f.type==='email'&&v&&!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v))errs[f.k]='รูปแบบอีเมลไม่ถูกต้อง';
+ if(f.type==='url'&&v&&!/^https?:\/\/[^\s]+$/i.test(v))errs[f.k]='ลิงก์ต้องขึ้นต้นด้วย http:// หรือ https://';
+ if(f.type==='time'&&v&&!/^\d{2}:\d{2}$/.test(v))errs[f.k]='เวลาไม่ถูกต้อง';
+ out[f.k]=v}return {out,errs}}
+function showErrs(form,fields,errs){let first=null;for(const f of fields){const e=form.querySelector('#f_'+f.k+'_err');const el=form.elements[f.k];if(errs[f.k]){if(e){e.textContent=errs[f.k];e.hidden=false}el&&el.setAttribute&&el.setAttribute('aria-invalid','true');if(!first)first=el}else{if(e)e.hidden=true;el&&el.removeAttribute&&el.removeAttribute('aria-invalid')}}if(first&&first.focus)first.focus()}
+function openForm({title,fields,values={},onSave,onDelete,extraHtml='',mount,validate,wide,saveLabel='บันทึก'}){
+ const body=`<form id="mform" novalidate><div class="fgrid">${fields.map(f=>fieldHtml(f,values[f.k])).join('')}</div>${extraHtml}</form>`;
+ const foot=`<div class="foot-left">${onDelete?`<button type="button" class="btn ghost danger" data-del>ลบ</button>`:''}</div><div class="foot-right"><button type="button" class="btn ghost" data-close>ยกเลิก</button><button type="submit" form="mform" class="btn primary">${saveLabel}</button></div>`;
+ openModal({title,body,foot,wide,onMount(m){const form=m.querySelector('#mform');const ctx=mount?mount(m)||{}:{};
+  form.addEventListener('submit',ev=>{ev.preventDefault();const {out,errs}=readForm(form,fields);if(validate)Object.assign(errs,validate(out,ctx)||{});showErrs(form,fields,errs);if(Object.keys(errs).length){if(errs._)toast(errs._,'bad');return}if(onSave(out,ctx)!==false)closeModal()});
+  const bindDel=()=>{const d=m.querySelector('[data-del]');if(!d)return;d.onclick=()=>{const fl=m.querySelector('.foot-left');fl.innerHTML=`<span class="confirm-inline">ลบถาวร?</span><button type="button" class="btn sm ghost" data-no>ไม่ลบ</button><button type="button" class="btn sm danger" data-yes>ลบ</button>`;fl.querySelector('[data-yes]').focus();fl.querySelector('[data-no]').onclick=()=>{fl.innerHTML='<button type="button" class="btn ghost danger" data-del>ลบ</button>';bindDel()};fl.querySelector('[data-yes]').onclick=()=>{onDelete(ctx);closeModal()}}};bindDel()}})}
+function openConfirm(text,onYes,yesLabel='ลบ'){openModal({title:'ยืนยัน',body:`<p>${esc(text)}</p>`,foot:`<span></span><div class="foot-right"><button type="button" class="btn ghost" data-close>ยกเลิก</button><button type="button" class="btn danger" id="cyes">${esc(yesLabel)}</button></div>`,onMount(m){m.parentNode.querySelector('#cyes').onclick=()=>{onYes();closeModal()}}})}
+function attachHtml(label){return `<section class="subsec" data-attach><div class="attach-head"><span class="lbl">${label}</span>${S.assets?`<label class="btn ghost sm file-btn">${icon('clip','sm')} แนบไฟล์<input type="file" multiple hidden accept="image/*,application/pdf,.pdf,.txt,.csv"></label>`:''}</div><ul class="attach-list"></ul>${S.assets?'<p class="help">รูปภาพหรือ PDF ไม่เกิน 20MB ต่อไฟล์ เห็นได้เฉพาะคุณสองคน</p>':'<p class="help">แนบไฟล์ได้เมื่อใช้งานจริงหลังล็อกอิน</p>'}<p class="help attach-status" aria-live="polite"></p></section>`}
+const URLS=new Map();let urlQ=new Set(),urlT=0;
+function fileUrl(a){if(!a||!a.id||!SB||S.mode!=='live')return '';const c=URLS.get(a.id);if(c&&c.exp>Date.now())return c.url;urlQ.add(a.id);clearTimeout(urlT);urlT=setTimeout(()=>fetchUrls().then(schedule),20);return c?c.url:''}
+async function fetchUrls(ids){ids=(ids||[...urlQ]).filter(id=>{const c=URLS.get(id);return !(c&&c.exp>Date.now())});if(!arguments.length)urlQ.clear();if(!ids.length||!SB)return;try{const r=await SB.storage.from('files').createSignedUrls(ids,3600);const got=new Set();(r.data||[]).forEach(d=>{if(d.signedUrl&&!d.error){URLS.set(d.path,{url:d.signedUrl,exp:Date.now()+50*6e4});got.add(d.path)}});ids.forEach(id=>{if(!got.has(id))URLS.set(id,{url:'',exp:Date.now()+5*6e4})})}catch(e){ids.forEach(id=>URLS.set(id,{url:'',exp:Date.now()+6e4}))}}
+function mountAttach(m,initial){const box=m.querySelector('[data-attach]');const list=clone(initial||[]);const removed=[];if(!box)return {get:()=>list,removed};
+ const draw=()=>{box.querySelector('.attach-list').innerHTML=list.length?list.map((a,i)=>{const u=fileUrl(a);return `<li>${(a.type||'').startsWith('image/')&&u?`<img src="${esc(u)}" alt="">`:icon('file')}${u?`<a href="${esc(u)}" target="_blank" rel="noopener">${esc(a.name)}</a>`:`<span style="flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis">${esc(a.name)}</span>`}<button type="button" class="icon-btn sm" data-rm="${i}" aria-label="เอา ${esc(a.name)} ออก">${icon('x','sm')}</button></li>`}).join(''):'<li class="muted">ยังไม่มีไฟล์แนบ</li>';box.querySelectorAll('[data-rm]').forEach(b=>b.onclick=()=>{removed.push(...list.splice(+b.dataset.rm,1));draw()})};
+ draw();if(list.length&&SB&&S.mode==='live')fetchUrls(list.map(a=>a.id)).then(draw);
+ const inp=box.querySelector('input[type=file]');if(inp)inp.onchange=async()=>{const st=box.querySelector('.attach-status');for(const f of [...inp.files]){if(f.size>20*1024*1024){st.textContent=`${f.name} ใหญ่เกิน 20MB`;continue}st.textContent=`กำลังอัปโหลด ${f.name}…`;try{const r=await S.assets.upload(f);list.push({id:r.id,name:f.name.slice(0,120),type:r.contentType||f.type});await fetchUrls([r.id]);draw();st.textContent=`อัปโหลด ${f.name} แล้ว`}catch(e){st.textContent=`อัปโหลด ${f.name} ไม่สำเร็จ ลองไฟล์รูปหรือ PDF ที่เล็กลง`}}inp.value=''};
+ return {get:()=>list,removed}}
+function dropAssets(list){if(!S.assets)return;(list||[]).forEach(a=>{try{S.assets.delete(a.id).catch(()=>{})}catch(e){}})}
+function toast(msg,kind=''){const el=document.createElement('div');el.className='toast '+kind;el.textContent=msg;$('#toasts').appendChild(el);setTimeout(()=>el.remove(),kind==='bad'?5200:3200)}
+function celebrate(title,sub){const el=document.createElement('div');el.className='toast celebrate';el.innerHTML=`<b>${esc(title)}</b><span>${esc(sub)}</span>`+Array.from({length:8},(_,i)=>`<span class="petal" style="left:${8+i*11}%;animation-delay:${i*0.12}s"></span>`).join('');$('#toasts').appendChild(el);setTimeout(()=>el.remove(),4200)}
+let msInit=false;function checkMilestones(){if(!S.settings||!S.me)return;const ms=milestones().map(m=>m);let seen;try{seen=JSON.parse(store('ourday-ms-'+S.mode)||'null')}catch(e){seen=null}if(!seen){store('ourday-ms-'+S.mode,JSON.stringify(ms.map(m=>m.k)));return}const fresh=ms.filter(m=>!seen.includes(m.k));if(fresh.length){fresh.forEach(m=>celebrate(m.t,'หมุดหมายใหม่ของเราสองคน'));store('ourday-ms-'+S.mode,JSON.stringify([...seen,...fresh.map(m=>m.k)]))}}
+
+/* ================= entity forms ================= */
+const vendorOpts=()=>[['','— ไม่มี —'],...arr('vendors').sort((a,b)=>a.name.localeCompare(b.name,'th')).map(v=>[v.id,v.name])];
+const expenseOpts=()=>[['','— ไม่มี —'],...arr('expenses').sort((a,b)=>a.name.localeCompare(b.name,'th')).map(e=>[e.id,e.name])];
+function taskForm(id,preset={}){const x=id?S.data.tasks.get(id):null;if(id&&!x)return;const v=x?clone(x):Object.assign({who:'Both',prio:'med',status:'todo',cat:'planning'},preset);
+ const fields=[{k:'title',label:'ชื่องาน',req:true,max:140,full:true},{k:'desc',label:'รายละเอียด',type:'textarea',max:2000},{k:'cat',label:'หมวด',type:'select',opts:TASK_CATS},{k:'who',label:'ผู้รับผิดชอบ',type:'select',opts:whoOpts()},{k:'prio',label:'ความสำคัญ',type:'select',opts:Object.entries(PRIO)},{k:'status',label:'สถานะ',type:'select',opts:Object.entries(TASK_ST)},{k:'start',label:'วันเริ่ม',type:'date'},{k:'due',label:'กำหนดเสร็จ',type:'date'},{k:'vendorId',label:'ผู้ให้บริการที่เกี่ยวข้อง',type:'select',opts:vendorOpts()},{k:'expenseId',label:'ค่าใช้จ่ายที่เกี่ยวข้อง',type:'select',opts:expenseOpts()},{k:'notes',label:'บันทึก',type:'textarea',max:2000}];
+ const hist=x?arr('activity').filter(a=>a.ref===x.id).sort((a,b)=>(b.at||'').localeCompare(a.at||'')).slice(0,8):[];
+ const extra=x?`<section class="subsec"><h3>ความเห็น</h3><div class="comments" id="cmts"></div><div class="quickadd"><label class="sr" for="cmtIn">เพิ่มความเห็น</label><input id="cmtIn" placeholder="เขียนความเห็นถึงอีกฝ่าย" maxlength="500"><button type="button" class="btn" id="cmtAdd">ส่ง</button></div></section>${hist.length?`<section class="subsec"><h3>ประวัติ</h3><ul class="list">${hist.map(a=>`<li class="li" style="padding:6px 0"><span class="s muted">${fmtTime(a.at)} · ${esc(nameOf(a.by))}</span> <span style="font-size:.86rem">${esc(a.text)}</span></li>`).join('')}</ul></section>`:''}`:'';
+ openForm({title:x?'แก้ไขงาน':'เพิ่มงาน',fields,values:v,extraHtml:extra,
+  mount(m){const ctx={comments:clone(v.comments||[])};const box=m.querySelector('#cmts');if(box){const draw=()=>{box.innerHTML=ctx.comments.length?ctx.comments.map(c=>`<div class="cmt"><div class="s">${esc(nameOf(c.by))} · ${fmtTime(c.at)}</div>${esc(c.text)}</div>`).join(''):'<p class="muted" style="font-size:.86rem">ยังไม่มีความเห็น</p>'};draw();const add=()=>{const i=m.querySelector('#cmtIn');const t=i.value.trim();if(!t)return;ctx.comments.push({by:S.me,text:t,at:new Date().toISOString()});i.value='';draw();ctx.dirty=true};m.querySelector('#cmtAdd').onclick=add;m.querySelector('#cmtIn').addEventListener('keydown',e=>{if(e.key==='Enter'){e.preventDefault();add()}})}return ctx},
+  validate(o){if(o.start&&o.due&&o.start>o.due)return {due:'กำหนดเสร็จต้องไม่ก่อนวันเริ่ม'}},
+  onSave(o,ctx){const n=Object.assign(x?clone(x):{id:uid(),createdAt:new Date().toISOString()},o,{comments:ctx.comments||[]});if(n.status==='done'&&(!x||x.status!=='done'))n.completedAt=new Date().toISOString();if(n.status!=='done')n.completedAt=null;if(!Store.put('tasks',n))return false;logAct(x?(x.status!==n.status?`เปลี่ยนสถานะ “${n.title}” เป็น${TASK_ST[n.status]}`:`แก้ไขงาน “${n.title}”`):`เพิ่มงาน “${n.title}”`,n.id);if(ctx.dirty&&x&&x.status===n.status)logAct(`แสดงความเห็นในงาน “${n.title}”`,n.id);toast(x?'บันทึกงานแล้ว':'เพิ่มงานแล้ว')},
+  onDelete(){if(Store.del('tasks',x.id)){logAct(`ลบงาน “${x.title}”`);toast('ลบงานแล้ว')}}})}
+function setTaskStatus(id,status){const x=S.data.tasks.get(id);if(!x)return;const n=clone(x);n.status=status;n.completedAt=status==='done'?(x.completedAt||new Date().toISOString()):null;if(Store.put('tasks',n)){logAct(status==='done'?`ทำ “${n.title}” เสร็จแล้ว`:`เปลี่ยน “${n.title}” เป็น${TASK_ST[status]}`,id);if(status==='done')toast('เยี่ยม ติ๊กไปอีกหนึ่งงาน')}}
+function expenseForm(id,preset={}){const x=id?S.data.expenses.get(id):null;if(id&&!x)return;const v=x?clone(x):Object.assign({cat:'venue',who:'Both',payments:[]},preset);
+ const fields=[{k:'name',label:'รายการ',req:true,max:140,full:true},{k:'cat',label:'หมวด',type:'select',opts:CATS.map(c=>[c[0],c[1]])},{k:'vendorId',label:'ผู้ให้บริการ',type:'select',opts:vendorOpts()},{k:'estimated',label:'ราคาประมาณการ (บาท)',type:'number',req:true},{k:'agreed',label:'ราคาที่ตกลงแล้ว (บาท)',type:'number',help:'เว้นว่างถ้ายังไม่ได้ตกลงราคา'},{k:'who',label:'ผู้รับผิดชอบการจ่าย',type:'select',opts:whoOpts()},{k:'notes',label:'บันทึก',type:'textarea',max:2000}];
+ const extra=`<section class="subsec"><div class="subhead"><h3>งวดการชำระเงิน</h3><button type="button" class="btn ghost sm" id="addPay">${icon('plus','sm')} เพิ่มงวด</button></div><div id="pays" style="display:flex;flex-direction:column;gap:8px"></div><p class="help">ติ๊ก “จ่ายแล้ว” เมื่อเงินออกจริง ยอดนี้จะถูกหักจากงบเงินสดทันที ยอดที่ตกลงแล้วแต่ยังไม่ติ๊กจะแสดงเป็น “รอจ่าย”</p><p class="help" id="paySum" aria-live="polite"></p></section>`+attachHtml('ใบเสนอราคา ใบเสร็จ และไฟล์แนบ');
+ openForm({title:x?'แก้ไขค่าใช้จ่าย':'เพิ่มค่าใช้จ่าย',fields,values:v,extraHtml:extra,wide:true,
+  mount(m){const ctx={pays:clone(v.payments||[]),att:mountAttach(m,v.files)};const box=m.querySelector('#pays');const sum=()=>{const paid=ctx.pays.filter(p=>p.paid).reduce((s,p)=>s+num(p.amount),0);const all=ctx.pays.reduce((s,p)=>s+num(p.amount),0);m.querySelector('#paySum').textContent=ctx.pays.length?`รวมทุกงวด ${fmtB(all)} · จ่ายแล้ว ${fmtB(paid)}`:''};
+   const draw=()=>{box.innerHTML=ctx.pays.length?ctx.pays.map((p,i)=>`<div class="pay-row"><select aria-label="ประเภทงวด" data-pi="${i}" data-pk="kind">${Object.entries(PAY_KIND).map(([k,l])=>`<option value="${k}" ${p.kind===k?'selected':''}>${l}</option>`).join('')}</select><input type="number" min="0" step="any" inputmode="decimal" aria-label="จำนวนเงิน" placeholder="จำนวนเงิน" data-pi="${i}" data-pk="amount" value="${p.amount??''}"><input type="date" aria-label="ครบกำหนด" title="ครบกำหนด" data-pi="${i}" data-pk="due" value="${esc(p.due||'')}"><label class="checkline"><input type="checkbox" data-pi="${i}" data-pk="paid" ${p.paid?'checked':''}> จ่ายแล้ว</label><input type="date" aria-label="วันที่จ่าย" title="วันที่จ่าย" data-pi="${i}" data-pk="paidDate" value="${esc(p.paidDate||'')}" ${p.paid?'':'disabled'}><button type="button" class="icon-btn sm" data-rmpay="${i}" aria-label="ลบงวดนี้">${icon('x','sm')}</button></div>`).join(''):'<p class="muted" style="font-size:.86rem">ยังไม่มีงวด เช่น มัดจำ งวดกลาง และงวดสุดท้าย</p>';
+    box.querySelectorAll('[data-pk]').forEach(el=>el.addEventListener(el.type==='checkbox'?'change':'input',()=>{const p=ctx.pays[+el.dataset.pi];const k=el.dataset.pk;if(k==='paid'){p.paid=el.checked;if(el.checked&&!p.paidDate)p.paidDate=todayISO();draw()}else p[k]=k==='amount'?(el.value===''?'':Number(el.value)):el.value;sum()}));
+    box.querySelectorAll('[data-rmpay]').forEach(b=>b.onclick=()=>{ctx.pays.splice(+b.dataset.rmpay,1);draw()});sum()};
+   draw();m.querySelector('#addPay').onclick=()=>{ctx.pays.push({id:uid(),kind:ctx.pays.length?'installment':'deposit',amount:'',due:'',paid:false,paidDate:''});draw();const ins=box.querySelectorAll('[data-pk="amount"]');ins[ins.length-1].focus()};return ctx},
+  validate(o,ctx){for(const p of ctx.pays){if(!(num(p.amount)>0))return {_:'ใส่จำนวนเงินของทุกงวดให้มากกว่า 0'};if(p.due&&!isISO(p.due))return {_:'วันครบกำหนดของงวดไม่ถูกต้อง'};if(p.paid&&!isISO(p.paidDate))return {_:'ใส่วันที่จ่ายของงวดที่จ่ายแล้ว'}}},
+  onSave(o,ctx){const pays=ctx.pays.map(p=>({id:p.id||uid(),kind:p.kind,amount:round2(num(p.amount)),due:p.due||'',paid:!!p.paid,paidDate:p.paid?p.paidDate:''}));const n=Object.assign(x?clone(x):{id:uid()},o,{payments:pays,files:ctx.att.get()});const c=expCalc(n);if(c.agreed!==null&&c.paid>c.agreed)toast('ยอดจ่ายแล้วมากกว่าราคาที่ตกลง ระบบใช้ยอดจ่ายจริงในการคาดการณ์','bad');if(!Store.put('expenses',n))return false;dropAssets(ctx.att.removed);logAct(x?`แก้ไขค่าใช้จ่าย “${n.name}”`:`เพิ่มค่าใช้จ่าย “${n.name}” ${fmtB(c.projected)}`,n.id);toast('บันทึกค่าใช้จ่ายแล้ว')},
+  onDelete(ctx){if(Store.del('expenses',x.id)){dropAssets(x.files);logAct(`ลบค่าใช้จ่าย “${x.name}”`);toast('ลบรายการแล้ว')}}})}
+function vendorForm(id){const x=id?S.data.vendors.get(id):null;if(id&&!x)return;const v=x?clone(x):{cat:'venue',status:'interested',contract:'none'};
+ const fields=[{k:'name',label:'ชื่อร้าน/ธุรกิจ',req:true,max:120,full:true},{k:'cat',label:'ประเภทบริการ',type:'select',opts:VEN_CATS},{k:'status',label:'สถานะการจอง',type:'select',opts:Object.entries(VEN_ST)},{k:'contact',label:'ผู้ติดต่อ',max:80},{k:'phone',label:'เบอร์โทร',type:'tel',max:40},{k:'email',label:'อีเมล',type:'email',max:120},{k:'link',label:'เว็บไซต์หรือโซเชียล',type:'url',max:300},{k:'quoted',label:'ราคาที่เสนอ (บาท)',type:'number'},{k:'negotiated',label:'ราคาที่ต่อรองได้ (บาท)',type:'number'},{k:'deposit',label:'มัดจำ (บาท)',type:'number'},{k:'contract',label:'สัญญา',type:'select',opts:Object.entries(CONTRACT)},{k:'terms',label:'เงื่อนไขการชำระ',max:200,full:true},{k:'dates',label:'วันสำคัญ / นัดหมาย',type:'textarea',rows:2,max:500},{k:'pros',label:'ข้อดี',type:'textarea',rows:2,max:1000},{k:'cons',label:'ข้อเสีย',type:'textarea',rows:2,max:1000},{k:'notes',label:'บันทึก',type:'textarea',max:2000}];
+ openForm({title:x?'แก้ไขผู้ให้บริการ':'เพิ่มผู้ให้บริการ',fields,values:v,wide:true,extraHtml:attachHtml('ใบเสนอราคา สัญญา และรูปอ้างอิง'),mount(m){return {att:mountAttach(m,v.files)}},
+  onSave(o,ctx){const n=Object.assign(x?clone(x):{id:uid()},o,{files:ctx.att.get()});if(!Store.put('vendors',n))return false;dropAssets(ctx.att.removed);logAct(x?(x.status!==n.status?`เปลี่ยนสถานะ ${n.name} เป็น${VEN_ST[n.status]}`:`แก้ไขข้อมูล ${n.name}`):`เพิ่มผู้ให้บริการ ${n.name}`,n.id);toast('บันทึกผู้ให้บริการแล้ว');if(n.status==='booked'&&!arr('expenses').some(e=>e.vendorId===n.id))setTimeout(()=>toast('จองแล้ว อย่าลืมกด “ผูกกับงบ” เพื่อเพิ่มค่าใช้จ่ายของเจ้านี้'),400)},
+  onDelete(){if(Store.del('vendors',x.id)){dropAssets(x.files);CMP.delete(x.id);arr('expenses').filter(e=>e.vendorId===x.id).forEach(e=>{const n=clone(e);n.vendorId='';Store.put('expenses',n)});logAct(`ลบผู้ให้บริการ ${x.name}`);toast('ลบแล้ว')}}})}
+function guestForm(id,preset){const x=id?S.data.guests.get(id):null;if(id&&!x)return;const v=x?clone(x):Object.assign({side:S.me||'A',group:'family',rsvp:'pending',plus:0},preset||{});
+ const fields=[{k:'name',label:'ชื่อแขก',req:true,max:120,full:true},{k:'side',label:'แขกของ',type:'select',opts:[['A','ฝั่ง'+nameOf('A')],['B','ฝั่ง'+nameOf('B')],['both','ทั้งสองฝ่าย']]},{k:'group',label:'กลุ่ม',type:'select',opts:Object.entries(GGROUP)},{k:'rsvp',label:'การตอบรับ',type:'select',opts:Object.entries(RSVP)},{k:'plus',label:'จำนวนผู้ติดตาม',type:'number',step:'1'},{k:'phone',label:'เบอร์โทร',type:'tel',max:40},{k:'email',label:'อีเมล',type:'email',max:120},{k:'diet',label:'ข้อจำกัดด้านอาหาร',max:120,ph:'เช่น มังสวิรัติ แพ้กุ้ง'},{k:'table',label:'โต๊ะ',max:20},{k:'notes',label:'บันทึก',type:'textarea',max:1000}];
+ openForm({title:x?'แก้ไขแขก':'เพิ่มแขก',fields,values:v,onSave(o){const n=Object.assign(x?clone(x):Object.assign({id:uid()},preset&&preset.checkedIn?{checkedIn:true,arrivedAt:new Date().toISOString()}:{}),o,{plus:Math.min(20,Math.floor(num(o.plus))),email:(o.email||'').toLowerCase()});if(n.checkedIn&&!n.arrivedHeads)n.arrivedHeads=1+n.plus;if(!Store.put('guests',n))return false;logAct(x?`แก้ไขข้อมูลแขก ${n.name}`:`เพิ่มแขก ${n.name}`);toast('บันทึกแขกแล้ว')},onDelete(){if(Store.del('guests',x.id)){logAct(`ลบแขก ${x.name}`);toast('ลบแล้ว')}}})}
+function eventForm(id,date){const x=id?S.data.events.get(id):null;if(id&&!x)return;const v=x?clone(x):{type:'appointment',date:date||todayISO()};
+ const fields=[{k:'title',label:'ชื่อนัดหมาย',req:true,max:140,full:true},{k:'type',label:'ประเภท',type:'select',opts:Object.entries(EV_TYPES).map(([k,v])=>[k,v[0]])},{k:'date',label:'วันที่',type:'date',req:true},{k:'time',label:'เวลา',type:'time'},{k:'location',label:'สถานที่',max:200},{k:'vendorId',label:'ผู้ให้บริการ',type:'select',opts:vendorOpts()},{k:'notes',label:'บันทึก',type:'textarea',max:1000}];
+ openForm({title:x?'แก้ไขนัดหมาย':'เพิ่มนัดหมาย',fields,values:v,onSave(o){const n=Object.assign(x?clone(x):{id:uid()},o);if(!Store.put('events',n))return false;logAct(x?`แก้ไขนัด “${n.title}”`:`เพิ่มนัด “${n.title}” วันที่ ${fmtD(n.date)}`);toast('บันทึกนัดหมายแล้ว')},onDelete(){if(Store.del('events',x.id)){logAct(`ลบนัด “${x.title}”`);toast('ลบแล้ว')}}})}
+function ideaForm(id){const x=id?S.data.ideas.get(id):null;if(id&&!x)return;const v=x?clone(x):{col:S.ui.icol!=='all'?S.ui.icol:'theme'};
+ const fields=[{k:'title',label:'ชื่อไอเดีย',req:true,max:120,full:true},{k:'col',label:'หมวด',type:'select',opts:Object.entries(IDEA_COLS)},{k:'cost',label:'ราคาประมาณ (บาท)',type:'number'},{k:'link',label:'ลิงก์อ้างอิง',type:'url',max:500,full:true,help:'ลิงก์จะเปิดในแท็บใหม่ รูปจากเว็บอื่นแสดงในหน้านี้ไม่ได้ ให้แนบไฟล์รูปแทน'},{k:'note',label:'โน้ต',type:'textarea',max:1000}];
+ openForm({title:x?'แก้ไขไอเดีย':'เพิ่มไอเดีย',fields,values:v,extraHtml:attachHtml('รูปอ้างอิง'),mount(m){return {att:mountAttach(m,v.files)}},onSave(o,ctx){const n=Object.assign(x?clone(x):{id:uid(),votes:{}},o,{files:ctx.att.get()});if(!Store.put('ideas',n))return false;dropAssets(ctx.att.removed);logAct(x?`แก้ไขไอเดีย “${n.title}”`:`เพิ่มไอเดีย “${n.title}”`);toast('บันทึกไอเดียแล้ว')},onDelete(){if(Store.del('ideas',x.id)){dropAssets(x.files);logAct(`ลบไอเดีย “${x.title}”`);toast('ลบแล้ว')}}})}
+function memoryForm(id){const x=id?S.data.memories.get(id):null;if(id&&!x)return;const v=x?clone(x):{date:todayISO()};
+ const fields=[{k:'title',label:'เรื่องอะไร',req:true,max:140,full:true,ph:'เช่น วันที่เลือกแหวน'},{k:'date',label:'วันที่',type:'date',req:true},{k:'note',label:'บันทึกถึงกัน',type:'textarea',max:3000}];
+ openForm({title:x?'แก้ไขความทรงจำ':'บันทึกความทรงจำ',fields,values:v,extraHtml:attachHtml('รูปถ่าย'),mount(m){return {att:mountAttach(m,v.files)}},onSave(o,ctx){const n=Object.assign(x?clone(x):{id:uid()},o,{files:ctx.att.get()});if(!Store.put('memories',n))return false;dropAssets(ctx.att.removed);logAct(x?`แก้ไขความทรงจำ “${n.title}”`:`บันทึกความทรงจำ “${n.title}”`);toast('บันทึกแล้ว')},onDelete(){if(Store.del('memories',x.id)){dropAssets(x.files);toast('ลบแล้ว')}}})}
+function pollForm(){const fields=[{k:'q',label:'คำถาม',req:true,max:200,full:true,ph:'เช่น งานเลี้ยงช่วงเช้าหรือช่วงเย็นดี'},{k:'opts',label:'ตัวเลือก (บรรทัดละหนึ่งตัวเลือก อย่างน้อย 2)',type:'textarea',req:true,rows:4,max:1000}];
+ openForm({title:'ตั้งโพลล์',fields,values:{opts:'ใช่\nไม่ใช่\nขอคิดก่อน'},validate(o){const l=(o.opts||'').split('\n').map(s=>s.trim()).filter(Boolean);if(l.length<2)return {opts:'ใส่อย่างน้อย 2 ตัวเลือก'};if(l.length>8)return {opts:'ไม่เกิน 8 ตัวเลือก'}},onSave(o){const n={id:uid(),q:o.q,opts:o.opts.split('\n').map(s=>s.trim()).filter(Boolean).slice(0,8),votes:{}};if(!Store.put('polls',n))return false;logAct(`ตั้งโพลล์ “${n.q}”`);toast('ตั้งโพลล์แล้ว')}})}
+function wdayForm(id,type){const x=id?S.data.wday.get(id):null;if(id&&!x)return;type=x?x.type:type;const v=x?clone(x):{type};
+ const F={schedule:[{k:'time',label:'เวลา',type:'time',req:true},{k:'title',label:'ช่วงพิธี/กิจกรรม',req:true,max:140},{k:'owner',label:'ผู้ดูแล',max:80},{k:'location',label:'จุด/สถานที่',max:120},{k:'note',label:'หมายเหตุ',type:'textarea',max:500}],bring:[{k:'title',label:'ของที่ต้องนำไป',req:true,max:140,full:true},{k:'owner',label:'ใครถือ',max:80}],contact:[{k:'title',label:'ชื่อ',req:true,max:80},{k:'owner',label:'บทบาท',max:80,ph:'เช่น ผู้ประสานงาน'},{k:'phone',label:'เบอร์โทร',type:'tel',max:40,req:true}],place:[{k:'title',label:'ชื่อสถานที่',req:true,max:120,full:true},{k:'note',label:'ที่อยู่',type:'textarea',max:500},{k:'link',label:'ลิงก์แผนที่',type:'url',max:500,full:true}]}[type];
+ const T={schedule:'กำหนดการ',bring:'ของที่ต้องนำไป',contact:'ติดต่อฉุกเฉิน',place:'สถานที่'}[type];
+ openForm({title:(x?'แก้ไข':'เพิ่ม')+T,fields:F,values:v,onSave(o){const n=Object.assign(x?clone(x):{id:uid(),type},o);if(!Store.put('wday',n))return false;toast('บันทึกแล้ว')},onDelete(){Store.del('wday',x.id)&&toast('ลบแล้ว')}})}
+function templatePicker(){const existing=new Set(arr('tasks').map(t=>t.title));const wd=S.settings.weddingDate;const groups={};TPL.forEach((x,i)=>(groups[x[0]]=groups[x[0]]||[]).push(i));
+ openModal({title:'เพิ่มงานจากแม่แบบ',wide:true,body:`<p class="muted">กำหนดเสร็จคำนวณจากวันแต่งงาน ${fmtD(wd)} งานที่เลยมาแล้วจะตั้งเป็นอีก 14 วัน ทุกงานแก้ไขหรือลบได้ ไม่จำเป็นต้องตรงกับประเพณีของทุกครอบครัว</p>${Object.keys(groups).sort((a,b)=>b-a).map(k=>`<section class="subsec"><h3>${PHASE[k]}</h3>${groups[k].map(i=>{const has=existing.has(TPL[i][2]);return `<label class="checkline"><input type="checkbox" data-tpl="${i}" ${has?'':'checked'}> ${esc(TPL[i][2])} <span class="chip">${esc(nameOf(TPL[i][3]))}</span>${has?' <span class="muted" style="font-size:.8rem">มีแล้ว</span>':''}</label>`}).join('')}</section>`).join('')}`,foot:`<span></span><div class="foot-right"><button type="button" class="btn ghost" data-close>ยกเลิก</button><button type="button" class="btn primary" id="tplAdd">เพิ่มงานที่เลือก</button></div>`,onMount(m){m.querySelector('#tplAdd').onclick=()=>{const pick=[...m.querySelectorAll('[data-tpl]:checked')].map(i=>+i.dataset.tpl);if(!pick.length){toast('ยังไม่ได้เลือกงาน','bad');return}if(!isISO(wd)){toast('ตั้งวันแต่งงานก่อน','bad');return}const ts=starterTasks(wd,pick);let ok=true;ts.forEach(t=>{ok=Store.put('tasks',t)&&ok});if(ok){logAct(`เพิ่มงานจากแม่แบบ ${ts.length} รายการ`);toast(`เพิ่ม ${ts.length} งานแล้ว`)}closeModal()}}})}
+function compareModal(){const vs=[...CMP].map(id=>S.data.vendors.get(id)).filter(Boolean);const rows=[['หมวด',v=>CAT[v.cat]||'—'],['สถานะ',v=>VEN_ST[v.status]||'—'],['ราคาเสนอ',v=>num(v.quoted)?fmtB(v.quoted):'—'],['ราคาต่อรองได้',v=>num(v.negotiated)?fmtB(v.negotiated):'—'],['มัดจำ',v=>num(v.deposit)?fmtB(v.deposit):'—'],['ค้างจ่าย',v=>fmtB(vendorMoney(v).out)],['เงื่อนไขชำระ',v=>v.terms||'—'],['สัญญา',v=>CONTRACT[v.contract]||'—'],['ข้อดี',v=>v.pros||'—'],['ข้อเสีย',v=>v.cons||'—'],['ติดต่อ',v=>[v.contact,v.phone,v.email].filter(Boolean).join(' · ')||'—'],['บันทึก',v=>v.notes||'—']];const low=Math.min(...vs.map(v=>num(v.negotiated)||num(v.quoted)||Infinity));
+ openModal({title:'เปรียบเทียบผู้ให้บริการ',wide:true,body:`<div class="table-wrap"><table><thead><tr><th></th>${vs.map(v=>`<th style="color:var(--ink);font-size:.9rem">${esc(v.name)}${(num(v.negotiated)||num(v.quoted))===low&&isFinite(low)?' <span class="chip ok">ราคาต่ำสุด</span>':''}</th>`).join('')}</tr></thead><tbody>${rows.map(([l,f])=>`<tr><th style="background:transparent">${l}</th>${vs.map(v=>`<td class="wrap">${esc(f(v))}</td>`).join('')}</tr>`).join('')}</tbody></table></div>`,foot:`<span></span><button type="button" class="btn" data-close>ปิด</button>`})}
+function importGuests(){openModal({title:'นำเข้ารายชื่อแขกหรือคำตอบจากฟอร์ม',body:`<p class="muted" style="font-size:.9rem">ใช้ได้กับไฟล์ CSV จาก Google Sheet ของฟอร์มตอบรับ (ไฟล์ › ดาวน์โหลด › .csv) และไฟล์ที่ส่งออกจากหน้านี้ ระบบจับคู่แขกเดิมจากอีเมล เบอร์โทร หรือชื่อ แล้วอัปเดตการตอบรับให้ ไม่สร้างรายชื่อซ้ำ</p><p class="help">หัวคอลัมน์ที่อ่านได้: name/ชื่อ, email/อีเมล, phone/เบอร์โทร, rsvp/ตอบรับ, plus/ผู้ติดตาม, diet/อาหาร, side/ฝ่าย, group/กลุ่ม, table/โต๊ะ, message/คำอวยพร</p><div class="field"><label for="csvFile">เลือกไฟล์ .csv</label><input id="csvFile" type="file" accept=".csv,text/csv"></div><div class="field"><label for="csvText">หรือวางข้อความ CSV</label><textarea id="csvText" class="input" rows="6" placeholder="name,email,rsvp,plus&#10;สมชาย ใจดี,somchai@example.com,yes,1"></textarea></div><p class="help" id="csvInfo" aria-live="polite"></p>`,foot:`<span></span><div class="foot-right"><button type="button" class="btn ghost" data-close>ยกเลิก</button><button type="button" class="btn primary" id="csvGo">นำเข้า</button></div>`,onMount(m){const root=m.parentNode;root.querySelector('#csvFile').onchange=e=>{const f=e.target.files[0];if(!f)return;const r=new FileReader();r.onload=()=>{root.querySelector('#csvText').value=r.result;root.querySelector('#csvInfo').textContent=`อ่านไฟล์ ${f.name} แล้ว กด “นำเข้า” เพื่อดำเนินการต่อ`};r.readAsText(f,'utf-8')};
+ root.querySelector('#csvGo').onclick=()=>{const info=root.querySelector('#csvInfo');const rows=parseCSV(root.querySelector('#csvText').value);if(rows.length<2){info.textContent='ไม่พบข้อมูล ต้องมีแถวหัวคอลัมน์และอย่างน้อยหนึ่งแถว';return}
+  const H={name:['name','ชื่อ','ชื่อ-นามสกุล'],side:['side','ฝ่าย'],group:['group','กลุ่ม'],phone:['phone','เบอร์โทร','โทร'],email:['email','อีเมล'],rsvp:['rsvp','ตอบรับ','attending'],plus:['plus','ผู้ติดตาม'],diet:['diet','อาหาร'],table:['table','โต๊ะ'],message:['message','คำอวยพร','ข้อความ']};
+  const head=rows[0].map(h=>h.trim().toLowerCase());const idx={};for(const k in H)idx[k]=head.findIndex(h=>H[k].includes(h));if(idx.name<0){info.textContent='ต้องมีคอลัมน์ name หรือ ชื่อ';return}
+  const rmap=v=>{v=(v||'').trim().toLowerCase();if(v==='ไปร่วมงาน')return 'yes';if(v==='ไม่สะดวก')return 'no';for(const [k,l] of Object.entries(RSVP))if(v===k||v===l)return k;return 'pending'};
+  const smap=v=>{v=(v||'').trim();if(/^a$/i.test(v)||v==='ฝั่ง'+nameOf('A')||v===nameOf('A'))return 'A';if(/^b$/i.test(v)||v==='ฝั่ง'+nameOf('B')||v===nameOf('B'))return 'B';return 'both'};
+  const gmap=v=>{v=(v||'').trim().toLowerCase();for(const [k,l] of Object.entries(GGROUP))if(v===k||v===l)return k;return 'other'};
+  const norm=v=>(v||'').toLowerCase().trim();const digits=v=>(v||'').replace(/\D/g,'');
+  let added=0,updated=0;
+  rows.slice(1).forEach(r=>{const g=k=>idx[k]>=0?(r[idx[k]]||'').trim():'';const name=g('name');if(!name)return;const email=norm(g('email')).slice(0,120);const phone=g('phone').slice(0,40);const msg=g('message').slice(0,500);const all=arr('guests');
+   const ex=(email&&all.find(x=>norm(x.email)===email))||(digits(phone).length>=9&&all.find(x=>digits(x.phone)===digits(phone)))||all.find(x=>norm(x.name)===norm(name));
+   const plus=Math.min(20,Math.max(0,Math.floor(num(g('plus')))));
+   if(ex){const n=clone(ex);if(idx.rsvp>=0&&g('rsvp'))n.rsvp=rmap(g('rsvp'));if(idx.plus>=0&&g('plus')!=='')n.plus=plus;if(g('diet'))n.diet=g('diet').slice(0,120);if(g('table'))n.table=g('table').slice(0,20);if(g('side'))n.side=smap(g('side'));if(g('group'))n.group=gmap(g('group'));if(email&&!n.email)n.email=email;if(phone&&!n.phone)n.phone=phone;if(msg&&!(n.notes||'').includes(msg))n.notes=((n.notes?n.notes+'\n':'')+'คำอวยพร: '+msg).slice(0,1000);if(Store.put('guests',n))updated++}
+   else{const n={id:uid(),name:name.slice(0,120),side:smap(g('side')),group:gmap(g('group')),phone,email,rsvp:rmap(g('rsvp')),plus,diet:g('diet').slice(0,120),table:g('table').slice(0,20),notes:msg?'คำอวยพร: '+msg:''};if(Store.put('guests',n))added++}});
+  if(added+updated){logAct(`นำเข้าแขก: เพิ่มใหม่ ${added} · อัปเดต ${updated}`);toast(`เพิ่มใหม่ ${added} คน · อัปเดต ${updated} คน`)}else toast('ไม่มีแถวที่นำเข้าได้','bad');closeModal()}}})}
+
+async function saveFile(filename,data){try{const blob=data instanceof Blob?data:new Blob([data],{type:/\.json$/.test(filename)?'application/json':'text/csv;charset=utf-8'});const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download=filename;document.body.appendChild(a);a.click();setTimeout(()=>{URL.revokeObjectURL(a.href);a.remove()},1500);toast('ดาวน์โหลดแล้ว')}catch(e){toast('ดาวน์โหลดไม่สำเร็จ','bad')}}
+
+/* ================= actions ================= */
+const ACT={
+ startDemo(){startDemo()},exitDemo(){location.reload()},reload(){location.reload()},
+ async signOut(){teardown();try{await SB.auth.signOut()}catch(e){}store('ourday-ws','');location.hash='home';location.reload()},
+ async rotateCode(){const r=await SB.rpc('rotate_invite_code',{p_ws:S.ws});if(r.error){onDbErr(r.error);return}S.wsMeta.invite=r.data;toast('สร้างรหัสใหม่แล้ว รหัสเดิมใช้ไม่ได้อีก');schedule()},
+ demoMe(k){S.me=k;schedule()},
+ pickMe(k){setMe(k);toast('สวัสดี '+nameOf(k))},
+ switchMe(){if(S.mode==='demo'){S.me=other(S.me);schedule();return}const mine=(S.members||[]).find(m=>m.user_id===S.uid);if(mine)mine.partner=null;S.me=null;schedule();SB.from('workspace_members').update({partner:null}).match({workspace_id:S.ws,user_id:S.uid}).then(r=>{if(r.error)onDbErr(r.error)})},
+ setUi(v){const i=v.indexOf(':');S.ui[v.slice(0,i)]=v.slice(i+1);schedule()},
+ newTask(){taskForm(null)},editTask(id){taskForm(id)},toggleTask(id){const x=S.data.tasks.get(id);if(x)setTaskStatus(id,x.status==='done'?'todo':'done')},templates(){templatePicker()},
+ newExpense(){expenseForm(null)},editExpense(id){expenseForm(id)},
+ editBudget(){openForm({title:'งบประมาณรวม',fields:[{k:'budget',label:'งบประมาณรวม (บาท)',type:'number',req:true,full:true}],values:{budget:S.settings.budget},onSave(o){Store.settings({budget:o.budget})&&(logAct(`ตั้งงบรวมเป็น ${fmtB(o.budget)}`),toast('บันทึกงบแล้ว'))}})},
+ newGift(){giftForm(null)},editGift(id){giftForm(id)},
+ thank(id){const x=S.data.gifts.get(id);if(!x)return;const n=clone(x);n.thanked=!n.thanked;Store.put('gifts',n)},
+ exportGifts(){saveFile('gifts-ourday.csv',toCSV([['วันที่','จาก','ประเภท','รูปแบบ','จำนวนเงิน','สิ่งของ','ขอบคุณแล้ว','บันทึก'],...arr('gifts').sort((a,b)=>(a.date||'').localeCompare(b.date||'')).map(x=>[fmtD(x.date),x.from,GIFT_TYPE[x.type]||'',GIFT_METHOD[x.method]||'',x.method==='item'?'':num(x.amount),x.item||'',x.thanked?'ใช่':'',x.note||''])]))},
+ checkIn(id){const x=S.data.guests.get(id);if(!x)return;const n=clone(x);n.checkedIn=!n.checkedIn;n.arrivedAt=n.checkedIn?new Date().toISOString():'';n.arrivedHeads=n.checkedIn?1+Math.max(0,Math.floor(num(x.plus))):0;if(Store.put('guests',n)&&n.checkedIn)toast(`${n.name} มาถึงแล้ว${n.table?' · โต๊ะ '+n.table:''}`)},
+ heads(v){const [id,d]=v.split(':');const x=S.data.guests.get(id);if(!x)return;const n=clone(x);n.arrivedHeads=Math.max(1,Math.min(30,num(n.arrivedHeads||1)+Number(d)));Store.put('guests',n)},
+ walkIn(){guestForm(null,{rsvp:'yes',checkedIn:true})},
+ giftFor(id){const g=S.data.guests.get(id);if(!g)return;const ex=arr('gifts').find(x=>x.guestId===id);if(ex){giftForm(ex.id);return}giftForm(null,{from:g.name,guestId:id,type:'envelope',method:'cash'})},
+ simReset(){Object.assign(S.ui,{simGuests:'',simPh:'',simCatering:true,simVendor:'',simExtra:'',simEnv:''});CATS.forEach(c=>delete S.ui['sa_'+c[0]]);schedule()},
+ newVendor(){vendorForm(null)},editVendor(id){vendorForm(id)},
+ vendorToExpense(id){const v=S.data.vendors.get(id);if(!v)return;const cat=CAT[v.cat]?v.cat:'misc';const pays=num(v.deposit)?[{id:uid(),kind:'deposit',amount:num(v.deposit),due:'',paid:false,paidDate:''}]:[];expenseForm(null,{name:v.name,cat,vendorId:v.id,estimated:num(v.negotiated)||num(v.quoted)||0,agreed:['booked','completed'].includes(v.status)?(num(v.negotiated)||num(v.quoted)||null):null,payments:pays,who:'Both'})},
+ compare(){if(CMP.size>=2)compareModal()},clearCmp(){CMP.clear();schedule()},
+ newGuest(){guestForm(null)},editGuest(id){guestForm(id)},importGuests(){importGuests()},
+ exportGuests(){const sideL=k=>k==='A'?'ฝั่ง'+nameOf('A'):k==='B'?'ฝั่ง'+nameOf('B'):'ทั้งสองฝ่าย';saveFile('guests-ourday.csv',toCSV([['ชื่อ','ฝ่าย','กลุ่ม','ตอบรับ','ผู้ติดตาม','อาหาร','โต๊ะ','เบอร์โทร','อีเมล'],...arr('guests').sort((a,b)=>a.name.localeCompare(b.name,'th')).map(x=>[x.name,sideL(x.side),GGROUP[x.group]||'',RSVP[x.rsvp||'pending'],Math.floor(num(x.plus)),x.diet||'',x.table||'',x.phone||'',x.email||''])]))},
+ exportExpenses(){const b=budget();const rows=[['รายการ','หมวด','ผู้ให้บริการ','ประมาณการ','ตกลงแล้ว','จ่ายแล้ว','ค้างจ่าย','คาดการณ์','สถานะ','ผู้จ่าย']];arr('expenses').forEach(e=>{const c=expCalc(e);const v=S.data.vendors.get(e.vendorId);rows.push([e.name,CAT[e.cat]||'',v?v.name:'',c.est,c.agreed===null?'':c.agreed,c.paid,c.outstanding,c.projected,EXP_ST[c.status],nameOf(e.who)])});rows.push([]);rows.push(['สรุป','งบรวม',b.total]);rows.push(['','จ่ายแล้ว',b.paid]);rows.push(['','ตกลงแล้วรอจ่าย',b.comm]);rows.push(['','งบเงินสดคงเหลือ',b.cash]);rows.push(['','คาดการณ์รวม',b.proj]);saveFile('expenses-ourday.csv',toCSV(rows))},
+ backup(){const o={exportedAt:new Date().toISOString(),settings:S.settings};COLS.forEach(c=>o[c]=arr(c));saveFile('ourday-backup.json',JSON.stringify(o,null,2))},
+ newEvent(d){eventForm(null,typeof d==='string'&&isISO(d)?d:null)},editEvent(id){eventForm(id)},
+ calDay(d){S.ui.calDay=S.ui.calDay===d?null:d;schedule()},
+ calNav(d){const t=todayISO();if(d==='0'){S.ui.calMonth=t.slice(0,7);S.ui.calDay=t}else if(d==='wed'){S.ui.calMonth=S.settings.weddingDate.slice(0,7);S.ui.calDay=S.settings.weddingDate}else{const m=S.ui.calMonth||t.slice(0,7);let [y,mo]=m.split('-').map(Number);mo+=+d;if(mo<1){mo=12;y--}if(mo>12){mo=1;y++}S.ui.calMonth=`${y}-${String(mo).padStart(2,'0')}`}schedule()},
+ goDay(){location.hash='day'},
+ newIdea(){ideaForm(null)},editIdea(id){ideaForm(id)},
+ vote(v){const [id,k]=v.split(':');const x=S.data.ideas.get(id);if(!x)return;const n=clone(x);n.votes=Object.assign({},n.votes);n.votes[S.me]=n.votes[S.me]===k?undefined:k;if(n.votes[S.me]===undefined)delete n.votes[S.me];if(Store.put('ideas',n)){const both=n.votes.A&&n.votes.B;logAct(`โหวตไอเดีย “${n.title}”`);if(both&&!(x.votes&&x.votes.A&&x.votes.B))toast(n.votes.A==='like'&&n.votes.B==='like'?'ชอบตรงกัน':'โหวตครบแล้ว ดูผลได้เลย')}},
+ finalIdea(id){const x=S.data.ideas.get(id);if(!x)return;openForm({title:'ตัดสินใจเลือก “'+x.title+'”',fields:[{k:'reason',label:'ทำไมถึงเลือกอันนี้',type:'textarea',req:true,max:1000}],values:{},saveLabel:'ยืนยันการตัดสินใจ',onSave(o){const n=clone(x);n.final=true;n.reason=o.reason;n.finalAt=new Date().toISOString();if(!Store.put('ideas',n))return false;logAct(`ตัดสินใจเลือก “${n.title}”`);toast('บันทึกการตัดสินใจแล้ว')}})},
+ unfinal(id){const x=S.data.ideas.get(id);if(!x)return;const n=clone(x);n.final=false;Store.put('ideas',n)},
+ newPoll(){pollForm()},pollVote(v){const [id,i]=v.split(':');const x=S.data.polls.get(id);if(!x)return;const n=clone(x);n.votes=Object.assign({},n.votes,{[S.me]:i});if(Store.put('polls',n))logAct(`ตอบโพลล์ “${n.q}”`)},
+ delPoll(id){const x=S.data.polls.get(id);if(x)openConfirm(`ลบโพลล์ “${x.q}”?`,()=>{Store.del('polls',id)&&toast('ลบโพลล์แล้ว')})},
+ newMemory(){memoryForm(null)},editMemory(id){memoryForm(id)},
+ quest(k){const t=todayISO();const ws=weekStart(t);const id=ws+'_'+k;const q=QUESTS.find(x=>x.k===k);if(!q)return;if(S.data.quests.has(id)){toast('ภารกิจนี้รับแต้มไปแล้วสัปดาห์นี้');return}const pr=questProgress(q,t);if(pr&&pr.cur<pr.need){toast('ยังทำไม่ครบตามเงื่อนไข','bad');return}if(Store.put('quests',{id,week:ws,key:k,points:q.p,by:S.me,at:new Date().toISOString()})){logAct(`ทำภารกิจ “${q.t}” สำเร็จ +${q.p}`);celebrate(`+${q.p} แต้ม`,q.t)}},
+ newWday(type){wdayForm(null,type)},editWday(id){wdayForm(id)},toggleWday(id){const x=S.data.wday.get(id);if(x){const n=clone(x);n.done=!n.done;Store.put('wday',n)}},
+ togglePay(v){const [eid,pid]=v.split(':');const e=S.data.expenses.get(eid);if(!e)return;const n=clone(e);const p=(n.payments||[]).find(p=>p.id===pid);if(!p)return;p.paid=!p.paid;p.paidDate=p.paid?todayISO():'';if(Store.put('expenses',n)){logAct(p.paid?`จ่าย ${e.name} ${fmtB(p.amount)} แล้ว`:`ยกเลิกสถานะจ่าย ${e.name}`,eid);toast(p.paid?'บันทึกการจ่ายแล้ว':'ยกเลิกแล้ว')}},
+ copy(t){const ok=()=>toast('คัดลอกแล้ว');try{navigator.clipboard.writeText(t).then(ok,()=>toast('คัดลอกไม่ได้ เลือกข้อความแล้วคัดลอกเองได้','bad'))}catch(e){toast('คัดลอกไม่ได้ เลือกข้อความแล้วคัดลอกเองได้','bad')}},
+ splitBudget(){const b=num(S.settings.budget);if(!b){toast('ตั้งงบรวมก่อน','bad');return}const f=$('#cbForm');CATS.forEach(c=>{const el=f&&f.elements['cb_'+c[0]];if(el)el.value=Math.round(b*c[2]/100)});toast('เติมตัวเลขแนะนำแล้ว กด “บันทึกงบรายหมวด” เพื่อใช้')},
+ wipe(){if(S.mode==='demo'){openConfirm('ล้างข้อมูลตัวอย่างทั้งหมดแล้วเริ่มตั้งค่างานของตัวเอง?',()=>{COLS.forEach(c=>S.data[c]=new Map());S.settings=null;try{localStorage.removeItem('ourday-ms-demo')}catch(e){}location.hash='home';schedule()},'ล้างข้อมูล');return}
+  openModal({title:'ลบข้อมูลทั้งหมด',body:`<p>พื้นที่งานแต่งนี้จะถูกลบถาวร รวมข้อมูลงบ แขก ผู้ให้บริการ ความทรงจำ ไฟล์แนบ และสมาชิกทั้งสองคน กู้คืนไม่ได้</p><div class="field"><label for="wipeT">พิมพ์คำว่า ลบทั้งหมด เพื่อยืนยัน</label><input id="wipeT" autocomplete="off"></div>`,foot:`<span></span><div class="foot-right"><button type="button" class="btn ghost" data-close>ยกเลิก</button><button type="button" class="btn danger" id="wipeGo">ลบถาวร</button></div>`,onMount(m){const root=m.parentNode;root.querySelector('#wipeGo').onclick=async()=>{if(root.querySelector('#wipeT').value.trim()!=='ลบทั้งหมด'){toast('พิมพ์ “ลบทั้งหมด” ให้ตรงก่อน','bad');return}const ws=S.ws;try{const fl=await SB.storage.from('files').list(ws,{limit:1000});if(fl.data&&fl.data.length)await SB.storage.from('files').remove(fl.data.map(f=>ws+'/'+f.name))}catch(e){}const r=await SB.from('workspaces').delete().eq('id',ws);if(r.error){onDbErr(r.error);return}teardown();closeModal();store('ourday-ws','');S.ws=null;S.settings=null;COLS.forEach(c=>S.data[c]=new Map());S.mode='choose';toast('ลบข้อมูลแล้ว');location.hash='home';schedule()}}})}
+};
+const CHG={moveTask(id,el){setTaskStatus(id,el.value)},cmp(id,el){if(el.checked){if(CMP.size>=3){el.checked=false;toast('เปรียบเทียบได้ครั้งละไม่เกิน 3 ราย','bad');return}CMP.add(id)}else CMP.delete(id);schedule()}};
+const FORMS={
+ async login(f){const email=f.elements.email.value.trim().toLowerCase();if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)){toast('ใส่อีเมลให้ถูกต้อง','bad');f.elements.email.focus();return}const btn=f.querySelector('button[type=submit]');btn.disabled=true;const {error}=await SB.auth.signInWithOtp({email,options:{emailRedirectTo:location.href.split('#')[0]}});btn.disabled=false;if(error){toast(/rate|seconds|security purposes/i.test(error.message)?'ขอลิงก์บ่อยเกินไป รอสักครู่แล้วลองใหม่':'ส่งลิงก์ไม่สำเร็จ: '+error.message,'bad');return}S.loginSent=email;schedule()},
+ async join(f){const code=f.elements.code.value.trim().toUpperCase();if(code.length<6){toast('ใส่รหัสเชิญให้ครบ','bad');return}const r=await SB.rpc('join_workspace',{p_code:code});if(r.error){const m=r.error.message||'';toast(/bad_code/.test(m)?'ไม่พบรหัสนี้ ตรวจสอบกับคู่ของคุณอีกครั้ง':/full/.test(m)?'พื้นที่นี้มีสมาชิกครบ 2 คนแล้ว':'เข้าร่วมไม่สำเร็จ: '+m,'bad');return}store('ourday-ws',r.data);await loadWorkspace();toast('เข้าร่วมแล้ว')},
+ quickTask(f){const t=f.elements.title.value.trim();if(!t)return;const n={id:uid(),title:t.slice(0,140),desc:'',cat:'planning',who:'Both',prio:'med',status:'todo',start:'',due:'',notes:'',comments:[]};if(Store.put('tasks',n)){logAct(`เพิ่มงาน “${n.title}”`,n.id);f.elements.title.value='';toast('เพิ่มงานแล้ว · กดที่งานเพื่อใส่วันและผู้รับผิดชอบ')}},
+ answer(f){const a=f.elements.a.value.trim();if(!a){toast('เขียนคำตอบก่อนส่ง','bad');return}const t=todayISO();const cur=S.data.answers.get(t);const n=cur?clone(cur):{id:t,q:QUESTIONS[qIndex(t)]};n[S.me]=a.slice(0,1000);n['at'+S.me]=new Date().toISOString();if(Store.put('answers',n)){logAct('ตอบคำถามประจำวันแล้ว');toast(n.A&&n.B?'ตอบครบทั้งคู่แล้ว เปิดดูคำตอบได้เลย':'ส่งคำตอบแล้ว รออีกฝ่าย')}},
+ dayNotes(f){Store.settings({dayNotes:f.elements.n.value.slice(0,5000)})&&toast('บันทึกแล้ว')},
+ settings(f){const fields=optFields();const {out,errs}=readForm(f,fields);showErrs(f,fields,errs);if(Object.keys(errs).length)return;if(Store.settings(out)){logAct('แก้ไขการตั้งค่างาน');toast('บันทึกการตั้งค่าแล้ว')}},
+ catBudgets(f){const cb={};for(const c of CATS){const v=f.elements['cb_'+c[0]].value.trim();if(v===''){cb[c[0]]=0;continue}const n=Number(v);if(!isFinite(n)||n<0){toast(`งบหมวด${c[1]}ต้องเป็นตัวเลขตั้งแต่ 0`,'bad');return}cb[c[0]]=round2(n)}if(Store.settings({catBudgets:cb})){logAct('ปรับงบรายหมวด');toast('บันทึกงบรายหมวดแล้ว')}},
+ prefs(f){Store.settings({yearStyle:f.elements.yearStyle.value,gamify:f.elements.gamify.checked,notify:{weekly:f.elements.n_weekly.checked,deadline:f.elements.n_deadline.checked,payment:f.elements.n_payment.checked}})&&toast('บันทึกแล้ว')}
+};
+document.addEventListener('click',e=>{const el=e.target.closest('[data-act]');if(!el||el.disabled)return;const f=ACT[el.dataset.act];if(f){e.preventDefault();f(el.dataset.id,el,e)}});
+document.addEventListener('keydown',e=>{if(e.key==='Escape'&&!$('#modal-root').hidden){closeModal();return}if((e.key==='Enter'||e.key===' ')&&e.target.matches('tr[data-act]')){e.preventDefault();ACT[e.target.dataset.act](e.target.dataset.id)}});
+document.addEventListener('change',e=>{const el=e.target.closest('[data-chg]');if(el&&CHG[el.dataset.chg])CHG[el.dataset.chg](el.dataset.id,el)});
+document.addEventListener('input',e=>{const el=e.target.closest('[data-ui]');if(el){S.ui[el.dataset.ui]=el.type==='checkbox'?el.checked:el.value;debounced()}});
+document.addEventListener('submit',e=>{const f=e.target;if(f.id==='setupForm'){e.preventDefault();submitSetup(f);return}const k=f.dataset&&f.dataset.form;if(k&&FORMS[k]){e.preventDefault();FORMS[k](f)}});
+window.addEventListener('hashchange',()=>{render();window.scrollTo(0,0);$('#main').focus({preventScroll:true})});
+
+/* ================= demo ================= */
+function startDemo(){if(S.mode==='live')return;teardown();S.mode='demo';S.canWrite=true;Store.sb=null;S.assets=null;COLS.forEach(c=>S.data[c]=new Map());S.me='A';const t=todayISO();const wd=DEFAULT_DATE;const d=n=>addDays(t,n);
+ S.settings={nameA:'มิว',nameB:'ภูมิ',weddingDate:wd,budget:1200000,guestEstimate:220,costPerHead:1200,planningStart:d(-45),style:'งานเช้าในสวน โทนเขียวเสจกับครีม',yearStyle:'ce',gamify:true,notify:{weekly:true,deadline:true,payment:true},catBudgets:Object.fromEntries(CATS.map(c=>[c[0],Math.round(1200000*c[2]/100)])),members:{},dayNotes:'เตรียมซองเงินสำหรับทีมงาน 6 ซอง'};
+ const put=(c,o)=>{o.createdAt=o.createdAt||new Date(Date.now()-Math.random()*864e6).toISOString();S.data[c].set(o.id,o)};
+ const V=[{id:'v1',name:'สวนบ้านไม้ริมน้ำ (ตัวอย่าง)',cat:'venue',status:'booked',contract:'signed',contact:'คุณแอน',phone:'081-000-0001',quoted:280000,negotiated:245000,deposit:50000,terms:'มัดจำ 20% งวดสอง 6 เดือนก่อนงาน ที่เหลือก่อนงาน 30 วัน',pros:'สวนร่มรื่น มีห้องแอร์สำรองถ้าฝนตก',cons:'ที่จอดรถจำกัด'},{id:'v2',name:'โรงแรมริมแม่น้ำ (ตัวอย่าง)',cat:'venue',status:'rejected',contract:'none',quoted:420000,pros:'ครบวงจร',cons:'เกินงบมาก'},{id:'v3',name:'แสงเช้า สตูดิโอ (ตัวอย่าง)',cat:'photo',status:'booked',contract:'signed',contact:'คุณเจ',phone:'081-000-0003',quoted:72000,negotiated:65000,deposit:20000,pros:'โทนภาพตรงกับธีม',cons:'ไม่มีโดรน'},{id:'v4',name:'ฟิล์มดี โฟโต้ (ตัวอย่าง)',cat:'photo',status:'comparing',contract:'none',quoted:58000,pros:'ราคาดี มีวิดีโอไฮไลต์',cons:'คิวแน่นช่วงปลายปี'},{id:'v5',name:'ร้านดอกไม้ใบเตย (ตัวอย่าง)',cat:'flowers',status:'negotiating',contract:'draft',quoted:95000,negotiated:88000,contact:'คุณเตย',phone:'081-000-0005'},{id:'v6',name:'ช่างแต่งหน้าคุณนิด (ตัวอย่าง)',cat:'makeup',status:'booked',contract:'signed',quoted:28000,negotiated:28000,deposit:5000,phone:'081-000-0006'}];V.forEach(v=>put('vendors',v));
+ const pay=(kind,amount,due,paid)=>({id:uid(),kind,amount,due,paid,paidDate:paid?due:''});
+ [{id:'e1',name:'แพ็กเกจสถานที่และพื้นที่สวน',cat:'venue',vendorId:'v1',who:'Both',estimated:260000,agreed:245000,payments:[pay('deposit',50000,d(-30),true),pay('installment',100000,addDays(wd,-180),false),pay('final',95000,addDays(wd,-30),false)]},{id:'e2',name:'ช่างภาพงานเช้าและงานเลี้ยง',cat:'photo',vendorId:'v3',who:'B',estimated:70000,agreed:65000,payments:[pay('deposit',20000,d(-12),true),pay('final',45000,addDays(wd,-7),false)]},{id:'e3',name:'แหวนแต่งงานคู่',cat:'rings',who:'Both',estimated:90000,agreed:null,payments:[]},{id:'e4',name:'อาหารและเครื่องดื่ม 220 ที่',cat:'catering',who:'Both',estimated:264000,agreed:null,payments:[]},{id:'e5',name:'ชุดพิธีเช้าและชุดงานเลี้ยง',cat:'outfits',who:'A',estimated:85000,agreed:null,payments:[]},{id:'e6',name:'ดอกไม้และซุ้มถ่ายภาพ',cat:'flowers',vendorId:'v5',who:'A',estimated:95000,agreed:null,payments:[pay('deposit',10000,d(9),false)]},{id:'e7',name:'แต่งหน้าทำผมสองชุด',cat:'makeup',vendorId:'v6',who:'A',estimated:30000,agreed:28000,payments:[pay('deposit',5000,d(-5),true)]},{id:'e8',name:'การ์ดและของชำร่วย',cat:'invites',who:'B',estimated:38000,agreed:null,payments:[]}].forEach(e=>put('expenses',e));
+ starterTasks(wd).forEach((x,i)=>{if(i<4){x.status='done';x.completedAt=new Date(Date.now()-i*2*864e5).toISOString()}if(i===6||i===13)x.status='doing';if(i===4){x.due=d(-3);x.start=d(-20)}if(i===9)x.status='waiting';put('tasks',x)});
+ [['ป้าสมศรี','A','family','yes',1,'','1'],['ลุงประเสริฐ','A','family','yes',1,'ไม่ทานเนื้อ','1'],['แพร','A','friends','pending',0,'',''],['บอส','B','friends','yes',1,'มังสวิรัติ','4'],['คุณวิภา','B','work','maybe',0,'',''],['ต้นกล้า','both','friends','yes',0,'แพ้กุ้ง','4'],['พี่หนิง','B','family','no',0,'',''],['เมย์','A','work','pending',1,'','']].forEach(([name,side,group,rsvp,plus,diet,table],i)=>put('guests',{id:'g'+i,name:name+' (ตัวอย่าง)',side,group,rsvp,plus,diet,table,phone:'',email:''}));
+ [{id:'ev1',title:'ชิมอาหารที่สถานที่',type:'appointment',date:d(6),time:'11:00',location:'สวนบ้านไม้ริมน้ำ'},{id:'ev2',title:'ลองชุดรอบแรก',type:'fitting',date:d(13),time:'14:00'},{id:'ev3',title:'กินข้าวสองครอบครัว',type:'family',date:d(20),time:'18:30'}].forEach(e=>put('events',e));
+ [{id:'i1',title:'โทนเขียวเสจกับครีม',col:'theme',note:'ดอกไม้สีขาว ใบยูคาลิปตัส',votes:{A:'like',B:'like'}},{id:'i2',title:'ซุ้มไม้ไผ่โค้ง',col:'decor',cost:25000,votes:{A:'like'}},{id:'i3',title:'แหวนทองคำขาวเกลี้ยง',col:'rings',cost:45000,votes:{A:'neutral',B:'like'}},{id:'i4',title:'การ์ดกระดาษสาพิมพ์นูน',col:'invites',cost:90,note:'ราคาต่อใบ',votes:{},final:true,reason:'ทั้งคู่ชอบสัมผัสกระดาษ และราคาไม่เกินงบ'}].forEach(x=>put('ideas',x));
+ put('polls',{id:'p1',q:'งานเลี้ยงช่วงเช้าหรือช่วงเย็นดี',opts:['ช่วงเช้า','ช่วงเย็น','ขอคิดก่อน'],votes:{A:'1'}});
+ [{id:'gf1',type:'family',from:'คุณพ่อคุณแม่ฝั่งมิว (ตัวอย่าง)',method:'transfer',amount:200000,date:d(-20),thanked:true},{id:'gf2',type:'family',from:'คุณพ่อคุณแม่ฝั่งภูมิ (ตัวอย่าง)',method:'transfer',amount:150000,date:d(-10),thanked:false},{id:'gf3',type:'gift',from:'ทีมที่ทำงานของภูมิ (ตัวอย่าง)',method:'item',amount:6000,item:'หม้อทอดไร้น้ำมัน',date:d(-3),thanked:false}].forEach(x=>put('gifts',x));
+ put('memories',{id:'m1',title:'วันที่ตัดสินใจจองสวนริมน้ำ',date:d(-30),note:'เดินดูรอบที่สามแล้วรู้เลยว่าใช่'});
+ put('answers',{id:d(-1),q:QUESTIONS[qIndex(d(-1))],A:'อยากให้ทุกคนได้กินอิ่มและไม่ต้องรีบกลับ',B:'อยากให้เป็นวันที่เราได้คุยกับแขกทุกโต๊ะ'});
+ [['schedule','07:09','พิธีสงฆ์','ครอบครัวฝั่งมิว','ศาลาในสวน'],['schedule','09:30','พิธีหลั่งน้ำพระพุทธมนต์','พิธีกร',''],['schedule','17:30','ต้อนรับแขกและถ่ายภาพ','ทีมแสงเช้า','ซุ้มหน้างาน'],['schedule','18:30','งานเลี้ยงฉลอง','',''],['bring','แหวนทั้งสองวง','ภูมิ'],['bring','ซองเงินสำหรับทีมงาน','มิว'],['contact','แพร','ผู้ประสานงานวันงาน','081-000-0010'],['place','สวนบ้านไม้ริมน้ำ (ตัวอย่าง)','ที่อยู่ตัวอย่าง ตำบลริมน้ำ']].forEach((r,i)=>{const [type,a,b,c,e]=r;const o={id:'w'+i,type};if(type==='schedule')Object.assign(o,{time:a,title:b,owner:c,location:e});if(type==='bring')Object.assign(o,{title:a,owner:b});if(type==='contact')Object.assign(o,{title:a,owner:b,phone:c});if(type==='place')Object.assign(o,{title:a,note:b});put('wday',o)});
+ [['เพิ่มเงินมัดจำช่างภาพ ฿20,000','B',-12],['ทำ “ดูและจองสถานที่จัดงาน” เสร็จแล้ว','A',-2],['โหวตไอเดีย “โทนเขียวเสจกับครีม”','B',-1]].forEach(([text,by,n],i)=>put('activity',{id:'a'+i,text,by,at:new Date(Date.now()+n*864e5).toISOString(),ref:''}));
+ schedule()}
+
+/* ================= live boot ================= */
+/* ================= live boot (Supabase) ================= */
+let SB=null,chan=null,loadingWs=false,hiddenAt=0;
+function teardown(){if(chan&&SB){try{SB.removeChannel(chan)}catch(e){}}chan=null}
+async function loadMembers(){const r=await SB.from('workspace_members').select('user_id,partner,email').eq('workspace_id',S.ws);if(!r.error)S.members=r.data||[]}
+function assetsApi(){return {upload:async f=>{const safe=(f.name||'file').replace(/[^A-Za-z0-9._-]/g,'_').slice(-60);const path=`${S.ws}/${uid()}-${safe}`;const r=await SB.storage.from('files').upload(path,f,{contentType:f.type||undefined,upsert:false});if(r.error)throw r.error;return {id:path,contentType:f.type}},delete:async id=>{await SB.storage.from('files').remove([id])}}}
+async function loadWorkspace(quiet){if(loadingWs)return;loadingWs=true;try{if(!quiet){S.mode='loading';schedule()}S.uid=S.session.user.id;
+ const mem=await SB.from('workspace_members').select('workspace_id').eq('user_id',S.uid);if(mem.error)throw mem.error;
+ if(!mem.data.length){teardown();S.ws=null;S.settings=null;S.mode='choose';schedule();return}
+ const pick=store('ourday-ws');const m=mem.data.find(x=>x.workspace_id===pick)||mem.data[0];if(S.ws&&S.ws!==m.workspace_id)teardown();S.ws=m.workspace_id;store('ourday-ws',S.ws);
+ const w=await SB.from('workspaces').select('id,settings,invite_code,rsvp_token').eq('id',S.ws).single();if(w.error)throw w.error;
+ S.wsMeta={invite:w.data.invite_code,token:w.data.rsvp_token};S.settings=w.data.settings&&Object.keys(w.data.settings).length?clone(w.data.settings):null;
+ await loadMembers();const data={};COLS.forEach(c=>data[c]=new Map());
+ for(let from=0;;from+=1000){const r=await SB.from('records').select('col,id,data').eq('workspace_id',S.ws).order('col').order('id').range(from,from+999);if(r.error)throw r.error;r.data.forEach(x=>{if(data[x.col]){const d=Object.assign({},x.data);d.id=x.id;data[x.col].set(x.id,d)}});if(r.data.length<1000)break}
+ S.data=data;S.mode='live';S.canWrite=true;S.assets=assetsApi();if(!chan)subscribe();schedule()}catch(e){console.error(e);if(!quiet){S.mode='error';S.err=e.message||String(e)}schedule()}finally{loadingWs=false}}
+function onRec(p){const r=p.new;if(!r||r.workspace_id!==S.ws||!S.data[r.col])return;const d=Object.assign({},r.data);d.id=r.id;S.data[r.col].set(r.id,d);schedule()}
+function subscribe(){teardown();const ws=S.ws;chan=SB.channel('ws-'+ws)
+ .on('postgres_changes',{event:'INSERT',schema:'public',table:'records',filter:'workspace_id=eq.'+ws},onRec)
+ .on('postgres_changes',{event:'UPDATE',schema:'public',table:'records',filter:'workspace_id=eq.'+ws},onRec)
+ .on('postgres_changes',{event:'DELETE',schema:'public',table:'records'},p=>{const o=p.old||{};if(o.workspace_id===ws&&S.data[o.col]){S.data[o.col].delete(o.id);schedule()}})
+ .on('postgres_changes',{event:'UPDATE',schema:'public',table:'workspaces',filter:'id=eq.'+ws},p=>{const n=p.new||{};if(n.settings&&Object.keys(n.settings).length)S.settings=clone(n.settings);if(n.invite_code&&S.wsMeta)S.wsMeta.invite=n.invite_code;schedule()})
+ .on('postgres_changes',{event:'*',schema:'public',table:'workspace_members',filter:'workspace_id=eq.'+ws},()=>{loadMembers().then(schedule)})
+ .subscribe()}
+document.addEventListener('visibilitychange',()=>{if(document.hidden){hiddenAt=Date.now();return}if(S.mode==='live'&&hiddenAt&&Date.now()-hiddenAt>120000)loadWorkspace(true)});
+function boot(){render();const C=window.OURDAY_CONFIG||{};if(!window.supabase||!C.supabaseUrl||!C.supabaseKey){startDemo();return}
+ SB=window.supabase.createClient(C.supabaseUrl,C.supabaseKey,{auth:{persistSession:true,autoRefreshToken:true,detectSessionInUrl:true}});Store.sb=SB;
+ let first=true;SB.auth.onAuthStateChange((ev,session)=>{if(S.mode==='demo')return;const prev=S.session;S.session=session;if(!session){teardown();S.mode='login';schedule();return}if(first||!prev||prev.user.id!==session.user.id){first=false;setTimeout(()=>loadWorkspace(),0)}})}
+boot();
+})();
+</script>
+
+</body>
+</html>
